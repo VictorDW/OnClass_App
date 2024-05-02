@@ -7,6 +7,9 @@ import { LinkComponent } from './atomic-design/atoms/link/link.component';
 import { NavComponent } from './atomic-design/molecules/nav/nav.component';
 import { HeaderComponent } from './atomic-design/molecules/header/header.component';
 import { ImageComponent } from './atomic-design/atoms/image/image.component';
+import { TemplateComponent } from './atomic-design/template/template.component';
+import { ButtonComponent } from './atomic-design/atoms/button/button.component';
+import { HomeComponent } from './atomic-design/pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { ImageComponent } from './atomic-design/atoms/image/image.component';
     LinkComponent,
     NavComponent,
     HeaderComponent,
-    ImageComponent
+    ImageComponent,
+    TemplateComponent,
+    ButtonComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
