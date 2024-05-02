@@ -17,7 +17,7 @@ export class NavComponent {
 
     this.navItems = [
       {
-        _href: '#',
+        _href: '/home',
         _title: 'Inicio',
         _icon: 'fa-solid fa-house'
       },

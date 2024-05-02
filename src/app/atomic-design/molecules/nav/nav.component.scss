@@ -30,24 +30,22 @@
 }
 
 .active_link {
-  background-color: ($primary-color, 0.4);
+  background-color: rgba($primary-color, 0.4);
   font-weight: bold;
-  border-radius: 10px;
-  width: 100%;
+  border-radius: 12px;
 }
 
 
-.nav__text {
-
+.nav__link {
   display: flex;
   justify-content: center;
-  padding: 0.6em 0px ;
-  border-radius: 10px;
+  padding: 0.6em 0;
+  border-radius: 12px;
   width: 100%;
   cursor: pointer;
+  transition: all 0.1s ease-out;
 
   &:hover {
     background-color: rgba($primary-color, 0.28);
-    font-weight: bold;
   }
 }
