@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { navStructure } from 'src/app/model/constants';
+import { navStructure } from 'src/app/atomic-design/molecules/nav/utils/NavStructure';
 import { PathImages } from 'src/app/util/path.images'
 
 @Component({
@@ -7,6 +7,7 @@ import { PathImages } from 'src/app/util/path.images'
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
+
 export class NavComponent {
 
   pathImg = PathImages.LOGO

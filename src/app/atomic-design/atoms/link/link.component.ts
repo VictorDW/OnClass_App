@@ -1,5 +1,5 @@
 import { Component, Input,OnInit } from '@angular/core';
-import { navStructure } from 'src/app/model/constants';
+import { navStructure } from 'src/app/atomic-design/molecules/nav/utils/NavStructure';
 
 @Component({
   selector: 'app-link',
