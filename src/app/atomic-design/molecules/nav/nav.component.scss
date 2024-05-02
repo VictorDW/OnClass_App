@@ -1,0 +1,58 @@
+@import './../../../../styles/variables.scss';
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rem;
+  width: 20%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-color: $secondary-color;
+  overflow: hidden;
+  border: 1px solid black;
+
+}
+
+.nav__logo {
+  width: 70%;
+  margin-top: 0.5em;
+  background-size: cover;
+}
+
+.nav_items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5em 0 0.5em 0;
+  border: 1px solid black;
+}
+
+.nav__item {
+  list-style: none;
+  width: 100%;
+}
+
+.active_link {
+  background-color: ($primary-color, 0.4);
+  font-weight: bold;
+  border-radius: 10px;
+  width: 100%;
+}
+
+
+.nav__text {
+
+  display: flex;
+  justify-content: center;
+  padding: 0.6em 0px ;
+  border-radius: 10px;
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.28);
+    font-weight: bold;
+  }
+}

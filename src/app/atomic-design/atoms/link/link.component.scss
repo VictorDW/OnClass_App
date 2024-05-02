@@ -1,0 +1,21 @@
+
+@import './../../../../styles/variables.scss';
+
+
+.link_nav {
+  min-width: 200px;
+  height: 40px;
+  color: $primary-color;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+
+  & i {
+    font-size: 1.3rem;
+  }
+}
+
