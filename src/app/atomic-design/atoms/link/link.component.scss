@@ -5,7 +5,9 @@
 .link_nav {
   min-width: 200px;
   height: 40px;
+  padding-left: 1rem;
   color: $primary-color;
+  box-sizing: border-box;
 }
 
 .link {
