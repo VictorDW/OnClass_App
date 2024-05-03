@@ -10,6 +10,10 @@ import { ImageComponent } from './atomic-design/atoms/image/image.component';
 import { TemplateComponent } from './atomic-design/template/template.component';
 import { ButtonComponent } from './atomic-design/atoms/button/button.component';
 import { HomeComponent } from './atomic-design/pages/home/home.component';
+import { TabsNavComponent } from './atomic-design/molecules/tabs-nav/tabs-nav.component';
+import { LibraryComponent } from './atomic-design/pages/library/library.component';
+import { ContentTechnologyComponent } from './atomic-design/organisms/content-technology/content-technology.component';
+import { ContentCapacityComponent } from './atomic-design/organisms/content-capacity/content-capacity.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { HomeComponent } from './atomic-design/pages/home/home.component';
     ImageComponent,
     TemplateComponent,
     ButtonComponent,
-    HomeComponent
+    HomeComponent,
+    TabsNavComponent,
+    LibraryComponent,
+    ContentTechnologyComponent,
+    ContentCapacityComponent
   ],
   imports: [
     BrowserModule,

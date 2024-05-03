@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { linkStructure } from '../../atoms/link/util/LinkStructure';
 import { tabsStructure } from './util/TabsStructure';
 
 @Component({
