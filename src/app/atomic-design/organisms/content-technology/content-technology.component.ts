@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentTechnologyComponent implements OnInit {
 
+  private isShow = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  showContent(): boolean {
+    return this.isShow;
   }
 
 }

@@ -1,5 +1,17 @@
-<section>
-    <p>content-technology works!</p>
+<section class="technology">
+
+  <main *ngIf="showContent(); else create">
+    <div class="order"><p>ordenamiento</p></div>
+    <div><p>listar tecnologia</p></div>
+    <div>boton</div>
+    <div>paginación</div>
+  </main>
+
+  <ng-template #create>
+    <div class="create"><p>Crea una tecnologia</p></div>
+    <div>boton</div>
+  </ng-template>
+
 </section>
 
 
