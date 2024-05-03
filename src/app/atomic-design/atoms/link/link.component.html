@@ -1,5 +1,5 @@
 
-<div class={{classLink}}>
+<div [ngClass]="[classLink,'link']">
   <a class={{classIcon}}>
     <i *ngIf="itemNav?._icon" [class]="itemNav._icon"></i>
     {{ itemNav._title }}
