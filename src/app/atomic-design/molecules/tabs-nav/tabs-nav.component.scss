@@ -1,0 +1,25 @@
+@import './../../../../styles/variables.scss';
+
+.tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1rem;
+    width: 367px;
+    margin-left: 30px;
+    margin-top: 47px;
+    list-style: none;
+    text-align: center;
+    border-bottom: 2px solid $primary-color;
+}
+
+.tabs__item {
+    transition: all, 0.2s ease;
+    cursor: pointer;
+}
+
+.tabs__item:hover {
+
+    border-bottom: 2px solid $primary-color;
+    font-weight: bold;
+}
