@@ -1,11 +1,7 @@
 
-<!--<div class="text_nav">
-  <i [class]="itemNav._icon" class="text__icon"></i>
-  <span class="text"> {{ itemNav._title }} </span>
-</div> -->
-<div class="link_nav">
-  <a class="link">
-    <i [class]="itemNav._icon"></i>
+<div class={{classLink}}>
+  <a class={{classIcon}}>
+    <i *ngIf="itemNav?._icon" [class]="itemNav._icon"></i>
     {{ itemNav._title }}
   </a>
 </div>

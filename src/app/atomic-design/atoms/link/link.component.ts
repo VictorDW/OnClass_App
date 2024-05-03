@@ -1,5 +1,5 @@
 import { Component, Input,OnInit } from '@angular/core';
-import { navStructure } from 'src/app/atomic-design/molecules/nav/utils/NavStructure';
+import { linkStructure } from './util/LinkStructure';
 
 @Component({
   selector: 'app-link',
@@ -8,7 +8,9 @@ import { navStructure } from 'src/app/atomic-design/molecules/nav/utils/NavStruc
 })
 export class LinkComponent implements OnInit {
 
-  @Input() itemNav!: navStructure;
+  @Input() itemNav!: linkStructure;
+  @Input() classLink!: string;
+  @Input() classIcon!: string;
 
   constructor() { }
 
