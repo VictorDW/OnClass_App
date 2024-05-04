@@ -1,22 +1,33 @@
+@import '../../../../styles/_variables.scss';
+
+
 .technology {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 80vh;
+  position: fixed;
 }
 
-.create {
+.technology__text-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 50%;
+  height: 95%;
+}
 
-  & p {
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-    line-height: 25px;
-  }
+.technology__text{
+  font-weight: bold;
+  color: $primary-color;
+  font-size: $medium-text;
+}
+
+.technology__button-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.technology__button {
+  margin-right: 100px;
 }

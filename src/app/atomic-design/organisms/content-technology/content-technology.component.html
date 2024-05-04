@@ -1,4 +1,4 @@
-<section class="technology">
+
 
   <main *ngIf="showContent(); else create">
     <div class="order"><p>ordenamiento</p></div>
@@ -8,11 +8,16 @@
   </main>
 
   <ng-template #create>
-    <div class="create"><p>Crea una tecnologia</p></div>
-    <div>boton</div>
+    <article class="technology">
+      <div class="technology__text-container">
+        <p class="technology__text">Crea una tecnologia</p>
+      </div>
+      <div class="technology__button-container">
+        <app-button class="technology__button" [itemButton]="itemButton()"></app-button>
+      </div>
+    </article>
   </ng-template>
 
-</section>
 
 
 
