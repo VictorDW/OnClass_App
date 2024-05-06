@@ -16,7 +16,11 @@
         <app-button class="technology__button" [itemButton]="itemButton()" (click)="changeStateFrom()"></app-button>
       </div>
     </article>
-    <app-form *ngIf="showFrom()" [titleForm]="titleForm" (closeForm)="changeStateFrom()"></app-form>
+    <app-form *ngIf="showFrom()" 
+      [titleForm]="titleForm" 
+      [dataInputContent]="dataInputContent" 
+      (closeForm)="changeStateFrom()">
+    </app-form>
   </ng-template>
 
 

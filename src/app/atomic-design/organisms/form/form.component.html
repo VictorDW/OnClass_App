@@ -1,13 +1,19 @@
 <div class="modal">
     <section class="modal__section">
-        <header class="modal__header-section">
+        <header class="section__header">
             <h2>{{ titleForm }}</h2>
-            <button class="modal__button-header" (click)="OnCloseForm()">
+            <button class="header__button" (click)="OnCloseForm()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </header>
-        <form class="modal__form-section">
-            
+        <form class="section__form">
+            <div *ngFor="let data of dataInputContent" class="form__container" >
+                <label class="container__label"> {{ data.label }} </label>
+                <input class="container__input"
+                    type="text"
+                    [placeholder]="data.placeholder" autofocus>
+            </div>
+            <app-button [itemButton]="itemButton"></app-button>
         </form>
     </section>
 </div>

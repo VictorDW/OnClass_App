@@ -19,10 +19,10 @@
     flex-direction: column;
     width: 645px;
     border-radius: 25px;
-    background-color: white;
+    background-color: #fffcfb;
 }
 
-.modal__header-section {
+.section__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,7 +36,7 @@
     }
 }
 
-.modal__button-header {
+.header__button {
     color: $primary-color;
     background-color: transparent;
     border: none;
@@ -54,3 +54,45 @@ i {
     font-size: 1.5rem;
 }
 
+
+.section__form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 24px 23px 34px 23px;
+}
+
+.form__container {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    width: 97%;
+}
+
+.container__label {
+    font-size: $medium-text;
+    font-weight: bold;
+    text-align: left;
+    color: $primary-color;
+}
+
+.container__input {
+    width: 100%;
+    padding: 10px;
+    height: 40px;
+    border: 1px solid $primary-color;
+    border-radius: 25px;
+    box-sizing: border-box;
+    background-color: rgb($primary-color, 0.15);
+    transition: box-shadow 0.3s ease;
+
+    &::placeholder {
+        color: #828285;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 .20vw $primary-color;
+    }
+}
