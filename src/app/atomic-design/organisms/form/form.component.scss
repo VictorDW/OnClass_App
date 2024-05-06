@@ -1,0 +1,56 @@
+@import '../../../../styles/_variables.scss';
+
+.modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1; 
+    background-color: rgb($primary-color, 0.2);
+    backdrop-filter: blur(2px);
+}
+
+.modal__section {
+    display: flex;
+    flex-direction: column;
+    width: 645px;
+    border-radius: 25px;
+    background-color: white;
+}
+
+.modal__header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 23px;
+    box-sizing: border-box;
+
+    & h2 {
+        font-size: $big-text;
+        font-size: bold;
+        color: $primary-color;
+    }
+}
+
+.modal__button-header {
+    color: $primary-color;
+    background-color: transparent;
+    border: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover{
+        transform: scale(1.2);
+    }
+}
+
+i {
+    font-size: 1.5rem;
+}
+
