@@ -18,7 +18,8 @@
     </article>
     <app-form *ngIf="showFrom()" 
       [titleForm]="titleForm" 
-      [dataInputContent]="dataInputContent" 
+      [dataInputContent]="dataInputContent"
+      [formReference]="addValidations()" 
       (closeForm)="changeStateFrom()">
     </app-form>
   </ng-template>

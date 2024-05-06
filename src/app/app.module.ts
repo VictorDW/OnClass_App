@@ -15,6 +15,7 @@ import { LibraryComponent } from './atomic-design/pages/library/library.componen
 import { ContentTechnologyComponent } from './atomic-design/organisms/content-technology/content-technology.component';
 import { ContentCapacityComponent } from './atomic-design/organisms/content-capacity/content-capacity.component';
 import { FormComponent } from './atomic-design/organisms/form/form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FormComponent } from './atomic-design/organisms/form/form.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

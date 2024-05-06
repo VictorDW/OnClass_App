@@ -96,3 +96,10 @@ i {
         box-shadow: 0 0 0 .20vw $primary-color;
     }
 }
+
+.input--invalid {
+    background-color: rgb($error-color, 0.12);
+    border: 2px solid $error-color;
+    box-shadow: 1px 1px 13px rgba($error-color, 0.2), -1px -1px 33px rgba($error-color, 0.2);
+    transition: 100ms;
+}

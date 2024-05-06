@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonStructure';
 import { InputContentStructure } from '../form/util/InputContentStructure';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-content-technology',
@@ -16,7 +17,7 @@ export class ContentTechnologyComponent {
   dataInputContent: InputContentStructure[]
   titleForm: string = 'Crear tecnologia';
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
     this._dataButton = {
       _showIcon: true,
       _icon: 'fa-solid fa-plus',
@@ -35,6 +36,16 @@ export class ContentTechnologyComponent {
         }
       ]
     
+   }
+   addValidations(): FormGroup {
+
+    const formReference = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(90)]]
+    });
+
+    return formReference;
+
    }
 
   showContent(): boolean {
