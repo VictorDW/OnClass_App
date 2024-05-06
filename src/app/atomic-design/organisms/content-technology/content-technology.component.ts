@@ -9,11 +9,13 @@ import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonS
 
 export class ContentTechnologyComponent {
 
-  private isShow = false;
-  private dataButton!: buttonStructure
+  private _isShowContent = false;
+  private _isShowFrom = false;
+  private _dataButton!: buttonStructure
+  titleForm: string = 'Crear tecnologia';
 
   constructor() {
-    this.dataButton = {
+    this._dataButton = {
       _showIcon: true,
       _icon: 'fa-solid fa-plus',
       _text: 'Crear'
@@ -22,11 +24,19 @@ export class ContentTechnologyComponent {
    }
 
   showContent(): boolean {
-    return this.isShow;
+    return this._isShowContent;
   }
 
   itemButton(): buttonStructure {
-    return this.dataButton;
+    return this._dataButton;
+  }
+  
+  changeStateFrom(): void {
+    this._isShowFrom = !this._isShowFrom;
+  }
+
+  showFrom(): Boolean {
+   return this._isShowFrom;
   }
 
 }

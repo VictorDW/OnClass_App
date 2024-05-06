@@ -13,9 +13,10 @@
         <p class="technology__text">Crea una tecnologia</p>
       </div>
       <div class="technology__button-container">
-        <app-button class="technology__button" [itemButton]="itemButton()"></app-button>
+        <app-button class="technology__button" [itemButton]="itemButton()" (click)="changeStateFrom()"></app-button>
       </div>
     </article>
+    <app-form *ngIf="showFrom()" [titleForm]="titleForm" (closeForm)="changeStateFrom()"></app-form>
   </ng-template>
 
 

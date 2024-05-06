@@ -1,5 +1,5 @@
 <ul class="tabs">
-    <li class="tabs__item" *ngFor="let tab of tabs" >
+    <li class="tabs__item" *ngFor="let tab of tabs" routerLinkActive="tabs__item--active" >
         <app-link 
             [classLink]="'link--tabs'" 
             classIcon="link__a--tabs" 

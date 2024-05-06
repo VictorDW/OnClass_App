@@ -14,6 +14,7 @@ import { TabsNavComponent } from './atomic-design/molecules/tabs-nav/tabs-nav.co
 import { LibraryComponent } from './atomic-design/pages/library/library.component';
 import { ContentTechnologyComponent } from './atomic-design/organisms/content-technology/content-technology.component';
 import { ContentCapacityComponent } from './atomic-design/organisms/content-capacity/content-capacity.component';
+import { FormComponent } from './atomic-design/organisms/form/form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ContentCapacityComponent } from './atomic-design/organisms/content-capa
     TabsNavComponent,
     LibraryComponent,
     ContentTechnologyComponent,
-    ContentCapacityComponent
+    ContentCapacityComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
