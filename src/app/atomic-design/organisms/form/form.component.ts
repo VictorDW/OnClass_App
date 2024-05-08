@@ -46,11 +46,7 @@ export class FormComponent implements OnInit {
       console.log("nmae: " + this.form.get('name')?.value);
       console.log("description: " + this.form.get('description')?.value);
     } else {
-      if(this.form.get('name')?.hasError('required')){
-        console.log("Nombre es obligatorio");
-      }else if(this.form.get('name')?.hasError('maxlength')){
-        console.log("El nombre debe ser menor a 50 caracteres");
-      }
+      console.log("no deja pasar las validaciones");
     }
   }
 

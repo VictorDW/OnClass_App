@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators, FormGroup} from '@angular/forms';
+import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 import { ValidationForm } from '../interface/IValidationService';
-import { ConstantsValidationMessage } from '../../constants/ConstantsMessage';
+import {ConstantsPattern, ConstantsValidationMessage} from '../../constants/ConstantsMessage';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class ValidationsTechnologyService implements ValidationForm {
 
   constructor(private formBuilder: FormBuilder) {
 
-    this._validations = ['required', 'maxlength', 'minlength'];
+    this._validations = ['required', 'maxlength', 'minlength', 'pattern'];
     this._validationControls = this.fillControls();
   }
 
@@ -24,10 +24,13 @@ export class ValidationsTechnologyService implements ValidationForm {
       name: ['',
           [Validators.required,
           Validators.maxLength(50),
-          Validators.minLength(3)]],
+          Validators.minLength(2),
+          Validators.pattern(ConstantsPattern.NAME)]],
       description: ['',
           [Validators.required,
-          Validators.maxLength(90)]]
+          Validators.maxLength(90),
+          Validators.minLength(10),
+          Validators.pattern(ConstantsPattern.DESCRIPTION)]]
     }
   }
 
