@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {FormBuilder, Validators, FormGroup} from '@angular/forms';
+import {FormBuilder, Validators, FormGroup, FormControl} from '@angular/forms';
 import { ValidationForm } from '../interface/IValidationService';
 import {ConstantsPattern, ConstantsValidationMessage} from '../../constants/ConstantsMessage';
 
@@ -16,30 +16,30 @@ export class ValidationsTechnologyService implements ValidationForm {
   constructor(private formBuilder: FormBuilder) {
 
     this._validations = ['required', 'maxlength', 'minlength', 'pattern'];
-    this._validationControls = this.fillControls();
+    //this._validationControls = this.fillControls();
   }
 
   fillControls() {
     return {
-      name: ['',
+      name: new FormControl('',
           [Validators.required,
           Validators.maxLength(50),
           Validators.minLength(2),
-          Validators.pattern(ConstantsPattern.NAME)]],
-      description: ['',
+          Validators.pattern(ConstantsPattern.NAME)]),
+      description: new FormControl('',
           [Validators.required,
           Validators.maxLength(90),
           Validators.minLength(10),
-          Validators.pattern(ConstantsPattern.DESCRIPTION)]]
+          Validators.pattern(ConstantsPattern.DESCRIPTION)])
     }
   }
 
   addValidations(): FormGroup {
-    return this.formBuilder.group(this._validationControls);
+    return new FormGroup(this.fillControls());
   }
 
   getErrorMessage(fieldName: string, form: FormGroup): string {
-
+    
     const error = this._validations.find(validation => {
       return form.get(fieldName)?.hasError(validation);
     });
