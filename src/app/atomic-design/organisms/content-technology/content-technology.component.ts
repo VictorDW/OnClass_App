@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonStructure';
 import { InputContentStructure } from '../form/util/InputContentStructure';
-import { ValidationsTechnologyService } from 'src/app/service/technology/validations-technology.service';
+import { ValidationsTechnologyForm } from 'src/app/shared/service/validations/validations-technology.form';
 
 @Component({
   selector: 'app-content-technology',
@@ -17,12 +17,12 @@ export class ContentTechnologyComponent {
   dataInputContent!: InputContentStructure[]
   titleForm: string = 'Crear tecnología';
 
-  constructor(private validationService: ValidationsTechnologyService) {
+  constructor(private validationService: ValidationsTechnologyForm) {
       this.fillContentInput();
       this.fillContentButton()
    }
 
-  get validationsService(): ValidationsTechnologyService {
+  get validationsService(): ValidationsTechnologyForm {
     return this.validationService;
   }
 

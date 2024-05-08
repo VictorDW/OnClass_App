@@ -8,7 +8,7 @@ import {ConstantsPattern, ConstantsValidationMessage} from '../../constants/Cons
   providedIn: 'root'
 })
 
-export class ValidationsTechnologyService implements ValidationForm {
+export class ValidationsTechnologyForm implements ValidationForm {
 
   private _validations: string[]
   private readonly _validationControls = {};
@@ -39,7 +39,7 @@ export class ValidationsTechnologyService implements ValidationForm {
   }
 
   getErrorMessage(fieldName: string, form: FormGroup): string {
-    
+
     const error = this._validations.find(validation => {
       return form.get(fieldName)?.hasError(validation);
     });

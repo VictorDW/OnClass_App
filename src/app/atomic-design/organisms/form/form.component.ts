@@ -2,7 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { InputContentStructure } from 'src/app/atomic-design/organisms/form/util/InputContentStructure';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { FormGroup } from '@angular/forms';
-import { ValidationForm } from '../../../service/interface/IValidationService';
+import { ValidationForm } from '../../../shared/service/interface/IValidationService';
+
+type valuesStructure = {
+  [key: string]: string
+}
 
 @Component({
   selector: 'app-form',
@@ -43,8 +47,14 @@ export class FormComponent implements OnInit {
 
   OnsubmitForm(): void {//TODO omitelo son pruebas
     if (this.form.valid) {
-      console.log("nmae: " + this.form.get('name')?.value);
-      console.log("description: " + this.form.get('description')?.value);
+
+      let values: valuesStructure = {};
+
+     for (let control in this.form.controls) {
+       values[control] = this.form.get(control)?.value;
+     }
+     console.log(values);
+
     } else {
       console.log("no deja pasar las validaciones");
     }
