@@ -1,7 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonStructure';
 import { InputContentStructure } from '../form/util/InputContentStructure';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ValidationsTechnologyService } from 'src/app/service/technology/validations-technology.service';
 
 @Component({
   selector: 'app-content-technology',
@@ -13,49 +13,23 @@ export class ContentTechnologyComponent {
 
   private _isShowContent = false;
   private _isShowFrom = false;
-  private _dataButton!: buttonStructure
-  dataInputContent: InputContentStructure[]
-  titleForm: string = 'Crear tecnologia';
+  dataButton!: buttonStructure
+  dataInputContent!: InputContentStructure[]
+  titleForm: string = 'Crear tecnología';
 
-  constructor(private formBuilder: FormBuilder) {
-    this._dataButton = {
-      _showIcon: true,
-      _icon: 'fa-solid fa-plus',
-      _text: 'Crear'
-      };
-
-      this.dataInputContent = [
-        {
-          label: 'Nombre',
-          placeholder: 'Nombre de la tecnologia',
-          controle: 'name'
-        },{
-          label: 'Descripción',
-          placeholder: 'Descripción de la tecnologia',
-          controle: 'description'
-        }
-      ]
-    
+  constructor(private validationService: ValidationsTechnologyService) {
+      this.fillContentInput();
+      this.fillContentButton()
    }
-   addValidations(): FormGroup {
 
-    const formReference = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.maxLength(90)]]
-    });
-
-    return formReference;
-
-   }
+  get validationsService(): ValidationsTechnologyService {
+    return this.validationService;
+  }
 
   showContent(): boolean {
     return this._isShowContent;
   }
 
-  itemButton(): buttonStructure {
-    return this._dataButton;
-  }
-  
   changeStateFrom(): void {
     this._isShowFrom = !this._isShowFrom;
   }
@@ -63,5 +37,30 @@ export class ContentTechnologyComponent {
   showFrom(): Boolean {
    return this._isShowFrom;
   }
+
+  fillContentButton(): void {
+    this.dataButton = {
+      showIcon: true,
+      icon: 'fa-solid fa-plus',
+      text: 'Crear'
+    };
+  }
+
+  fillContentInput(): void {
+
+   this.dataInputContent = [
+      {
+        label: 'Nombre',
+        placeholder: 'Nombre de la tecnología',
+        controle: 'name'
+      },{
+        label: 'Descripción',
+        placeholder: 'Descripción de la tecnología',
+        controle: 'description'
+      }
+    ]
+  }
+
+
 
 }

@@ -7,7 +7,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </header>
-        
+
         <form class="section__form" [formGroup]="form" (ngSubmit)="OnsubmitForm()">
 
             <div *ngFor="let data of dataInputContent" class="form__container" >
@@ -16,9 +16,18 @@
                     type="text"
                     [formControlName]="data.controle"
                     [placeholder]="data.placeholder"
-                    [ngClass]="{ 'input--invalid': verifyError(data.controle) }" 
+                    [ngClass]="{ 'input--invalid': verifyError(data.controle) }"
                     autofocus>
-            </div>
+
+                <div class="alert">
+
+                  <span *ngIf="verifyError(data.controle)" class="alert__message--error">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    {{ validationService.getErrorMessage(data.controle, form)}}
+                  </span>
+                </div>
+
+              </div>
 
             <app-button [itemButton]="itemButton"></app-button>
         </form>

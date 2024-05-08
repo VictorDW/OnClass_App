@@ -1,5 +1,5 @@
 export type buttonStructure = {
-  _showIcon: boolean,
-  _icon?: string,
-  _text: string
+  showIcon: boolean,
+  icon?: string,
+  text: string
 }

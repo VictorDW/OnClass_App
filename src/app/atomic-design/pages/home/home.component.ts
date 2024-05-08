@@ -9,11 +9,11 @@ import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonS
 
 export class HomeComponent implements OnInit {
 
-  
+
  dataButton: buttonStructure = {
-  _showIcon: true,
-  _icon: 'fa-solid fa-plus',
-  _text: 'Crear'
+  showIcon: true,
+  icon: 'fa-solid fa-plus',
+  text: 'Crear'
   };
 
   constructor() { }
