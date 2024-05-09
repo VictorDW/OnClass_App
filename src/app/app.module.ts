@@ -16,6 +16,8 @@ import { ContentTechnologyComponent } from './atomic-design/organisms/content-te
 import { ContentCapacityComponent } from './atomic-design/organisms/content-capacity/content-capacity.component';
 import { FormComponent } from './atomic-design/organisms/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {TechnologyGateway} from "./domain/gateway/technology-gateway";
+import {TechnologyApiService} from "./infraestructure/driven-adapter/technology-api/technology-api.service";
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [{provide: TechnologyGateway, useClass: TechnologyApiService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
