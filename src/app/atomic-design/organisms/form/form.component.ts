@@ -18,7 +18,6 @@ export class FormComponent implements OnInit {
 
   @Input() titleForm: string = '';
   @Input() dataInputContent!: InputContentStructure[];
-  @Input() formReference!: FormGroup;
   @Input() validationService!: ValidationForm;
   @Output() closeForm = new EventEmitter<void>();
 
@@ -30,7 +29,7 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.formReference;
+    this.form = this.validationService.addValidations();
   }
 
   fillContentButton(): void {
@@ -45,7 +44,7 @@ export class FormComponent implements OnInit {
     this.closeForm.emit();
   }
 
-  OnsubmitForm(): void {//TODO omitelo son pruebas
+  OnsubmitForm(): void {
     if (this.form.valid) {
 
       let values: valuesStructure = {};

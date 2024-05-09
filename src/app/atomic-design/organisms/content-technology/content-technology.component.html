@@ -25,7 +25,6 @@
   <app-form *ngIf="showFrom()"
      [titleForm]="titleForm"
      [dataInputContent]="dataInputContent"
-     [formReference]="validationsService.addValidations()"
      [validationService]="validationsService"
      (closeForm)="changeStateFrom()">
   </app-form>
