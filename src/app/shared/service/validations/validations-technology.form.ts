@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {FormBuilder, Validators, FormGroup, FormControl} from '@angular/forms';
+import {Validators, FormGroup, FormControl} from '@angular/forms';
 import { ValidationForm } from '../interface/IValidationService';
-import {ConstantsPattern, ConstantsValidationMessage} from '../../constants/ConstantsMessage';
+import {Pattern, ValidationMessage,} from '../../constants/constants';
 
 
 @Injectable({
@@ -11,12 +11,9 @@ import {ConstantsPattern, ConstantsValidationMessage} from '../../constants/Cons
 export class ValidationsTechnologyForm implements ValidationForm {
 
   private _validations: string[]
-  private readonly _validationControls = {};
 
-  constructor(private formBuilder: FormBuilder) {
-
+  constructor() {
     this._validations = ['required', 'maxlength', 'minlength', 'pattern'];
-    //this._validationControls = this.fillControls();
   }
 
   fillControls() {
@@ -25,12 +22,12 @@ export class ValidationsTechnologyForm implements ValidationForm {
           [Validators.required,
           Validators.maxLength(50),
           Validators.minLength(2),
-          Validators.pattern(ConstantsPattern.NAME)]),
+          Validators.pattern(Pattern.NAME)]),
       description: new FormControl('',
           [Validators.required,
           Validators.maxLength(90),
           Validators.minLength(10),
-          Validators.pattern(ConstantsPattern.DESCRIPTION)])
+          Validators.pattern(Pattern.DESCRIPTION)])
     }
   }
 
@@ -39,16 +36,16 @@ export class ValidationsTechnologyForm implements ValidationForm {
   }
 
   getErrorMessage(fieldName: string, form: FormGroup): string {
-
     const error = this._validations.find(validation => {
       return form.get(fieldName)?.hasError(validation);
     });
 
-    const messageSelection = fieldName.toUpperCase() + '_' + error?.toUpperCase();
-    const key = messageSelection as keyof typeof ConstantsValidationMessage;
+    const selectionMessage = `${fieldName.toUpperCase()}_${error?.toUpperCase()}`;
+    const key = selectionMessage as keyof typeof ValidationMessage;
 
-    return error ? ConstantsValidationMessage[key] : '';
+    return error ? ValidationMessage[key] : '';
   }
+
 
 }
 
