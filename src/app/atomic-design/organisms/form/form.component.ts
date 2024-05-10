@@ -3,6 +3,7 @@ import { InputContentStructure } from 'src/app/atomic-design/organisms/form/util
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { FormGroup } from '@angular/forms';
 import { ValidationForm } from '../../../shared/service/interface/IValidationService';
+import {ValidationsTechnologyForm} from "../../../shared/service/validations/validations-technology.form";
 
 type valuesStructure = {
   [key: string]: string
@@ -18,18 +19,21 @@ export class FormComponent implements OnInit {
 
   @Input() titleForm: string = '';
   @Input() dataInputContent!: InputContentStructure[];
-  @Input() validationService!: ValidationForm;
   @Output() closeForm = new EventEmitter<void>();
 
   form: FormGroup = new FormGroup({});
   itemButton!: buttonStructure;
 
-  constructor() {
+  constructor(private _validationService: ValidationForm,) {
     this.fillContentButton()
   }
 
   ngOnInit(): void {
-    this.form = this.validationService.addValidations();
+    this.form = this._validationService.addValidations();
+  }
+
+  get validationService() {
+    return this._validationService
   }
 
   fillContentButton(): void {

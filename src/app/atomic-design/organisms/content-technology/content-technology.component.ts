@@ -3,11 +3,15 @@ import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonS
 import { InputContentStructure } from '../form/util/InputContentStructure';
 import { ValidationsTechnologyForm } from 'src/app/shared/service/validations/validations-technology.form';
 import {TechnologyUseCaseService} from "../../../domain/usecase/technology-use-case.service";
+import {ValidationForm} from "../../../shared/service/interface/IValidationService";
 
 @Component({
   selector: 'app-content-technology',
   templateUrl: './content-technology.component.html',
-  styleUrls: ['./content-technology.component.scss']
+  styleUrls: ['./content-technology.component.scss'],
+  providers: [
+    {provide: ValidationForm, useClass: ValidationsTechnologyForm},
+  ]
 })
 
 export class ContentTechnologyComponent {
@@ -18,15 +22,10 @@ export class ContentTechnologyComponent {
   dataInputContent!: InputContentStructure[]
   titleForm: string = 'Crear tecnología';
 
-  constructor(private _validationService: ValidationsTechnologyForm) {
+  constructor() {
 
       this.fillContentInput();
       this.fillContentButton()
-   }
-
-
-  get validationsService(): ValidationsTechnologyForm {
-    return this._validationService;
   }
 
   showContent(): boolean {
@@ -37,7 +36,7 @@ export class ContentTechnologyComponent {
     this._isShowFrom = !this._isShowFrom;
   }
 
-  showFrom(): Boolean {
+  showFrom(): boolean {
    return this._isShowFrom;
   }
 

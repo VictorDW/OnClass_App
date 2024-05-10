@@ -23,7 +23,7 @@
 
                   <span *ngIf="verifyError(data.controle)" class="alert__message--error">
                     <i class="fa-solid fa-triangle-exclamation"></i>
-                    {{ validationService.getErrorMessage(data.controle, form)}}
+                    {{ this.validationService.getErrorMessage(data.controle, form)}}
                   </span>
                 </div>
 

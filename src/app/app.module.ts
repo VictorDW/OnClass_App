@@ -40,7 +40,7 @@ import {TechnologyApiService} from "./infraestructure/driven-adapter/technology-
     AppRoutingModule,
     ReactiveFormsModule,
   ],
-  providers: [{provide: TechnologyGateway, useClass: TechnologyApiService}],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
