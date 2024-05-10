@@ -27,8 +27,8 @@
     height: 5px;
     bottom: -3px;
     background-color: $primary-color;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(#E7833DCC, 0.8);
+    border-radius: 10em;
+    box-shadow: 0 -4px 20px $primary-color;
     opacity: 0;
     transition: opacity 0.2s ease;
 }
