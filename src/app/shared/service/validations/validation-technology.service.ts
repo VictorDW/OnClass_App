@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Validators, FormGroup, FormControl} from '@angular/forms';
-import { ValidationForm } from '../interface/IValidationService';
+import { ValidationForm } from '../interface/validation';
 import {Pattern, ValidationMessage,} from '../../constants/constants';
 
 
 @Injectable()
-export class ValidationsTechnologyForm implements ValidationForm {
+export class ValidationTechnologyService implements ValidationForm {
 
   private _validations: string[]
 

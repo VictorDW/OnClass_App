@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,8 +40,9 @@ import {TechnologyApiService} from "./infraestructure/driven-adapter/technology-
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: TechnologyGateway, useClass: TechnologyApiService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

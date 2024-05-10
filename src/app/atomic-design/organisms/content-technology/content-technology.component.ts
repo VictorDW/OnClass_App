@@ -1,16 +1,18 @@
 import { Component} from '@angular/core';
 import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonStructure';
 import { InputContentStructure } from '../form/util/InputContentStructure';
-import { ValidationsTechnologyForm } from 'src/app/shared/service/validations/validations-technology.form';
+import { ValidationTechnologyService } from 'src/app/shared/service/validations/validation-technology.service';
 import {TechnologyUseCaseService} from "../../../domain/usecase/technology-use-case.service";
-import {ValidationForm} from "../../../shared/service/interface/IValidationService";
+import {ValidationForm} from "../../../shared/service/interface/validation";
+import {ServiceForm} from "../../../domain/interface/api-service";
 
 @Component({
   selector: 'app-content-technology',
   templateUrl: './content-technology.component.html',
   styleUrls: ['./content-technology.component.scss'],
   providers: [
-    {provide: ValidationForm, useClass: ValidationsTechnologyForm},
+    {provide: ValidationForm, useClass: ValidationTechnologyService},
+    {provide: ServiceForm, useClass: TechnologyUseCaseService}
   ]
 })
 

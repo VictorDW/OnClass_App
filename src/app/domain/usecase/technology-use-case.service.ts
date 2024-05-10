@@ -2,20 +2,16 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {Technology} from "../models/technology";
 import {TechnologyGateway} from "../gateway/technology-gateway";
+import { ServiceForm } from "../interface/api-service";
 
-@Injectable({
-  providedIn: 'root'
-})
-
-export class TechnologyUseCaseService {
+@Injectable()
+export class TechnologyUseCaseService implements ServiceForm {
 
   constructor(private _technologyAdapter: TechnologyGateway) { }
 
-  addTechnology(technology: Technology): Observable<void> {
-    return this._technologyAdapter.addTechnology(technology);
+  register(technology: Technology): void {
+    console.log(technology)
+    //return this._technologyAdapter.registerTechnology(technology);
   }
 
-  getTechnologies(): Observable<Technology[]> {
-    return this._technologyAdapter.getTechnologies();
-  }
 }

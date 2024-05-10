@@ -5,15 +5,13 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Endpoints, environment} from "../../../../environments/environment";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class TechnologyApiService extends TechnologyGateway {
+@Injectable()
+export class TechnologyApiService implements TechnologyGateway {
 
   private _url = environment.BASE_URL + Endpoints.TECHNOLOGY;
-  constructor(private httpClient: HttpClient) { super(); }
+  constructor(private httpClient: HttpClient) { }
 
-  addTechnology(technology: Technology): Observable<void> {
+  registerTechnology(technology: Technology): Observable<void> {
     return this.httpClient.post<void>(this._url, technology);
   }
 
