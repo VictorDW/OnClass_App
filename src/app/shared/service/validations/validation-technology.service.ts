@@ -10,7 +10,6 @@ export class ValidationsTechnologyForm implements ValidationForm {
   private _validations: string[]
 
   constructor() {
-    console.log("llama el original")
     this._validations = ['required', 'maxlength', 'minlength', 'pattern'];
   }
 
