@@ -4,15 +4,13 @@ import { ValidationForm } from '../interface/IValidationService';
 import {Pattern, ValidationMessage,} from '../../constants/constants';
 
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable()
 export class ValidationsTechnologyForm implements ValidationForm {
 
   private _validations: string[]
 
   constructor() {
+    console.log("llama el original")
     this._validations = ['required', 'maxlength', 'minlength', 'pattern'];
   }
 
@@ -36,6 +34,7 @@ export class ValidationsTechnologyForm implements ValidationForm {
   }
 
   getErrorMessage(fieldName: string, form: FormGroup): string {
+
     const error = this._validations.find(validation => {
       return form.get(fieldName)?.hasError(validation);
     });
