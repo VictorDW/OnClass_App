@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { FormComponent } from './atomic-design/organisms/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {TechnologyGateway} from "./domain/gateway/technology-gateway";
 import {TechnologyApiService} from "./infraestructure/driven-adapter/technology-api/technology-api.service";
+import {TokenInterceptor} from "./shared/token/token.interceptor";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {TechnologyApiService} from "./infraestructure/driven-adapter/technology-
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [{provide: TechnologyGateway, useClass: TechnologyApiService}],
+  providers: [{provide: TechnologyGateway, useClass: TechnologyApiService},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

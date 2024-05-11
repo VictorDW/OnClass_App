@@ -9,9 +9,8 @@ export class TechnologyUseCaseService implements ServiceForm {
 
   constructor(private _technologyAdapter: TechnologyGateway) { }
 
-  register(technology: Technology): void {
-    console.log(technology)
-    //return this._technologyAdapter.registerTechnology(technology);
+  register(technology: Technology): Observable<void>{
+    return this._technologyAdapter.registerTechnology(technology);
   }
 
 }

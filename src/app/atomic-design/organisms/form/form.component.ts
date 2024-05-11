@@ -52,7 +52,11 @@ export class FormComponent implements OnInit {
     if (this.form.valid) {
 
       console.log(this.form.controls)
-      this._service.register(this.MapperValuesToModel());
+      this._service.register(this.MapperValuesToModel()).subscribe(
+        data => {
+          console.log("Tecnologia agregada")
+        }
+      );
     } else {
       console.log("no deja pasar las validaciones");
     }
