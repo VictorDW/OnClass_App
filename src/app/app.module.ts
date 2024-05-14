@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {TechnologyGateway} from "./domain/gateway/technology-gateway";
 import {TechnologyApiService} from "./infraestructure/driven-adapter/technology-api/technology-api.service";
 import {TokenInterceptor} from "./shared/token/token.interceptor";
+import { AlertComponent } from './atomic-design/atoms/alert/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {TokenInterceptor} from "./shared/token/token.interceptor";
     LibraryComponent,
     ContentTechnologyComponent,
     ContentCapacityComponent,
-    FormComponent
+    FormComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
