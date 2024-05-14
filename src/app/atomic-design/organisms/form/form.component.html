@@ -20,14 +20,13 @@
                     autofocus>
 
                 <div class="alert">
-
                   <span *ngIf="verifyError(data.controle)" class="alert__message--error">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                     {{ this.validationService.getErrorMessage(data.controle, form)}}
                   </span>
                 </div>
 
-              </div>
+            </div>
 
             <app-button [itemButton]="itemButton"></app-button>
         </form>

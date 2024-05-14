@@ -3,7 +3,7 @@ import {Technology} from "../../domain/models/technology";
 export enum  ValidationMessage {
   NAME_REQUIRED = 'El nombre es obligatorio',
   NAME_MAXLENGTH = 'El nombre debe ser menor a 50 caracteres',
-  NAME_MINLENGTH = 'El nombre debe ser mayor a 3 caracteres',
+  NAME_MINLENGTH = 'El nombre debe ser mayor a 2 caracteres',
   NAME_PATTERN = 'No debe contener números ni caracteres especiales distintos de # y +',
   DESCRIPTION_REQUIRED = 'La descripción es obligatoria',
   DESCRIPTION_MAXLENGTH = 'La descripción debe ser menor a 90 caracteres',
@@ -17,3 +17,16 @@ export enum Pattern{
 }
 
 export type ModelsApi = Technology;
+
+
+type FormatResponseError = {
+  [key:number]: string
+}
+
+export const ResponseErrorMesages: FormatResponseError = {
+   400: 'Parámetros de solicitud no válidos',
+   401: 'No estás autorizado para esta acción',
+   403: 'No tienes permiso para acceder a este recurso',
+   404: 'Recurso no encontrado',
+   409: 'El elemento que desea registrar ya existe',
+}

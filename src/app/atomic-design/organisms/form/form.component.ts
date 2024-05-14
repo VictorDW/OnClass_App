@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { ValidationForm } from '../../../shared/service/interface/validation';
 import {ServiceForm} from "../../../domain/interface/api-service";
 
-type valuesStructure = {
+type ObjectModelStructure = {
   [key: string]: string
 }
 
@@ -50,23 +50,20 @@ export class FormComponent implements OnInit {
 
   OnsubmitForm(): void {
     if (this.form.valid) {
-
-      console.log(this.form.controls)
-      this._service.register(this.MapperValuesToModel()).subscribe(
-        data => {
-          console.log("Tecnologia agregada")
-        }
-      );
+          this._service.register(this.MapperValuesToModel()).subscribe(
+            () => console.log("registrado"),
+          );
+      this.form.reset();
     } else {
       console.log("no deja pasar las validaciones");
     }
   }
 
-  MapperValuesToModel():valuesStructure {
+  MapperValuesToModel(): ObjectModelStructure {
 
     const properties = Object.keys(this.form.controls);
 
-    return properties.reduce((model: valuesStructure, property: string): valuesStructure => {
+    return properties.reduce((model: ObjectModelStructure, property: string): ObjectModelStructure => {
       model[property] = this.form.get(property)?.value;
       return  model
     }, {})
