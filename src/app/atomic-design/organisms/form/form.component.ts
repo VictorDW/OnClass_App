@@ -4,8 +4,6 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { FormGroup } from '@angular/forms';
 import { ValidationForm } from '../../../shared/service/interface/validation';
 import {ServiceForm} from "../../../domain/interface/api-service";
-import { AlertService } from 'src/app/shared/service/alert.service';
-import { ResponseMessages } from 'src/app/shared/constants/constants';
 
 type ObjectModelStructure = {
   [key: string]: string
@@ -28,10 +26,7 @@ export class FormComponent implements OnInit {
   itemButton!: buttonStructure;
   isShowModalCreate: boolean = false;
 
-  constructor(private _validationService: ValidationForm, 
-    private _service: ServiceForm, 
-    private _alertService: AlertService) {
-      
+  constructor(private _validationService: ValidationForm, private _service: ServiceForm) {
     this.fillContentButton()
   }
 
@@ -75,13 +70,10 @@ export class FormComponent implements OnInit {
             .subscribe(() => 
               this.changeStatusModalCreate());
           this.form.reset();
-    } else {
-      this._alertService.showAlert(ResponseMessages.INVALID_FORM)
     }
   }
 
   disableButton(): boolean {
-    //return !this.form.dirty;
     return this.form.invalid;
   }
 
