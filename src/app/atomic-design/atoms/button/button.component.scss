@@ -24,3 +24,8 @@
     border: 1px solid $primary-color;
     background: transparent;
 }
+
+.button--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}

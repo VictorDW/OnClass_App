@@ -47,8 +47,10 @@ import { ModalComponent } from './atomic-design/molecules/modal/modal.component'
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [{provide: TechnologyGateway, useClass: TechnologyApiService},
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
+  providers: [
+    {provide: TechnologyGateway, useClass: TechnologyApiService},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

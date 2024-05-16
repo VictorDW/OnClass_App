@@ -1,4 +1,4 @@
-import {Technology} from "../../domain/models/technology";
+//import {Technology} from "../../domain/models/technology";
 
 export enum  ValidationMessage {
   NAME_REQUIRED = 'El nombre es obligatorio',
@@ -16,17 +16,27 @@ export enum Pattern{
   DESCRIPTION = '^[A-Za-z0-9+#\\sáéíóúÁÉÍÓÚñÑ]+$'
 }
 
-export type ModelsApi = Technology;
+//export type ModelsApi = Technology;
 
 
-type FormatResponseError = {
-  [key:number]: string
+type FormatResponse = {
+  [key: number]: string
 }
 
-export const ResponseErrorMesages: FormatResponseError = {
+export const ResponseErrorMesages: FormatResponse = {
    400: 'Parámetros de solicitud no válidos',
    401: 'No estás autorizado para esta acción',
    403: 'No tienes permiso para acceder a este recurso',
    404: 'Recurso no encontrado',
    409: 'El elemento que desea registrar ya existe',
+}
+
+export enum Models {
+  TECHNOLOGY = 'tecnología'
+}
+
+export enum ResponseMessages  {
+  CREATE_MODEL = "Crear {model}",
+  SUSSESS_MODEL = "¡{model} creada!",
+  INVALID_FORM = 'El formulario no es valido, por favor comprueba si hay errores',
 }
