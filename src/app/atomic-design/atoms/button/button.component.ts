@@ -8,6 +8,10 @@ import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonS
 })
 
 export class ButtonComponent{
-
+  @Input() disabled: boolean = false;
   @Input() itemButton!: buttonStructure;
+
+  get isDisabled() {
+    return this.disabled
+  }
 }
