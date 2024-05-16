@@ -23,6 +23,7 @@ export class ContentTechnologyComponent {
   dataButton!: buttonStructure
   dataInputContent!: InputContentStructure[]
   titleForm: string = 'Crear tecnología';
+  titleModal: string = '¡Tecnología creada!';
 
   constructor() {
 

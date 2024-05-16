@@ -19,10 +19,12 @@ export class FormComponent implements OnInit {
 
   @Input() titleForm: string = '';
   @Input() dataInputContent!: InputContentStructure[];
+  @Input() titleModal: string = '';
   @Output() closeForm = new EventEmitter<void>();
 
   form: FormGroup = new FormGroup({});
   itemButton!: buttonStructure;
+  isShowModalCreate: boolean = false;
 
   constructor(private _validationService: ValidationForm, private _service: ServiceForm) {
     this.fillContentButton()
@@ -44,14 +46,30 @@ export class FormComponent implements OnInit {
     };
   }
 
-  OnCloseForm(): void {
+  onCloseForm(): void {
     this.closeForm.emit();
   }
 
-  OnsubmitForm(): void {
+  onCloseModals(): void {
+    this.changeStatusModalCreate();
+    this.onCloseForm();
+  }
+
+  changeStatusModalCreate(): void {
+    this.isShowModalCreate = !this.isShowModalCreate;
+  }
+
+  get showModelCreate() {
+    return this.isShowModalCreate;
+  }
+
+  onSubmitForm(): void {
     if (this.form.valid) {
           this._service.register(this.MapperValuesToModel()).subscribe(
-            () => console.log("registrado"),
+            () => {
+              console.log("registrado")
+              this.changeStatusModalCreate();
+            }
           );
       this.form.reset();
     } else {

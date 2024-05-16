@@ -1,14 +1,14 @@
 <div class="modal">
-    <section class="modal__section">
+    <section class="modal__section" *ngIf="!showModelCreate">
 
         <header class="section__header">
             <h2>{{ titleForm }}</h2>
-            <button class="header__button" (click)="OnCloseForm()">
+            <button class="header__button" (click)="onCloseForm()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </header>
 
-        <form class="section__form" [formGroup]="form" (ngSubmit)="OnsubmitForm()">
+        <form class="section__form" [formGroup]="form" (ngSubmit)="onSubmitForm()">
 
             <div *ngFor="let data of dataInputContent" class="form__container" >
                 <label class="container__label"> {{ data.label }} </label>
@@ -31,4 +31,11 @@
             <app-button [itemButton]="itemButton"></app-button>
         </form>
     </section>
+
+    <app-modal *ngIf="showModelCreate" 
+        [titleModal]="titleModal" 
+        (closeModal)="onCloseModals()">
+    </app-modal>
 </div>
+
+
