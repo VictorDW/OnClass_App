@@ -1,0 +1,25 @@
+@import './../../../../../styles/_variables.scss';
+
+.alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb($error-color, 0.8 );
+  padding: 20px;
+  z-index: 10;
+  border-radius: 1.25em;
+  transition: all 0.3s ease-in-out;
+}
+
+.alert__message {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #fff;
+}
+
+.fa-circle-exclamation {
+  color: #fff;
+  font-size: 1rem;
+ }

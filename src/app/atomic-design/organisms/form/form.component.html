@@ -1,0 +1,41 @@
+<div class="modal">
+    <section class="modal__section" *ngIf="!showModelCreate">
+
+        <header class="section__header">
+            <h2>{{ titleForm }}</h2>
+            <button class="header__button" (click)="onCloseForm()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </header>
+
+        <form class="section__form" [formGroup]="form" (ngSubmit)="onSubmitForm()">
+
+            <div *ngFor="let data of dataInputContent" class="form__container" >
+                <label class="container__label"> {{ data.label }} </label>
+                <input class="container__input"
+                    type="text"
+                    [formControlName]="data.controle"
+                    [placeholder]="data.placeholder"
+                    [ngClass]="{ 'input--invalid': verifyError(data.controle) }"
+                    autofocus>
+
+                <div class="alert">
+                  <span *ngIf="verifyError(data.controle)" class="alert__message--error">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    {{ this.validationService.getErrorMessage(data.controle, form)}}
+                  </span>
+                </div>
+
+            </div>
+
+            <app-button [itemButton]="itemButton" [disabled]="this.disableButton()"></app-button>
+        </form>
+    </section>
+
+    <app-modal *ngIf="showModelCreate" 
+        [titleModal]="titleModal" 
+        (closeModal)="onCloseModals()">
+    </app-modal>
+</div>
+
+

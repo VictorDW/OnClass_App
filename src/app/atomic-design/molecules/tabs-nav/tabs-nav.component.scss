@@ -1,0 +1,47 @@
+@import './../../../../styles/_variables.scss';
+
+.tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-left: 30px;
+    margin-top: 47px;
+    list-style: none;
+    text-align: center;
+    border-bottom: 2px solid $primary-color;
+}
+
+.tabs__item{
+    transition: all, 0.1s ease;
+    padding-bottom: 1.25rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.tabs__item::after{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: -3px;
+    background-color: $primary-color;
+    border-radius: 10em;
+    box-shadow: 0 -4px 20px $primary-color;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.tabs__item:hover::after {
+  opacity: 1;
+}
+
+.tabs__item:hover, .tabs__item--active {
+    font-weight: bold;
+}
+
+.tabs__item--active::after {
+  opacity: 1;
+}
+

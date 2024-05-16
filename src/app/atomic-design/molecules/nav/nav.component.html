@@ -1,0 +1,17 @@
+<nav class="nav">
+
+ <app-image class="nav__logo" classImg="logo__nav" [pathImg]="pathImg"></app-image>
+
+  <ul class="nav_items">
+    <li class="nav__item" *ngFor="let item of navItems"  routerLinkActive="active_link">
+      <app-link 
+        class="nav__link" 
+        [classLink]="'link--nav'" 
+        [classIcon]="'link__a--nav'" 
+        [itemNav]="item._link" 
+        routerLink="{{item._href}}">
+      </app-link>
+    </li>
+  </ul>
+
+</nav>

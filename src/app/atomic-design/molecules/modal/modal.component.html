@@ -1,0 +1,12 @@
+<section class="modal-alert">
+    <button class="modal-alert__button" (click)="OncloseModal()">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <i class="fa-solid fa-circle-check"></i>
+    <h2 class=" modal-alert__title"> {{ titleModal }}</h2>
+    <app-button 
+        [itemButton]="itemButton" 
+        (click)="OncloseModal()">
+    </app-button>
+</section>

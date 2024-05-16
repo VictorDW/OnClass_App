@@ -1,0 +1,34 @@
+
+
+  <main *ngIf="showContent(); else create">
+    <div class="order"><p>ordenamiento</p></div>
+    <div><p>listar tecnologia</p></div>
+    <div>boton</div>
+    <div>paginación</div>
+  </main>
+
+  <ng-template #create>
+
+    <article class="technology">
+
+      <div class="technology__text-container">
+        <p class="technology__text">Crea una tecnología</p>
+      </div>
+
+      <app-button class="technology__button" [itemButton]="dataButton" (click)="changeStateFrom()"></app-button>
+
+    </article>
+  </ng-template>
+
+  <app-form *ngIf="showFrom"
+     [titleForm]="titleForm"
+     [titleModal]="titleModal"
+     [dataInputContent]="dataInputContent"
+     (closeForm)="changeStateFrom()">
+  </app-form>
+
+
+
+
+
+

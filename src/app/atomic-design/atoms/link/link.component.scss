@@ -1,0 +1,38 @@
+
+@import './../../../../styles/variables.scss';
+
+
+.link {
+  color: $primary-color;
+}
+
+
+.link--nav {
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+  height: 30px;
+  padding-left: 1rem;
+  box-sizing: border-box;
+}
+
+.link__a--nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: $medium-text;
+
+  & i {
+    font-size: 1rem;
+  }
+}
+
+.link--tabs {
+  padding: 0 1rem;
+}
+
+.link__a--tabs {
+  font-size: $medium-text
+}
+
+

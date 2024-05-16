@@ -1,0 +1,21 @@
+@import './../../../../styles/variables.scss';
+
+.header {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  height: 70px;
+  background-color: rgb($primary-color, 0.7);
+  border-radius: 0 0 1.5em 0;
+}
+
+/*.header::before {
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+}*/
+
+.header__img {
+  width: 50px;
+  margin-right: 115px;
+}

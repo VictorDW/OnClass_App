@@ -1,0 +1,4 @@
+<button class="button" autofocus [disabled]="this.isDisabled"  [ngClass]=" {'button--disabled' : this.isDisabled}">
+    <i *ngIf="itemButton.showIcon" [class]="itemButton.icon" class="button__icon"></i>
+    <span class="button__text">{{ itemButton.text }}</span>
+</button>

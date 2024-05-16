@@ -1,0 +1,46 @@
+@import './../../../../styles/_variables.scss';
+
+.modal-alert {
+    display: flex;
+    flex-direction: column;
+    width: 394px;
+    position: relative;
+    padding: 32px 23px;
+    border-radius: 25px;
+    background-color: white;
+    overflow: hidden; 
+    align-items: center;
+    gap: 15px;
+}
+
+.modal-alert__button {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    right: 20px;
+    background-color: transparent;
+    color: $primary-color;
+    border: none;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+
+    & i {
+      font-size: 1.5rem;
+    }
+
+    &:hover{
+        transform: scale(1.2);
+    }
+}
+
+.fa-circle-check{
+    color: #00b880;
+    font-size: 5rem;
+    right: 50%;
+}
+
+.modal-alert__title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #141413;
+}
