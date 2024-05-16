@@ -5,6 +5,8 @@ import { ValidationTechnologyService } from 'src/app/shared/service/validations/
 import {TechnologyUseCaseService} from "../../../domain/usecase/technology-use-case.service";
 import {ValidationForm} from "../../../shared/service/interface/validation";
 import {ServiceForm} from "../../../domain/interface/api-service";
+import {ResponseMessages, Models} from "../../../shared/constants/constants";
+
 
 @Component({
   selector: 'app-content-technology',
@@ -20,15 +22,19 @@ export class ContentTechnologyComponent {
 
   private _isShowContent = false;
   private _isShowFrom = false;
+
   dataButton!: buttonStructure
   dataInputContent!: InputContentStructure[]
-  titleForm: string = 'Crear tecnología';
-  titleModal: string = '¡Tecnología creada!';
+  titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.TECHNOLOGY);
+  titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.TECHNOLOGY);
 
   constructor() {
-
       this.fillContentInput();
       this.fillContentButton()
+  }
+
+  get showFrom() {
+    return this._isShowFrom;
   }
 
   showContent(): boolean {
@@ -37,10 +43,6 @@ export class ContentTechnologyComponent {
 
   changeStateFrom(): void {
     this._isShowFrom = !this._isShowFrom;
-  }
-
-  showFrom(): boolean {
-   return this._isShowFrom;
   }
 
   fillContentButton(): void {

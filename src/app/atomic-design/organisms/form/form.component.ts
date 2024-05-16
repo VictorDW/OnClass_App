@@ -4,6 +4,8 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { FormGroup } from '@angular/forms';
 import { ValidationForm } from '../../../shared/service/interface/validation';
 import {ServiceForm} from "../../../domain/interface/api-service";
+import { AlertService } from 'src/app/shared/service/alert.service';
+import { ResponseMessages } from 'src/app/shared/constants/constants';
 
 type ObjectModelStructure = {
   [key: string]: string
@@ -18,15 +20,18 @@ type ObjectModelStructure = {
 export class FormComponent implements OnInit {
 
   @Input() titleForm: string = '';
-  @Input() dataInputContent!: InputContentStructure[];
   @Input() titleModal: string = '';
+  @Input() dataInputContent!: InputContentStructure[];
   @Output() closeForm = new EventEmitter<void>();
 
   form: FormGroup = new FormGroup({});
   itemButton!: buttonStructure;
   isShowModalCreate: boolean = false;
 
-  constructor(private _validationService: ValidationForm, private _service: ServiceForm) {
+  constructor(private _validationService: ValidationForm, 
+    private _service: ServiceForm, 
+    private _alertService: AlertService) {
+      
     this.fillContentButton()
   }
 
@@ -36,6 +41,10 @@ export class FormComponent implements OnInit {
 
   get validationService() {
     return this._validationService
+  }
+
+  get showModelCreate() {
+    return this.isShowModalCreate;
   }
 
   fillContentButton(): void {
@@ -59,22 +68,21 @@ export class FormComponent implements OnInit {
     this.isShowModalCreate = !this.isShowModalCreate;
   }
 
-  get showModelCreate() {
-    return this.isShowModalCreate;
+  onSubmitForm(): void {
+
+    if (this.form.valid) {
+          this._service.register(this.MapperValuesToModel())
+            .subscribe(() => 
+              this.changeStatusModalCreate());
+          this.form.reset();
+    } else {
+      this._alertService.showAlert(ResponseMessages.INVALID_FORM)
+    }
   }
 
-  onSubmitForm(): void {
-    if (this.form.valid) {
-          this._service.register(this.MapperValuesToModel()).subscribe(
-            () => {
-              console.log("registrado")
-              this.changeStatusModalCreate();
-            }
-          );
-      this.form.reset();
-    } else {
-      console.log("no deja pasar las validaciones");
-    }
+  disableButton(): boolean {
+    //return !this.form.dirty;
+    return this.form.invalid;
   }
 
   MapperValuesToModel(): ObjectModelStructure {
