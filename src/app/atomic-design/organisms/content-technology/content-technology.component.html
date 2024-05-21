@@ -1,11 +1,17 @@
 
 
-  <main *ngIf="showContent(); else create">
-    <div class="order"><p>ordenamiento</p></div>
-    <div><p>listar tecnologia</p></div>
-    <div>boton</div>
-    <div>paginación</div>
+ <!-- <main *ngIf="showContent; else create">
+    <section>
+      <ul>
+        <li *ngFor="let technology of technologies">
+          <span> {{ technology.name }}</span>
+          <p> {{ technology.description }}</p>
+        </li>
+      </ul>
+    </section>
   </main>
+ -->
+ <app-list-models *ngIf="displayContentList; else create" (displayContent)="changeVisibilityModelList($event)"></app-list-models>
 
   <ng-template #create>
 

@@ -1,0 +1,11 @@
+<main>
+    <section>
+      <ul>
+        <li *ngFor="let model of models">
+          <span> {{ model.name }}</span>
+          <p> {{ model.description }}</p>
+        </li>
+      </ul>
+      <button (click)="updateSelectedSize(1)"> aumentar la cantidad de elementos</button>
+    </section>
+  </main>

@@ -1,7 +1,8 @@
 import {Observable} from "rxjs";
-import {Technology} from "../models/technology";
+import {Technologies, Technology} from "../models/technology";
+import { Pagination } from "../interface/pagination";
 
 export abstract class TechnologyGateway {
   abstract registerTechnology(technology: Technology): Observable<void>;
-  abstract getTechnologies(): Observable<Technology[]>;
+  abstract getTechnologies(pagination: Pagination): Observable<Technologies>;
 }

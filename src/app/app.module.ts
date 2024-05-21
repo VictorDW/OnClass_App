@@ -22,6 +22,7 @@ import {TechnologyApiService} from "./infraestructure/driven-adapter/technology-
 import {TokenInterceptor} from "./shared/token/token.interceptor";
 import { AlertComponent } from './atomic-design/atoms/alert/alert/alert.component';
 import { ModalComponent } from './atomic-design/molecules/modal/modal.component';
+import { ListModelsComponent } from './atomic-design/organisms/list-models/list-models.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ModalComponent } from './atomic-design/molecules/modal/modal.component'
     ContentCapacityComponent,
     FormComponent,
     AlertComponent,
-    ModalComponent
+    ModalComponent,
+    ListModelsComponent
   ],
   imports: [
     BrowserModule,
