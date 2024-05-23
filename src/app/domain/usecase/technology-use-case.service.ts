@@ -4,7 +4,7 @@ import { Technologies, Technology} from "../models/technology";
 import { TechnologyGateway} from "../gateway/technology-gateway";
 import { GetService, ServiceForm } from "../interface/api-service";
 import { HandlerErrorService } from 'src/app/shared/service/handler/handler-error.service';
-import { AlertService } from 'src/app/shared/service/alert.service';
+import { AlertService } from 'src/app/shared/service/observables/alert.service';
 import { Pagination } from '../interface/pagination';
 
 @Injectable()
