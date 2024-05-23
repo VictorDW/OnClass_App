@@ -1,11 +1,16 @@
-<main>
-    <section>
-      <ul>
-        <li *ngFor="let model of models">
-          <span> {{ model.name }}</span>
-          <p> {{ model.description }}</p>
-        </li>
-      </ul>
-      <button (click)="updateSelectedSize(1)"> aumentar la cantidad de elementos</button>
-    </section>
-  </main>
+<main class="model-container">
+  <div class="model-container__select">
+    <select name="select-size" class="select__size" [(ngModel)]="selectedSize" (change)="updateSelectedSize()">
+      <option class="size__option" *ngFor="let option of optionSize" [value]="option.value">{{ option.name }}</option>
+    </select> 
+  </div>
+  <section class="model-container__list">
+    <ul class="list__models" *ngFor="let model of models">
+       <li class="models__model" >
+        <span class="model__name"> {{ model.name }}</span>
+        <p class="model__description"> {{ model.description }}</p>
+      </li>
+      <button class="fa-solid fa-ellipsis-vertical"></button>
+    </ul>
+  </section>
+</main>

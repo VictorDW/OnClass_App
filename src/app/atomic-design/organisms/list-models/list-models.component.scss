@@ -1,0 +1,65 @@
+@import '../../../../styles/_variables.scss';
+
+.model-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    height: 100vh;
+}
+
+.model-container__select {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    margin-right: 104px;
+}
+
+.select__size {
+    height: 35px;
+    font-size: $medium-text;
+    padding: 5px;
+    margin-right: 10px;
+    color: $primary-color;
+    border-radius: 5px;
+    border: none;
+    //appearance: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.size__option:hover {
+    background: #ff8000;
+    color: white;
+}
+
+.model-container__list {
+    padding: 0 150px 0 28px;
+    max-height: calc(100vh - 455px);
+    overflow-y: auto;
+}
+
+.list__models {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $primary-color;
+}
+
+.models__model {
+    list-style: none;
+    padding: 1rem;
+    width: 80%;
+}
+
+.model__name {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.model__description {
+    font-size: $medium-text;
+    color: #141413;
+}
