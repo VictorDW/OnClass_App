@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {TechnologyGateway} from "../../../domain/gateway/technology-gateway";
-import {Technologies, Technology} from "../../../domain/models/technology";
-import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {Endpoints, environment} from "../../../../environments/environment";
-import { Pagination } from 'src/app/domain/interface/pagination';
+import { TechnologyGateway } from "../../../domain/gateway/technology-gateway";
+import { Technologies, Technology } from "../../../domain/models/technology";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Endpoints, environment } from "../../../../environments/environment";
+import { Pagination, KeyEnum } from 'src/app/domain/interface/pagination';
 
 @Injectable()
 export class TechnologyApiService implements TechnologyGateway {
@@ -17,6 +17,6 @@ export class TechnologyApiService implements TechnologyGateway {
   }
 
   getTechnologies(pagination: Pagination): Observable<Technologies> {
-    return this.httpClient.get<Technologies>(`${this._url}?size=${pagination.size}`);
+    return this.httpClient.get<Technologies>(`${this._url}?size=${pagination[KeyEnum.SIZE]}`);
   }
 }

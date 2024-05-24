@@ -1,3 +1,7 @@
 export interface Pagination {
-    size: number;
+    size: number | string;
+}
+
+export enum KeyEnum {
+  SIZE = 'size'
 }

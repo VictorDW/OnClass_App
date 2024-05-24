@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 
 type OptionSelect = {
@@ -14,17 +14,15 @@ type OptionSelect = {
 export class SelectComponent implements OnInit{
 
   @Input() options!: OptionSelect[];
+  @Output() valueOptionSelected = new EventEmitter<number | string>();
 
   selectedOption!: string;
-  selectedValue!: number | string;
   display: boolean = false;
   
-
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
     this.selectedOption = this.options[0].name;
-    this.selectedValue = this.options[0].value;
   }
 
   @HostListener('document:click', ['$event'])
@@ -40,9 +38,10 @@ export class SelectComponent implements OnInit{
 
   onSelectOption({name, value}: OptionSelect): void {
     this.selectedOption = name;
-    this.selectedValue = value;
-    console.log(value);
+    this.emitValue(value);
   }
 
-
+  emitValue(selectedValue: number | string): void {
+    this.valueOptionSelected.emit(selectedValue);
+  }
 }

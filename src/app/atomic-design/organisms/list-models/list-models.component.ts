@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { GetService } from 'src/app/domain/interface/api-service';
-import { Pagination } from 'src/app/domain/interface/pagination';
+import { Pagination, KeyEnum } from 'src/app/domain/interface/pagination';
 import { Technology } from 'src/app/domain/models/technology';
 import { ListModelService } from 'src/app/shared/service/observables/list-model.service';
 
@@ -22,12 +22,13 @@ export class ListModelsComponent {
   private _paginationDate!: Pagination;
 
   optionSize!: OptionSelect[];
-  selectedSize: number;
+  size!: number;
   models: Technology[] = [];
+  KeyEnum = KeyEnum;
   
   constructor(private getService: GetService, private _serviceListModel: ListModelService) {
     this.fillContentSelectSize();
-    this.selectedSize = this.optionSize[0].value;
+    this.loadInitialValues();
     this.fillObjectPagination();
     this._serviceListModel.loadDate(this.getService, this._paginationDate);
     this.populateModelList();
@@ -41,11 +42,15 @@ export class ListModelsComponent {
     ]
   } 
 
-  fillObjectPagination() {
-    this._paginationDate = {
-      size: this.selectedSize,
-    }
+  loadInitialValues(): void {
+    this.size = this.optionSize[0].value;
   }
+
+ fillObjectPagination(): void {
+    this._paginationDate = {
+      size: this.size,
+    }
+ }
 
   private populateModelList(): void {
     this._serviceListModel.modelObservable$.subscribe((data) => {
@@ -62,8 +67,8 @@ export class ListModelsComponent {
     this.displayContent.emit(status);
   }
 
-  updateSelectedSize(): void {
-    this._paginationDate.size = this.selectedSize;
+  updateSelectedValue(key: KeyEnum , newValue: number | string): void {
+    this._paginationDate[key] = newValue;
     this.updateList(this._paginationDate);
   }
 

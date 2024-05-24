@@ -1,12 +1,6 @@
 <main class="model-container">
-
-  <!--<div class="model-container__select">
-    <select name="select-size" class="select__size" [(ngModel)]="selectedSize" (change)="updateSelectedSize()">
-      <option class="size__option" *ngFor="let option of optionSize" [value]="option.value">{{ option.name }}</option>
-    </select> 
-  </div>-->
   
-  <app-select class="model-container__select" [options]="optionSize"></app-select>
+  <app-select class="model-container__select" [options]="optionSize" (valueOptionSelected)="updateSelectedValue(KeyEnum.SIZE, $event)"></app-select>
 
   <section class="model-container__list">
     <ul class="list__models" *ngFor="let model of models">
