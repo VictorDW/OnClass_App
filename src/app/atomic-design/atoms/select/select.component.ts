@@ -28,7 +28,7 @@ export class SelectComponent implements OnInit{
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.displayOptions();
+      this.display = false;
     }
   }
 
