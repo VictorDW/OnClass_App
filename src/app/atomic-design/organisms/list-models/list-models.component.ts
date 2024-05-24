@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { BehaviorSubject, Observable, count, switchMap } from 'rxjs';
 import { GetService } from 'src/app/domain/interface/api-service';
 import { Pagination } from 'src/app/domain/interface/pagination';
-import { Technologies, Technology } from 'src/app/domain/models/technology';
+import { Technology } from 'src/app/domain/models/technology';
 import { ListModelService } from 'src/app/shared/service/observables/list-model.service';
 
 type OptionSelect = {
@@ -27,14 +26,14 @@ export class ListModelsComponent {
   models: Technology[] = [];
   
   constructor(private getService: GetService, private _serviceListModel: ListModelService) {
-    this.fillContentSelect();
+    this.fillContentSelectSize();
     this.selectedSize = this.optionSize[0].value;
     this.fillObjectPagination();
     this._serviceListModel.loadDate(this.getService, this._paginationDate);
     this.populateModelList();
   }
 
-  fillContentSelect(){
+  fillContentSelectSize(){
     this.optionSize = [
       {value: 2, name: "2 por página"},
       {value: 5, name: "5 por página"},

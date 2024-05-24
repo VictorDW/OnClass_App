@@ -1,0 +1,12 @@
+<section class="select" (click)="displayOptions()">
+    <div class="select__size">
+        <span>{{selectedOption}}</span>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="select__container" [ngClass]="{ 'show': display}">
+        <div class="container__option" *ngFor="let option of options" (click)="onSelectOption(option)">
+            {{ option.name }}
+        </div>
+    </div>
+</section>
