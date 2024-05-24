@@ -1,14 +1,20 @@
 <main class="model-container">
   
-  <app-select class="model-container__select" [options]="optionSize" (valueOptionSelected)="updateSelectedValue(KeyEnum.SIZE, $event)"></app-select>
+  <app-select 
+    class="model-container__select" 
+    [options]="optionSize" 
+    (valueOptionSelected)="updateSelectedValue(KeyEnum.SIZE, $event)">
+  </app-select>
 
   <section class="model-container__list">
     <ul class="list__models" *ngFor="let model of models">
-       <li class="models__model" >
+      <li class="models__model" >
         <span class="model__name"> {{ model.name }}</span>
         <p class="model__description"> {{ model.description }}</p>
       </li>
-      <button class="fa-solid fa-ellipsis-vertical"></button>
+      <button class="models__btn fa-solid fa-ellipsis-vertical "></button>
     </ul>
   </section>
+
+  
 </main>
