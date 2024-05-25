@@ -9,6 +9,11 @@ type OptionSelect = {
   name: string
 }
 
+type ButtonDirection = {
+  icon: string,
+  text: string
+}
+
 @Component({
   selector: 'app-list-models',
   templateUrl: './list-models.component.html',
@@ -22,33 +27,56 @@ export class ListModelsComponent {
   private _paginationDate!: Pagination;
 
   optionSize!: OptionSelect[];
+  buttonDirection!: ButtonDirection;
   size!: number;
+  direction!: string
   models: Technology[] = [];
   KeyEnum = KeyEnum;
   
   constructor(private getService: GetService, private _serviceListModel: ListModelService) {
     this.fillContentSelectSize();
+    this.fillContentButton();
     this.loadInitialValues();
     this.fillObjectPagination();
     this._serviceListModel.loadDate(this.getService, this._paginationDate);
     this.populateModelList();
   }
 
-  fillContentSelectSize(){
+  private fillContentSelectSize(){
     this.optionSize = [
       {value: 2, name: "2 por página"},
       {value: 5, name: "5 por página"},
       {value: 10, name: "10 por página"}
     ]
-  } 
+  }
+
+  private fillContentButton(): void {
+    this.buttonDirection = {
+      icon: 'fa-solid fa-arrow-up-wide-short',
+      text: 'ASC'
+    };
+  }
 
   loadInitialValues(): void {
     this.size = this.optionSize[0].value;
+    this.direction = this.buttonDirection.text;
   }
 
- fillObjectPagination(): void {
+  changeStateDirection() {
+    if (this.buttonDirection.text !== 'ASC') {
+      this.buttonDirection = {icon: 'fa-solid fa-arrow-up-wide-short', text: 'ASC'};
+      
+    } else {
+      this.buttonDirection = {icon: 'fa-solid fa-arrow-down-wide-short', text: 'DESC'};
+    }
+
+    this.updateValue(KeyEnum.DIRECTION, this.buttonDirection.text);
+  }
+
+ private fillObjectPagination(): void {
     this._paginationDate = {
       size: this.size,
+      direction: this.direction,
     }
  }
 
@@ -67,7 +95,7 @@ export class ListModelsComponent {
     this.displayContent.emit(status);
   }
 
-  updateSelectedValue(key: KeyEnum , newValue: number | string): void {
+  updateValue(key: KeyEnum , newValue: number | string): void {
     this._paginationDate[key] = newValue;
     this.updateList(this._paginationDate);
   }

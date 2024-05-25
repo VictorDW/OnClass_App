@@ -2,14 +2,12 @@
   
 
   <section class="model-container__order">
-   <!-- <app-button 
-      [itemButton]="dataButton" 
-      (click) ="changeStateDirection()">
-    </app-button> -->
+
     <button class="order__btn" (click)="changeStateDirection()">
-      <i [class]="dataButton.icon"></i>
-      <span>{{ dataButton.text }}</span>
+      <i [class]="buttonDirection.icon"></i>
+      <span>{{ buttonDirection.text }}</span>
     </button>
+    
     <app-select 
       [options]="optionSize" 
       (valueOptionSelected)="updateValue(KeyEnum.SIZE, $event)">
