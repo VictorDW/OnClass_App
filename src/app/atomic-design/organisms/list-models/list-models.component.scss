@@ -103,3 +103,21 @@
         background: transparent;
     }
 }
+
+.pagination {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.paginationIcon {
+    font-size: $medium-text;
+    color: $primary-color;
+}
+
+.paginationIcon--hidden {
+    display: none;
+}
+
+.page {
+    cursor: pointer;
+}

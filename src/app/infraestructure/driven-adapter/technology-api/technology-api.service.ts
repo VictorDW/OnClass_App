@@ -17,6 +17,6 @@ export class TechnologyApiService implements TechnologyGateway {
   }
 
   getTechnologies(pagination: Pagination): Observable<Technologies> {
-    return this.httpClient.get<Technologies>(`${this._url}?size=${pagination[KeyEnum.SIZE]}&direction=${pagination[KeyEnum.DIRECTION]}`);
+    return this.httpClient.get<Technologies>(`${this._url}?size=${pagination[KeyEnum.SIZE]}&direction=${pagination[KeyEnum.DIRECTION]}&page=${pagination[KeyEnum.PAGE]}`);
   }
 }
