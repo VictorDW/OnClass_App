@@ -76,7 +76,7 @@ export class ListModelsComponent {
     }
 
     if(this.currentPage < this.pageAmount && this.currentPage !== this.pageAmount) { //LLena el array con tres numeros, sin superar la cantidad total de paginas ni la pagina actual + dos posiciones mas
-      console.log("entra 1")
+      
       for(let index = this.currentPage; (index <= this.pageAmount) && (index <= (this.currentPage + this.constants.TWO_VALUE) ); index++) {
         
         this.pageNumbers.push({
@@ -88,10 +88,10 @@ export class ListModelsComponent {
       
     }
 
-   if(this.pageAmount >= this.constants.TWO_VALUE) {//Solo aplica cuando hay mas de tres paginas
+   if(this.pageAmount >= this.constants.TWO_VALUE) {//Solo aplica cuando hay mas de do paginas
 
       if(this.currentPage === this.pageAmount) {//LLena el array con tres numeros, pero esta vez desde la ultima pagina hasta la penultima
-        console.log("entra 2")
+        
         for(let index = this.currentPage; index >= (this.pageAmount - this.constants.TWO_VALUE); index--) {
           if(index >= this.constants.ONE_VALUE) {
             this.pageNumbers.unshift({
@@ -106,13 +106,10 @@ export class ListModelsComponent {
         
         const penulPosition = this.pageAmount - this.constants.TWO_VALUE
         
-      //  if(penulPosition >= this.constants.ONE_VALUE) {
-
           this.pageNumbers.unshift({
             contents: String(penulPosition), 
             value: penulPosition,
           });
-      //  }
       }
 
       //agrega un string "..." y la ultima posición, si la suma entre la pagina actual y tres posciones mas siguen siendo menor al total de paginas
@@ -155,10 +152,9 @@ export class ListModelsComponent {
   }
 
   paginate(value: number): void {
-    console.log(value);
     this.currentPage = value;
     this.pageNumbers = this.getPageNumbers();
-    this.updateValue(KeyEnum.PAGE, (this.currentPage - 1));
+    this.updatePage(this.currentPage - 1);
   }
 
   private fillContentSelectSize(){
@@ -182,14 +178,12 @@ export class ListModelsComponent {
   }
 
   changeStateDirection() {
-    if (this.buttonDirection.text !== 'ASC') {
-      this.buttonDirection = {icon: 'fa-solid fa-arrow-up-wide-short', text: 'ASC'};
-      
-    } else {
-      this.buttonDirection = {icon: 'fa-solid fa-arrow-down-wide-short', text: 'DESC'};
-    }
-
-    this.updateValue(KeyEnum.DIRECTION, this.buttonDirection.text);
+    
+    this.buttonDirection =  (this.buttonDirection.text != 'ASC') ? 
+    {icon: 'fa-solid fa-arrow-up-wide-short', text: 'ASC'} : 
+    {icon: 'fa-solid fa-arrow-down-wide-short', text: 'DESC'};
+    
+    this.updateDirection(this.buttonDirection.text);
   }
 
  private fillObjectPagination(): void {
@@ -204,13 +198,13 @@ export class ListModelsComponent {
     this._serviceListModel.modelObservable$.subscribe((data) => {
       this.displayContentStatus(!data.empty);
       this.models = data.content;
+      this.currentPage = data.pageNumber + 1;
       this.pageAmount = data.totalPages;
       this.pageNumbers = this.getPageNumbers();
     });
   }
 
   private updateList(paginationDate: Pagination): void {
-    console.log(paginationDate);
    this._serviceListModel.updateObservable(paginationDate);
   }
 
@@ -218,9 +212,23 @@ export class ListModelsComponent {
     this.displayContent.emit(status);
   }
 
-  updateValue(key: KeyEnum , newValue: number | string): void {
-    this._paginationDate[key] = newValue;
+  updateSize(value: number): void {
+    this._paginationDate.size = value;
+    this._paginationDate.page = 0;
+    console.log(this._paginationDate)
     this.updateList(this._paginationDate);
   }
+
+  updateDirection(direction: string): void {
+    this._paginationDate.direction = direction;
+    this.updateList(this._paginationDate);
+  }
+
+  updatePage(value: number): void {
+    this._paginationDate.page = value;
+    console.log(this._paginationDate)
+    this.updateList(this._paginationDate);
+  }
+
 
 }

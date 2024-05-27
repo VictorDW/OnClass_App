@@ -1,7 +1,7 @@
 export interface Pagination {
-    size: number | string;
-    direction: number | string
-    page: number | string
+    size: number;
+    direction: string
+    page: number
 }
 
 export enum KeyEnum {
