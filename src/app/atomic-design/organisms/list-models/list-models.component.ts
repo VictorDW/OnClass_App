@@ -61,45 +61,58 @@ export class ListModelsComponent {
     this.fillObjectPagination();
     this._serviceListModel.loadDate(this.getService, this._paginationDate);
     this.populateModelList();
-    //this.pageNumbers = this.getPageNumbers();
   }
 
 
    getPageNumbers(): Pages[] {
 
     this.pageNumbers = [];
-    console.log(this.pageAmount)
 
-    if(this.currentPage < this.pageAmount) { //LLena el array con tres numeros, sin superar la cantidad total de paginas ni la pagina actual + dos posiciones mas
-      
+    if(this.currentPage === this.constants.ONE_VALUE && this.pageAmount == this.constants.ONE_VALUE) {
+      this.pageNumbers.push({
+        contents: String(this.constants.ONE_VALUE), 
+        value: this.constants.ONE_VALUE
+      });
+    }
+
+    if(this.currentPage < this.pageAmount && this.currentPage !== this.pageAmount) { //LLena el array con tres numeros, sin superar la cantidad total de paginas ni la pagina actual + dos posiciones mas
+      console.log("entra 1")
       for(let index = this.currentPage; (index <= this.pageAmount) && (index <= (this.currentPage + this.constants.TWO_VALUE) ); index++) {
+        
         this.pageNumbers.push({
           contents: String(index), 
           value: index
         });
       }
+
+      
     }
 
-    if(this.pageAmount >= this.constants.THREE_VALUE) {//Solo aplica cuando hay mas de tres paginas
+   if(this.pageAmount >= this.constants.TWO_VALUE) {//Solo aplica cuando hay mas de tres paginas
 
       if(this.currentPage === this.pageAmount) {//LLena el array con tres numeros, pero esta vez desde la ultima pagina hasta la penultima
-        
+        console.log("entra 2")
         for(let index = this.currentPage; index >= (this.pageAmount - this.constants.TWO_VALUE); index--) {
-          this.pageNumbers.unshift({
-            contents: String(index), 
-            value: index, 
-          });
+          if(index >= this.constants.ONE_VALUE) {
+            this.pageNumbers.unshift({
+              contents: String(index), 
+              value: index, 
+            });
+          }
         }
       }
 
-      if(this.currentPage === (this.pageAmount - this.constants.ONE_VALUE)) { //Agrega la penultima posición, si se esta en la ante penultima pagina, ejemplo -> 9 -> array[8,9,10]
+      if(this.currentPage === (this.pageAmount - this.constants.ONE_VALUE) && (this.pageAmount - this.constants.TWO_VALUE) >= this.constants.ONE_VALUE) { //Agrega la penultima posición, si se esta en la ante penultima pagina, ejemplo -> 9 -> array[8,9,10]
         
         const penulPosition = this.pageAmount - this.constants.TWO_VALUE
         
-        this.pageNumbers.unshift({
-          contents: String(penulPosition), 
-          value: penulPosition,
+      //  if(penulPosition >= this.constants.ONE_VALUE) {
+
+          this.pageNumbers.unshift({
+            contents: String(penulPosition), 
+            value: penulPosition,
           });
+      //  }
       }
 
       //agrega un string "..." y la ultima posición, si la suma entre la pagina actual y tres posciones mas siguen siendo menor al total de paginas
@@ -113,7 +126,7 @@ export class ListModelsComponent {
           value: this.pageAmount,
         });
       }
-      
+
       //agrega la primera posición y  un string "...", cuando el tolal de paginas es mayor o igual a 4, y ademas la pagina actual es mayor o igual a la penultima pagina
       if(this.pageAmount >= this.constants.FOUR_VALUE && this.currentPage >= (this.pageAmount - this.constants.TWO_VALUE)) {
 
@@ -192,7 +205,6 @@ export class ListModelsComponent {
       this.displayContentStatus(!data.empty);
       this.models = data.content;
       this.pageAmount = data.totalPages;
-      console.log(this.pageAmount);
       this.pageNumbers = this.getPageNumbers();
     });
   }
