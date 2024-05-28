@@ -15,9 +15,8 @@ type ButtonDirection = {
 }
 
 type Pages = {
-  contents:  number | string ,
+  content:  number | string ,
   value: number,
-  className?: string
 }
 
 @Component({
@@ -51,10 +50,6 @@ export class ListModelsComponent {
     THREE_VALUE: 3,
     FOUR_VALUE: 4,
     DOTS_KEY: '...',
-    PAGINATION_NUMBER_CLASS: 'paginationNumber',
-    PAGINATION_DOTS_CLASS: 'paginationDots',
-    ACTIVE_CLASS: 'page--active',
-    EMPTY_STRING: '',
   };
 
   constructor(private getService: GetService, private _serviceListModel: ListModelService) {
@@ -66,7 +61,6 @@ export class ListModelsComponent {
     this._serviceListModel.loadDate(this.getService, this._paginationDate);
     this.populateModelList();
   }
-
 
 
   private createPagination(): Pages[] {
@@ -90,15 +84,17 @@ export class ListModelsComponent {
       this.addLastPage();
     }
 
-    console.log(this.currentPage);
     return this.pages;
   }
 
-  private createDataPage(text: string | number, value: number, className?: string): Pages {
+  isActivePage({value, content}: Pages): Boolean {
+    return value === this.currentPage && content !== this.constants.DOTS_KEY;
+  }
+
+  private createDataPage(text: string | number, value: number): Pages {
     return {
-      contents: text,
-      value: value,
-      className: className
+      content: text,
+      value: value
     };
   }
 
@@ -118,13 +114,13 @@ export class ListModelsComponent {
 
   private addSinglePage(): void {
     this.pages.push(
-      this.createDataPage(this.constants.ONE_VALUE, this.constants.ONE_VALUE, this.constants.ACTIVE_CLASS)
+      this.createDataPage(this.constants.ONE_VALUE, this.constants.ONE_VALUE)
     );
   }
 
   private addConsecutivePages(): void {
     for (let index = this.currentPage; (index <= this.totalPages) && (index <= (this.currentPage + this.constants.TWO_VALUE)); index++) {
-      this.pages.push(this.createDataPage(index, index, (index === this.currentPage) ? this.constants.ACTIVE_CLASS : ''));
+      this.pages.push(this.createDataPage(index, index));
     }
   }
 
@@ -136,7 +132,7 @@ export class ListModelsComponent {
       const beforePenultimatePage = this.totalPages - this.constants.TWO_VALUE;
 
       for(let index = this.currentPage; (index >= beforePenultimatePage) && (index >= this.constants.ONE_VALUE); index--) {
-          this.pages.unshift(this.createDataPage(index, index, (index === this.currentPage) ? this.constants.ACTIVE_CLASS : ''));
+          this.pages.unshift(this.createDataPage(index, index));
       }
     }
   }
@@ -184,7 +180,7 @@ export class ListModelsComponent {
     }
   }
 
-  paginate(value: number): void {
+  setPaginate(value: number): void {
     this.currentPage = value;
     this.pages = this.createPagination();
     this.updatePage(this.currentPage - 1);
@@ -233,7 +229,7 @@ export class ListModelsComponent {
 
       this.displayContentStatus(!data.empty);
       this.models = data.content;
-      this.currentPage = data.pageNumber + 1;
+      this.currentPage = (data.pageNumber + 1);
       this.totalPages = data.totalPages;
       this.firstPage = data.first;
       this.lastPage = data.last;

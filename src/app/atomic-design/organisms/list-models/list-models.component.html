@@ -28,16 +28,18 @@
     <span 
       class="paginationIcon" 
       [ngClass]="{'paginationIcon--hidden': this.firstPage}"
-      (click)="paginate(currentPage - this.constants.ONE_VALUE)">
+      (click)="setPaginate(currentPage - this.constants.ONE_VALUE)">
         <i class="fa-solid fa-chevron-left"></i>
     </span>
 
-    <span class="page" [ngClass]="page.className" *ngFor="let page of pages" (click)="paginate(page.value)">{{page.contents}}</span>
+    <span class="page" [ngClass]="{'page--active': isActivePage(page)}" *ngFor="let page of pages" (click)="setPaginate(page.value)">
+      {{page.content}}
+    </span>
     
     <span 
       class="paginationIcon" 
       [ngClass]="{'paginationIcon--hidden': this.lastPage}" 
-      (click)="paginate(currentPage + this.constants.ONE_VALUE)">
+      (click)="setPaginate(currentPage + this.constants.ONE_VALUE)">
         <i class="fa-solid fa-chevron-right"></i>
     </span>
   </section>
