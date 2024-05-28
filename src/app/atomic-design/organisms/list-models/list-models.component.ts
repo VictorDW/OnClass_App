@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GetService } from 'src/app/domain/interface/api-service';
 import { Pagination, KeyEnum } from 'src/app/domain/interface/pagination';
 import { Technology } from 'src/app/domain/models/technology';
 import { ListModelService } from 'src/app/shared/service/observables/list-model.service';
+import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 
 type OptionSelect = {
   value: number, 
@@ -26,8 +27,9 @@ type Pages = {
 })
 
 export class ListModelsComponent {
-
+  @Input()  dataButton!: buttonStructure
   @Output() displayContent = new EventEmitter<boolean>();
+  @Output() showFrom = new EventEmitter<boolean>();
 
   private _paginationDate!: Pagination;
 
@@ -39,7 +41,7 @@ export class ListModelsComponent {
   KeyEnum = KeyEnum;
 
   pages: Pages[] = [];
-  currentPage = 1;
+  currentPage!: number;
   totalPages!: number;
   firstPage = true;
   lastPage = false;
@@ -62,6 +64,63 @@ export class ListModelsComponent {
     this.populateModelList();
   }
 
+
+  private fillContentSelectSize(){
+    this.optionSize = [
+      {value: 2, name: "2 por página"},
+      {value: 5, name: "5 por página"},
+      {value: 10, name: "10 por página"}
+    ]
+  }
+
+  private fillContentButton(): void {
+    this.buttonDirection = {
+      icon: 'fa-solid fa-arrow-up-wide-short',
+      text: 'ASC'
+    };
+  }
+
+
+  loadInitialValues(): void {
+    this.size = this.optionSize[0].value;
+    this.direction = this.buttonDirection.text;
+    this.currentPage = this.constants.ONE_VALUE;
+  }
+
+  changeStateDirection() {
+    
+    this.buttonDirection =  (this.buttonDirection.text != 'ASC') ? 
+    {icon: 'fa-solid fa-arrow-up-wide-short', text: 'ASC'} : 
+    {icon: 'fa-solid fa-arrow-down-wide-short', text: 'DESC'};
+    
+    this.updateDirection(this.buttonDirection.text);
+  }
+
+  displayFrom() {
+    return this.showFrom.emit(true);
+  }
+
+  private fillObjectPagination(): void {
+      this._paginationDate = {
+        size: this.size,
+        direction: this.direction,
+        page: (this.currentPage - 1)
+      }
+  }
+
+  private populateModelList(): void {
+
+    this._serviceListModel.modelObservable$.subscribe((data) => {
+
+      this.displayContentStatus(!data.empty);
+      this.models = data.content;
+      this.currentPage = (data.pageNumber + 1);
+      this.totalPages = data.totalPages;
+      this.firstPage = data.first;
+      this.lastPage = data.last;
+      this.pages = this.createPagination();
+    });
+  }
 
   private createPagination(): Pages[] {
 
@@ -97,7 +156,6 @@ export class ListModelsComponent {
       value: value
     };
   }
-
 
   private isSinglePage(): boolean {
     return this.currentPage === this.constants.ONE_VALUE && this.totalPages == this.constants.ONE_VALUE;
@@ -180,69 +238,18 @@ export class ListModelsComponent {
     }
   }
 
-  setPaginate(value: number): void {
-    this.currentPage = value;
-    this.pages = this.createPagination();
-    this.updatePage(this.currentPage - 1);
-  }
-
-  private fillContentSelectSize(){
-    this.optionSize = [
-      {value: 2, name: "2 por página"},
-      {value: 5, name: "5 por página"},
-      {value: 10, name: "10 por página"}
-    ]
-  }
-
-  private fillContentButton(): void {
-    this.buttonDirection = {
-      icon: 'fa-solid fa-arrow-up-wide-short',
-      text: 'ASC'
-    };
-  }
-
-  loadInitialValues(): void {
-    this.size = this.optionSize[0].value;
-    this.direction = this.buttonDirection.text;
-  }
-
-  changeStateDirection() {
-    
-    this.buttonDirection =  (this.buttonDirection.text != 'ASC') ? 
-    {icon: 'fa-solid fa-arrow-up-wide-short', text: 'ASC'} : 
-    {icon: 'fa-solid fa-arrow-down-wide-short', text: 'DESC'};
-    
-    this.updateDirection(this.buttonDirection.text);
-  }
-
-  private fillObjectPagination(): void {
-      this._paginationDate = {
-        size: this.size,
-        direction: this.direction,
-        page: (this.currentPage - 1)
-      }
-  }
-
-  private populateModelList(): void {
-
-    this._serviceListModel.modelObservable$.subscribe((data) => {
-
-      this.displayContentStatus(!data.empty);
-      this.models = data.content;
-      this.currentPage = (data.pageNumber + 1);
-      this.totalPages = data.totalPages;
-      this.firstPage = data.first;
-      this.lastPage = data.last;
-      this.pages = this.createPagination();
-    });
-  }
-
   private updateList(paginationDate: Pagination): void {
    this._serviceListModel.updateObservable(paginationDate);
   }
 
   displayContentStatus(status: boolean): void {
     this.displayContent.emit(status);
+  }
+
+  setPaginate(value: number): void {
+    this.currentPage = value;
+    this.pages = this.createPagination();
+    this.updatePage(this.currentPage - 1);
   }
 
   updateSize(value: number): void {

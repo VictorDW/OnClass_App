@@ -1,48 +1,57 @@
 <main class="model-container">
-  
+  <article class="model-container__article--models">  
+    <section class="model-container__order">
 
-  <section class="model-container__order">
+      <!-- botón para el ordenamiento -->
+      <button class="order__btn" (click)="changeStateDirection()">
+        <i [class]="buttonDirection.icon"></i>
+        <span>{{ buttonDirection.text }}</span>
+      </button>
+      
+       <!-- contenedor para el tamaño de resultados -->
+      <app-select 
+        [options]="optionSize" 
+        (valueOptionSelected)="updateSize(+$event)">
+      </app-select>
+    </section>
 
-    <button class="order__btn" (click)="changeStateDirection()">
-      <i [class]="buttonDirection.icon"></i>
-      <span>{{ buttonDirection.text }}</span>
-    </button>
+    <!-- listado de modelos -->
+    <section class="model-container__list">
+      <ul class="list__models" *ngFor="let model of models">
+        <li class="models__model" >
+          <span class="model__name"> {{ model.name }}</span>
+          <p class="model__description"> {{ model.description }}</p>
+        </li>
+        <button class="models__btn fa-solid fa-ellipsis-vertical "></button>
+      </ul>
+    </section>
+
+  </article>
+
+  <article class="model-container__article--pagination">
     
-    <app-select 
-      [options]="optionSize" 
-      (valueOptionSelected)="updateSize(+$event)">
-    </app-select>
-  </section>
+    <!-- botón para mostrar formulario -->
+    <app-button [itemButton]="dataButton" (click)="displayFrom()"></app-button>
 
-  <section class="model-container__list">
-    <ul class="list__models" *ngFor="let model of models">
-      <li class="models__model" >
-        <span class="model__name"> {{ model.name }}</span>
-        <p class="model__description"> {{ model.description }}</p>
-      </li>
-      <button class="models__btn fa-solid fa-ellipsis-vertical "></button>
-    </ul>
-  </section>
+    <!-- paginación -->
+    <section class="model-container__paginate">
+      <ul class="paginate__pages">
+        <li class="pages__page-icon page-icon--left" 
+          [ngClass]="{'page-icon--hidden': this.firstPage}"
+          (click)="setPaginate(currentPage - this.constants.ONE_VALUE)">
+            <i class="fa-solid fa-chevron-left"></i>
+        </li>
 
-  <section class="pagination">
-    <span 
-      class="paginationIcon" 
-      [ngClass]="{'paginationIcon--hidden': this.firstPage}"
-      (click)="setPaginate(currentPage - this.constants.ONE_VALUE)">
-        <i class="fa-solid fa-chevron-left"></i>
-    </span>
-
-    <span class="page" [ngClass]="{'page--active': isActivePage(page)}" *ngFor="let page of pages" (click)="setPaginate(page.value)">
-      {{page.content}}
-    </span>
-    
-    <span 
-      class="paginationIcon" 
-      [ngClass]="{'paginationIcon--hidden': this.lastPage}" 
-      (click)="setPaginate(currentPage + this.constants.ONE_VALUE)">
-        <i class="fa-solid fa-chevron-right"></i>
-    </span>
-  </section>
-
-
+        <li class="pages__page" [ngClass]="{'page--active': isActivePage(page)}" *ngFor="let page of pages" (click)="setPaginate(page.value)">
+          {{page.content}}
+        </li>
+        
+        <li class="pages__page-icon page-icon--right" 
+          [ngClass]="{'page-icon--hidden': this.lastPage}" 
+          (click)="setPaginate(currentPage + this.constants.ONE_VALUE)">
+            <i class="fa-solid fa-chevron-right"></i>
+        </li>
+      </ul>
+    </section>
+  </article>
 </main>

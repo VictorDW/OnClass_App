@@ -1,20 +1,14 @@
 
 
- <!-- <main *ngIf="showContent; else create">
-    <section>
-      <ul>
-        <li *ngFor="let technology of technologies">
-          <span> {{ technology.name }}</span>
-          <p> {{ technology.description }}</p>
-        </li>
-      </ul>
-    </section>
-  </main>
- -->
- <app-list-models *ngIf="displayContentList; else create" (displayContent)="changeVisibilityModelList($event)"></app-list-models>
+ <!-- contenedor para el listado de tecnologías -->
+  <app-list-models *ngIf="displayContentList; else create" 
+    [dataButton]="dataButton"
+    (displayContent)="changeVisibilityModelList($event)" 
+    (showFrom)="changeStateFrom()">
+  </app-list-models>
 
+  <!-- contenedor para crear una tecnologia -->
   <ng-template #create>
-
     <article class="technology">
 
       <div class="technology__text-container">
@@ -26,6 +20,7 @@
     </article>
   </ng-template>
 
+  <!-- formulario para crear una tecnologia -->
   <app-form *ngIf="showFrom"
      [titleForm]="titleForm"
      [titleModal]="titleModal"
