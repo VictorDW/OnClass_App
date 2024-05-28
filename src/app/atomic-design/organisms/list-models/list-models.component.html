@@ -24,19 +24,19 @@
     </ul>
   </section>
 
-  <section class="page pagination">
+  <section class="pagination">
     <span 
-      class="page paginationIcon" 
-      [ngClass]="{'paginationIcon--hidden': currentPage === constants.ONE_VALUE}"
+      class="paginationIcon" 
+      [ngClass]="{'paginationIcon--hidden': this.firstPage}"
       (click)="paginate(currentPage - this.constants.ONE_VALUE)">
         <i class="fa-solid fa-chevron-left"></i>
     </span>
 
-    <span class="page" *ngFor="let page of pageNumbers" (click)="paginate(page.value)">{{page.contents}}</span>
+    <span class="page" [ngClass]="page.className" *ngFor="let page of pages" (click)="paginate(page.value)">{{page.contents}}</span>
     
     <span 
-      class="page paginationIcon" 
-      [ngClass]="{'paginationIcon--hidden': currentPage === this.pageAmount}" 
+      class="paginationIcon" 
+      [ngClass]="{'paginationIcon--hidden': this.lastPage}" 
       (click)="paginate(currentPage + this.constants.ONE_VALUE)">
         <i class="fa-solid fa-chevron-right"></i>
     </span>

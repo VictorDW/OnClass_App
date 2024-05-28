@@ -44,6 +44,7 @@
 .model-container__list {
     padding: 0 100px 0 28px;
     max-height: calc(100vh - 410px);
+    min-height: calc(100vh - 410px);
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -106,12 +107,16 @@
 
 .pagination {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
+    font-size: 14px ;
+    font-weight: 600;
 }
 
 .paginationIcon {
     font-size: $medium-text;
     color: $primary-color;
+    cursor: pointer;
 }
 
 .paginationIcon--hidden {
@@ -120,4 +125,18 @@
 
 .page {
     cursor: pointer;
+    color: #828285;
+    
+}
+
+.page--active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 26px;    
+    min-height: 26px;
+    border-radius: 30px ;
+    color: white;
+    background: $primary-color;
+    box-shadow: 0px 4px 5px 1px rgba(231, 131, 61, 0.8);;
 }
