@@ -4,6 +4,7 @@ import { Pagination, KeyEnum } from 'src/app/domain/interface/pagination';
 import { Technology } from 'src/app/domain/models/technology';
 import { ListModelService } from 'src/app/shared/service/observables/list-model.service';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
+import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 
 type OptionSelect = {
   value: number, 
@@ -54,7 +55,7 @@ export class ListModelsComponent {
     DOTS_KEY: '...',
   };
 
-  constructor(private getService: GetService, private _serviceListModel: ListModelService) {
+  constructor(private getService: GetService, private _serviceListModel: ListModelService, private _updateList: UpdateListServerService) {
     
     this.fillContentSelectSize();
     this.fillContentButton();
@@ -62,6 +63,7 @@ export class ListModelsComponent {
     this.fillObjectPagination();
     this._serviceListModel.loadDate(this.getService, this._paginationDate);
     this.populateModelList();
+    this.update();
   }
 
 
@@ -240,6 +242,12 @@ export class ListModelsComponent {
 
   private updateList(paginationDate: Pagination): void {
    this._serviceListModel.updateObservable(paginationDate);
+  }
+
+  update() {
+    this._updateList.updateList$.subscribe(() => {
+      this.updateList(this._paginationDate);
+    })
   }
 
   displayContentStatus(status: boolean): void {

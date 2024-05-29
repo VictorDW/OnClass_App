@@ -4,6 +4,7 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { FormGroup } from '@angular/forms';
 import { ValidationForm } from '../../../shared/service/interface/validation';
 import {ServiceForm} from "../../../domain/interface/api-service";
+import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 
 type ObjectModelStructure = {
   [key: string]: string
@@ -26,7 +27,7 @@ export class FormComponent implements OnInit {
   itemButton!: buttonStructure;
   isShowModalCreate: boolean = false;
 
-  constructor(private _validationService: ValidationForm, private _service: ServiceForm) {
+  constructor(private _validationService: ValidationForm, private _service: ServiceForm, private _updateList: UpdateListServerService) {
     this.fillContentButton()
   }
 
@@ -67,8 +68,10 @@ export class FormComponent implements OnInit {
 
     if (this.form.valid) {
           this._service.register(this.MapperValuesToModel())
-            .subscribe(() => 
-              this.changeStatusModalCreate());
+            .subscribe(() => {
+              this.changeStatusModalCreate();
+              this._updateList.update();
+            });
           this.form.reset();
     }
   }
