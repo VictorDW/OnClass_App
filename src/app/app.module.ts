@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,12 +18,13 @@ import { LibraryComponent } from './atomic-design/pages/library/library.componen
 import { ContentTechnologyComponent } from './atomic-design/organisms/content-technology/content-technology.component';
 import { ContentCapacityComponent } from './atomic-design/organisms/content-capacity/content-capacity.component';
 import { FormComponent } from './atomic-design/organisms/form/form.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import {TechnologyGateway} from "./domain/gateway/technology-gateway";
-import {TechnologyApiService} from "./infraestructure/driven-adapter/technology-api/technology-api.service";
-import {TokenInterceptor} from "./shared/token/token.interceptor";
+import { TechnologyGateway } from "./domain/gateway/technology-gateway";
+import { TechnologyApiService } from "./infraestructure/driven-adapter/technology-api/technology-api.service";
+import { TokenInterceptor } from "./shared/token/token.interceptor";
 import { AlertComponent } from './atomic-design/atoms/alert/alert/alert.component';
 import { ModalComponent } from './atomic-design/molecules/modal/modal.component';
+import { ListModelsComponent } from './atomic-design/organisms/list-models/list-models.component';
+import { SelectComponent } from './atomic-design/atoms/select/select.component';
 
 @NgModule({
   declarations: [
@@ -39,13 +42,16 @@ import { ModalComponent } from './atomic-design/molecules/modal/modal.component'
     ContentCapacityComponent,
     FormComponent,
     AlertComponent,
-    ModalComponent
+    ModalComponent,
+    ListModelsComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     {provide: TechnologyGateway, useClass: TechnologyApiService},

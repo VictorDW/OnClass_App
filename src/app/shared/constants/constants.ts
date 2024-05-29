@@ -32,7 +32,7 @@ export const ResponseErrorMesages: FormatResponse = {
 }
 
 export enum Models {
-  TECHNOLOGY = 'tecnología'
+  TECHNOLOGY = 'Tecnología'
 }
 
 export enum ResponseMessages  {

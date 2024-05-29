@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/shared/service/alert.service';
+import { AlertService } from 'src/app/shared/service/observables/alert.service';
 
 @Component({
   selector: 'app-alert',
@@ -9,6 +9,7 @@ import { AlertService } from 'src/app/shared/service/alert.service';
 export class AlertComponent implements OnInit {
 
   showAlert = false;
+  animationTime!: number
   message = '';
 
   constructor(private _alertService: AlertService) { }
@@ -21,8 +22,13 @@ export class AlertComponent implements OnInit {
     this._alertService.alert$.subscribe((alert) => {
       this.changeStatus();
       this.message = alert.message;
+      this.animationTime = this.mlToSecunds(alert.time);
       this.closeAlert(alert.time);
     })
+  }
+
+  mlToSecunds(time: number) {
+    return time / 1000
   }
 
   changeStatus() {
@@ -34,6 +40,12 @@ export class AlertComponent implements OnInit {
     setTimeout(() => {
       this.changeStatus();
     }, time);
+  }
+
+  get alertStyle() {
+    return {
+      animation: `slideDown ${this.animationTime}s ease-in-out`
+    }
   }
 
 }

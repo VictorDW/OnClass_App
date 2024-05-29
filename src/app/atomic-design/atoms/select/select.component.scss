@@ -1,0 +1,51 @@
+@import '../../../../styles/_variables.scss';
+
+
+.select {
+    cursor: pointer;
+    color: $primary-color;
+}
+
+.select__size {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    height: 20px;
+
+    & i {
+        font-size: 1rem;
+    }
+}
+
+.select__size span, .container__option {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+
+.select__container {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid $primary-color;
+    border-radius: 1em;
+    margin-top: 5px;
+    box-shadow: 0px 12px 24px 4px rgba($color: $primary-color, $alpha: 0.5);
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.show {
+    display: block;
+}
+
+.container__option {
+    padding: 9px 13px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $primary-color;
+        color: white;
+    }
+}

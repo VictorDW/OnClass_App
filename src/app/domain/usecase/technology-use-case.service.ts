@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import {Observable, catchError, throwError} from "rxjs";
-import {Technology} from "../models/technology";
-import {TechnologyGateway} from "../gateway/technology-gateway";
-import { ServiceForm } from "../interface/api-service";
+import { Observable, catchError, throwError} from "rxjs";
+import { Technologies, Technology} from "../models/technology";
+import { TechnologyGateway} from "../gateway/technology-gateway";
+import { GetService, ServiceForm } from "../interface/api-service";
 import { HandlerErrorService } from 'src/app/shared/service/handler/handler-error.service';
-import { AlertService } from 'src/app/shared/service/alert.service';
+import { AlertService } from 'src/app/shared/service/observables/alert.service';
+import { Pagination } from '../interface/pagination';
 
 @Injectable()
-export class TechnologyUseCaseService implements ServiceForm {
+export class TechnologyUseCaseService implements ServiceForm, GetService {
 
   private _messageError!: string;
 
@@ -24,5 +25,17 @@ export class TechnologyUseCaseService implements ServiceForm {
           return throwError(()=> error);
         }));
   }
+
+  getAll(pagination: Pagination): Observable<Technologies> {
+    return this._technologyAdapter.getTechnologies(pagination)
+    .pipe(
+      catchError((error) => {
+        this._messageError = this._handlerError.handler(error);
+        this._alertService.showAlert(this._messageError);
+        return throwError(()=> error);
+      })
+    );
+  }
+
 
 }
