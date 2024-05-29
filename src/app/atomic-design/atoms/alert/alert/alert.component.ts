@@ -22,9 +22,13 @@ export class AlertComponent implements OnInit {
     this._alertService.alert$.subscribe((alert) => {
       this.changeStatus();
       this.message = alert.message;
-      this.animationTime = alert.time / 1000;
+      this.animationTime = this.mlToSecunds(alert.time);
       this.closeAlert(alert.time);
     })
+  }
+
+  mlToSecunds(time: number) {
+    return time / 1000
   }
 
   changeStatus() {
@@ -35,7 +39,6 @@ export class AlertComponent implements OnInit {
   closeAlert(time: number) {
     setTimeout(() => {
       this.changeStatus();
-      console.log(time)
     }, time);
   }
 
