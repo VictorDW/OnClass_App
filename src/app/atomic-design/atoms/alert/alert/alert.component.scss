@@ -2,24 +2,40 @@
 
 .alert {
   position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgb($error-color, 0.8 );
+  top: -70px;
+  left: 37%;
   padding: 20px;
-  z-index: 10;
-  border-radius: 1.25em;
+  color: $error-color;
+  background-color: white;
+  border-left: 6px solid rgb($error-color, 0.8);
+  border-radius: 5px;
+  box-shadow: 4px 4px 5px 1px rgb(grey, 0.8);
+  
   transition: all 0.3s ease-in-out;
+  z-index: 10;
 }
 
 .alert__message {
   display: flex;
   align-items: center;
-  gap: 0.5em;
-  color: #fff;
+  gap: 0.75em;
 }
 
 .fa-circle-exclamation {
-  color: #fff;
-  font-size: 1rem;
+  font-size: 1.5rem;
  }
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10%, 90% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}

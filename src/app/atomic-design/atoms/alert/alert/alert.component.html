@@ -1,4 +1,4 @@
-<div *ngIf="showAlert" class="alert">
+<div *ngIf="showAlert" class="alert" [ngStyle]="alertStyle" >
   <span class="alert__message">
     <i class="fa-solid fa-circle-exclamation"></i>
     {{ message }}

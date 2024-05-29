@@ -9,6 +9,7 @@ import { AlertService } from 'src/app/shared/service/observables/alert.service';
 export class AlertComponent implements OnInit {
 
   showAlert = false;
+  animationTime!: number
   message = '';
 
   constructor(private _alertService: AlertService) { }
@@ -21,6 +22,7 @@ export class AlertComponent implements OnInit {
     this._alertService.alert$.subscribe((alert) => {
       this.changeStatus();
       this.message = alert.message;
+      this.animationTime = alert.time / 1000;
       this.closeAlert(alert.time);
     })
   }
@@ -33,7 +35,14 @@ export class AlertComponent implements OnInit {
   closeAlert(time: number) {
     setTimeout(() => {
       this.changeStatus();
+      console.log(time)
     }, time);
+  }
+
+  get alertStyle() {
+    return {
+      animation: `slideDown ${this.animationTime}s ease-in-out`
+    }
   }
 
 }
