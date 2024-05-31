@@ -7,7 +7,6 @@ import { Subject } from 'rxjs';
 export class UpdateListServerService {
 
   private _updateList = new Subject<void>();
-
   updateList$ = this._updateList.asObservable();
 
   update(): void {

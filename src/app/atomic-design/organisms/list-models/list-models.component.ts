@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { GetService } from 'src/app/domain/interface/api-service';
 import { Pagination, KeyEnum } from 'src/app/domain/interface/pagination';
 import { Technology } from 'src/app/domain/models/technology';
 import { ListModelService } from 'src/app/shared/service/observables/list-model.service';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
+import { Subscription } from 'rxjs';
 
 type OptionSelect = {
   value: number, 
@@ -27,12 +28,14 @@ type Pages = {
   styleUrls: ['./list-models.component.scss']
 })
 
-export class ListModelsComponent {
+export class ListModelsComponent implements OnDestroy {
   @Input()  dataButton!: buttonStructure
   @Output() displayContent = new EventEmitter<boolean>();
   @Output() showFrom = new EventEmitter<boolean>();
 
   private _paginationDate!: Pagination;
+  private _modelSubcription!: Subscription;
+  private _updateListSubscription!: Subscription;
 
   optionSize!: OptionSelect[];
   buttonDirection!: ButtonDirection;
@@ -65,7 +68,6 @@ export class ListModelsComponent {
     this.populateModelList();
     this.update();
   }
-
 
   private fillContentSelectSize(){
     this.optionSize = [
@@ -112,7 +114,7 @@ export class ListModelsComponent {
 
   private populateModelList(): void {
 
-    this._serviceListModel.modelObservable$.subscribe((data) => {
+    this._modelSubcription = this._serviceListModel.modelObservable$.subscribe((data) => {
 
       this.displayContentStatus(!data.empty);
       this.models = data.content;
@@ -245,7 +247,7 @@ export class ListModelsComponent {
   }
 
   update() {
-    this._updateList.updateList$.subscribe(() => {
+    this._updateListSubscription = this._updateList.updateList$.subscribe(() => {
       this.updateList(this._paginationDate);
     })
   }
@@ -274,5 +276,10 @@ export class ListModelsComponent {
   updatePage(value: number): void {
     this._paginationDate.page = value;
     this.updateList(this._paginationDate);
+  }
+
+  ngOnDestroy(): void {
+    this._modelSubcription.unsubscribe();
+    this._updateListSubscription.unsubscribe();
   }
 }
