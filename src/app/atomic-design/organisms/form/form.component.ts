@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { InputContentStructure } from 'src/app/atomic-design/organisms/form/util/InputContentStructure';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { FormGroup } from '@angular/forms';
 import { ValidationForm } from '../../../shared/service/interface/validation';
 import {ServiceForm} from "../../../domain/interface/api-service";
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
+import { Subscription } from 'rxjs';
 
 type ObjectModelStructure = {
   [key: string]: string
@@ -16,12 +17,14 @@ type ObjectModelStructure = {
   styleUrls: ['./form.component.scss']
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
 
   @Input() titleForm: string = '';
   @Input() titleModal: string = '';
   @Input() dataInputContent!: InputContentStructure[];
   @Output() closeForm = new EventEmitter<void>();
+
+  private _serviveSubcription!: Subscription;
 
   form: FormGroup = new FormGroup({});
   itemButton!: buttonStructure;
@@ -67,7 +70,7 @@ export class FormComponent implements OnInit {
   onSubmitForm(): void {
 
     if (this.form.valid) {
-          this._service.register(this.MapperValuesToModel())
+         this._serviveSubcription = this._service.register(this.MapperValuesToModel())
             .subscribe(() => {
               this.changeStatusModalCreate();
               this._updateList.update();
@@ -92,6 +95,10 @@ export class FormComponent implements OnInit {
 
   verifyError(controlInput: string) {
     return this.form.get(controlInput)?.invalid && this.form.get(controlInput)?.dirty;
+  }
+
+  ngOnDestroy(): void {
+      this._serviveSubcription.unsubscribe();
   }
 
 }
