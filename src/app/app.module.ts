@@ -15,7 +15,7 @@ import { ButtonComponent } from './atomic-design/atoms/button/button.component';
 import { HomeComponent } from './atomic-design/pages/home/home.component';
 import { TabsNavComponent } from './atomic-design/molecules/tabs-nav/tabs-nav.component';
 import { LibraryComponent } from './atomic-design/pages/library/library.component';
-import { ContentTechnologyComponent } from './atomic-design/organisms/content-technology/content-technology.component';
+import { ContentTechnologyComponent } from './atomic-design/pages/technology/technology.component';
 import { ContentCapacityComponent } from './atomic-design/organisms/content-capacity/content-capacity.component';
 import { FormComponent } from './atomic-design/organisms/form/form.component';
 import { TechnologyGateway } from "./domain/gateway/technology-gateway";

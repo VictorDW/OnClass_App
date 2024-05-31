@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from  '@angular/router';
 import { HomeComponent } from './atomic-design/pages/home/home.component';
 import { LibraryComponent } from './atomic-design/pages/library/library.component';
-import { ContentTechnologyComponent } from './atomic-design/organisms/content-technology/content-technology.component';
+import { ContentTechnologyComponent } from './atomic-design/pages/technology/technology.component';
 import { ContentCapacityComponent } from './atomic-design/organisms/content-capacity/content-capacity.component';
 
 const routes: Routes = [

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContentTechnologyComponent } from './content-technology.component';
+import { ContentTechnologyComponent } from './technology.component';
 
 describe('ContentTechnologyComponent', () => {
   let component: ContentTechnologyComponent;
