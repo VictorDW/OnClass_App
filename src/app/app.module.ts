@@ -24,7 +24,7 @@ import { TokenInterceptor } from "./shared/token/token.interceptor";
 import { AlertComponent } from './atomic-design/atoms/alert/alert/alert.component';
 import { ModalComponent } from './atomic-design/molecules/modal/modal.component';
 import { ListModelsComponent } from './atomic-design/organisms/list-models/list-models.component';
-import { SelectComponent } from './atomic-design/atoms/select/select.component';
+import { SelectComponent } from './atomic-design/molecules/select/select.component';
 
 @NgModule({
   declarations: [
