@@ -3,7 +3,7 @@ import { RouterModule, Routes } from  '@angular/router';
 import { HomeComponent } from './atomic-design/pages/home/home.component';
 import { LibraryComponent } from './atomic-design/pages/library/library.component';
 import { ContentTechnologyComponent } from './atomic-design/pages/technology/technology.component';
-import { ContentCapacityComponent } from './atomic-design/organisms/content-capacity/content-capacity.component';
+import { ContentCapacityComponent } from './atomic-design/pages/capacity/capacity.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },

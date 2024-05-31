@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContentCapacityComponent } from './content-capacity.component';
+import { ContentCapacityComponent } from './capacity.component';
 
 describe('ContentCapacityComponent', () => {
   let component: ContentCapacityComponent;
