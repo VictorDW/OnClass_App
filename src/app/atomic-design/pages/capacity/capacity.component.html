@@ -1,1 +1,17 @@
-<p>content-capacity works!</p>
+<app-list-models *ngIf="displayContentList; else create" 
+[dataButton]="dataButton"
+(displayContent)="changeVisibilityModelList($event)" 
+(showFrom)="changeStateFrom()">
+</app-list-models>
+
+<ng-template #create>
+    <article class="technology">
+
+      <div class="technology__text-container">
+        <p class="technology__text">Crea una capacidad</p>
+      </div>
+
+      <app-button class="technology__button" [itemButton]="dataButton" (click)="changeStateFrom()"></app-button>
+
+    </article>
+  </ng-template>
