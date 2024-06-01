@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
-import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
 import { GetService } from 'src/app/domain/interface/api-service';
+import { CapacityApiService } from 'src/app/infraestructure/driven-adapter/capacity-api/capacity-api.service';
+import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
 
 @Component({
   selector: 'app-content-capacity',
@@ -10,7 +11,7 @@ import { GetService } from 'src/app/domain/interface/api-service';
   providers: [
    // {provide: ValidationForm, useClass: ValidationTechnologyService},
    // {provide: ServiceForm, useClass: TechnologyUseCaseService},
-    {provide: GetService, useClass: TechnologyUseCaseService}
+    {provide: GetService, useClass: CapacityUseCaseService}
   ]
 })
 export class ContentCapacityComponent implements OnInit {

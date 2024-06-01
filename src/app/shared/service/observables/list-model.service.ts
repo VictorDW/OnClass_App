@@ -16,6 +16,7 @@ export class ListModelService {
   modelObservable$! : Observable<Page<ModelsApi>>;
 
   loadDate(service: GetService, pagination: Pagination) {
+    
     this.service = service;
     this._modelSubject = new BehaviorSubject<Pagination>(pagination);
     this.modelObservable$ = this.createModelObservable();

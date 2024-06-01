@@ -115,7 +115,7 @@ export class ListModelsComponent implements OnDestroy {
   private populateModelList(): void {
 
     this._modelSubcription = this._serviceListModel.modelObservable$.subscribe((data) => {
-
+      console.log(data);
       this.displayContentStatus(!data.empty);
       this.models = data.content;
       this.currentPage = (data.pageNumber + 1);
