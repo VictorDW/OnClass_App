@@ -18,7 +18,6 @@ export class CapacityApiService implements CapacityGateway {
     throw new Error('Method not implemented.');
   }
   getCapacities(pagination: Pagination): Observable<Page<Capacity>> {
-    console.log("capacity", pagination)
     return this._httpClient.get<Page<Capacity>>(`${this._url}?size=${pagination[KeyEnum.SIZE]}&direction=${pagination[KeyEnum.DIRECTION]}&page=${pagination[KeyEnum.PAGE]}&orderBy=${pagination[KeyEnum.ORDERBY]}`);
   }
 }

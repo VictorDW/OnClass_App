@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonStructure';
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
 import { ValidationTechnologyService } from 'src/app/shared/service/validations/validation-technology.service';
@@ -6,6 +6,8 @@ import { TechnologyUseCaseService } from "../../../domain/usecase/technology-use
 import { ValidationForm } from "../../../shared/service/interface/validation";
 import { GetService, ServiceForm } from "../../../domain/interface/api-service";
 import { ResponseMessages, Models } from "../../../shared/constants/constants";
+import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -19,7 +21,7 @@ import { ResponseMessages, Models } from "../../../shared/constants/constants";
   ]
 })
 
-export class ContentTechnologyComponent {
+export class ContentTechnologyComponent implements OnDestroy {
 
   displayContentList = true;
   private _isShowFrom = false; 
@@ -28,12 +30,15 @@ export class ContentTechnologyComponent {
   dataInputContent!: InputContentStructure[]
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.TECHNOLOGY);
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.TECHNOLOGY);
+  private _updateListSubscription!: Subscription;
 
 
-  constructor() {
+  constructor(private _updateList: UpdateListServerService) {
       this.fillContentInput();
-      this.fillContentButton();   
+      this.fillContentButton();
+      this.updateListModels(); 
   }
+
 
   get showFrom() {
     return this._isShowFrom;
@@ -68,6 +73,18 @@ export class ContentTechnologyComponent {
         controle: 'description'
       }
     ]
+  }
+
+  updateListModels() {
+    this._updateListSubscription = this._updateList.updateList$.subscribe(() => {
+      if(!this.displayContentList) {
+        this.changeVisibilityModelList(true);
+      } 
+    })
+  }
+
+  ngOnDestroy(): void {
+    this,this._updateListSubscription.unsubscribe();
   }
 
 

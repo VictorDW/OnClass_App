@@ -8,6 +8,8 @@ import { InputContentStructure } from '../../organisms/form/util/InputContentStr
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { ValidationTechnologyService } from 'src/app/shared/service/validations/validation-technology.service';
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
+import { Subscription } from 'rxjs';
+import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 
 @Component({
   selector: 'app-content-capacity',
@@ -24,6 +26,7 @@ export class ContentCapacityComponent{
   displayContentList = true;
   displaySelectOrder = true;
   private _isShowFrom = false;
+  private _updateListSubscription!: Subscription;
 
   dataButton!: buttonStructure;
   dataInputContent!: InputContentStructure[]
@@ -31,10 +34,11 @@ export class ContentCapacityComponent{
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.CAPACITY);
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.CAPACITY);
 
-  constructor() {
+  constructor(private _updateList: UpdateListServerService) {
     this.fillContentButton();
     this.fillContentSelectOrdering();
     this.fillContentInput();
+    this.updateListModels();
   }
 
 
@@ -79,5 +83,17 @@ export class ContentCapacityComponent{
        }
      ]
    }
+
+   updateListModels() {
+    this._updateListSubscription = this._updateList.updateList$.subscribe(() => {
+      if(!this.displayContentList) {
+        this.changeVisibilityModelList(true);
+      } 
+    })
+  }
+
+  ngOnDestroy(): void {
+    this,this._updateListSubscription.unsubscribe();
+  }
 
 }
