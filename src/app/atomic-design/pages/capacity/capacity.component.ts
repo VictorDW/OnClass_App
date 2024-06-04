@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { GetService } from 'src/app/domain/interface/api-service';
-import { CapacityApiService } from 'src/app/infraestructure/driven-adapter/capacity-api/capacity-api.service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
+import { OptionSelect } from '../../molecules/select/select.component';
 
 @Component({
   selector: 'app-content-capacity',
@@ -17,12 +17,15 @@ import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case
 export class ContentCapacityComponent implements OnInit {
 
   displayContentList = true;
+  displaySelectOrder = true;
   private _isShowFrom = false;
-  
+
   dataButton!: buttonStructure;
-  
-  constructor() { 
+  optionOrdering!: OptionSelect<string>[]
+
+  constructor() {
     this.fillContentButton();
+    this.fillContentSelectOrdering();
   }
 
   ngOnInit(): void {
@@ -42,6 +45,13 @@ export class ContentCapacityComponent implements OnInit {
       icon: 'fa-solid fa-plus',
       text: 'Crear'
     };
+  }
+
+  private fillContentSelectOrdering(){
+    this.optionOrdering = [
+      {value: 'name', name: "nombre"},
+      {value: 'technologies', name: "cantidad de tecnologías"}
+    ]
   }
 
 }

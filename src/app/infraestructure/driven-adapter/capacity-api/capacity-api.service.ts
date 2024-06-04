@@ -13,11 +13,12 @@ export class CapacityApiService implements CapacityGateway {
   private _url = environment.BASE_URL + Endpoints.CAPACITY;
 
   constructor(private _httpClient: HttpClient) { }
-  
+
   registerCapacity(capacity: Capacity): Observable<void> {
     throw new Error('Method not implemented.');
   }
   getCapacities(pagination: Pagination): Observable<Page<Capacity>> {
-    return this._httpClient.get<Page<Capacity>>(`${this._url}?size=${pagination[KeyEnum.SIZE]}&direction=${pagination[KeyEnum.DIRECTION]}&page=${pagination[KeyEnum.PAGE]}`);
+    console.log("capacity", pagination)
+    return this._httpClient.get<Page<Capacity>>(`${this._url}?size=${pagination[KeyEnum.SIZE]}&direction=${pagination[KeyEnum.DIRECTION]}&page=${pagination[KeyEnum.PAGE]}&orderBy=${pagination[KeyEnum.ORDERBY]}`);
   }
 }

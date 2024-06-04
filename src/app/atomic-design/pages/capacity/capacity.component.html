@@ -1,6 +1,8 @@
-<app-list-models *ngIf="displayContentList; else create" 
+<app-list-models *ngIf="displayContentList; else create"
+[displaySelectOrder]="displaySelectOrder"
+[optionOrdering]="optionOrdering"
 [dataButton]="dataButton"
-(displayContent)="changeVisibilityModelList($event)" 
+(displayContent)="changeVisibilityModelList($event)"
 (showFrom)="changeStateFrom()">
 </app-list-models>
 
