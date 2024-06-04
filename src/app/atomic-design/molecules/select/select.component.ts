@@ -45,4 +45,8 @@ export class SelectComponent implements OnInit{
   emitValue(selectedValue: typeSelect): void {
     this.valueOptionSelected.emit(selectedValue);
   }
+
+  textOptionSelect() {
+    return `${typeof this.options[0].value === 'string' ? 'por ' : ''}${this.selectedOption}`;
+  }
 }
