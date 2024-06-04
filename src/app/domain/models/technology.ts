@@ -3,3 +3,8 @@ export interface Technology {
   name: string;
   description: string;
 }
+
+export interface TechnologyBasic {
+  id: number;
+  name: string;
+}

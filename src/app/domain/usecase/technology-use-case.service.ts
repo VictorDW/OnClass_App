@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError} from "rxjs";
-import { Technology } from "../models/technology";
+import { Technology, TechnologyBasic } from "../models/technology";
 import { TechnologyGateway} from "../gateway/technology-gateway";
-import { GetService, ServiceForm } from "../interface/api-service";
+import { GetAllWithoutPaginationService, GetService, ServiceForm } from "../interface/api-service";
 import { HandlerErrorService } from 'src/app/shared/service/handler/handler-error.service';
 import { AlertService } from 'src/app/shared/service/observables/alert.service';
 import { Pagination } from '../interface/pagination';
 import { Page } from 'src/app/shared/service/interface/Page';
 
 @Injectable()
-export class TechnologyUseCaseService implements ServiceForm, GetService {
+export class TechnologyUseCaseService implements ServiceForm, GetService, GetAllWithoutPaginationService {
 
   private _messageError!: string;
 
   constructor(private _technologyAdapter: TechnologyGateway,
     private _handlerError: HandlerErrorService,
     private _alertService: AlertService) { }
+
 
   register(technology: Technology): Observable<void>{
     return this._technologyAdapter.registerTechnology(technology)
@@ -38,5 +39,8 @@ export class TechnologyUseCaseService implements ServiceForm, GetService {
     );
   }
 
+  getAllWithoutPagination(): Observable<TechnologyBasic[]> {
+    return this._technologyAdapter.getTechnologiesWithoutPagination();
+  }
 
 }

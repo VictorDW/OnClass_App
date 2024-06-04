@@ -1,5 +1,5 @@
 import { Capacity } from "src/app/domain/models/capacity";
-import { Technology } from "src/app/domain/models/technology";
+import { Technology, TechnologyBasic } from "src/app/domain/models/technology";
 
 export enum  ValidationMessage {
   NAME_REQUIRED = 'El nombre es obligatorio',
@@ -18,6 +18,7 @@ export enum Pattern{
 }
 
 export type ModelsApi = Technology | Capacity;
+export type ModelsApiSelect = TechnologyBasic;
 
 
 type FormatResponse = {
