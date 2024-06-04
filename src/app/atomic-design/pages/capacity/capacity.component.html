@@ -1,9 +1,9 @@
 <app-list-models *ngIf="displayContentList; else create"
-[displaySelectOrder]="displaySelectOrder"
-[optionOrdering]="optionOrdering"
-[dataButton]="dataButton"
-(displayContent)="changeVisibilityModelList($event)"
-(showFrom)="changeStateFrom()">
+  [displaySelectOrder]="displaySelectOrder"
+  [optionOrdering]="optionOrdering"
+  [dataButton]="dataButton"
+  (displayContent)="changeVisibilityModelList($event)"
+  (showFrom)="changeStateFrom()">
 </app-list-models>
 
 <ng-template #create>
@@ -16,4 +16,12 @@
       <app-button class="technology__button" [itemButton]="dataButton" (click)="changeStateFrom()"></app-button>
 
     </article>
-  </ng-template>
+</ng-template>
+
+  <!-- formulario para crear una capaicdad -->
+  <app-form *ngIf="showFrom"
+     [titleForm]="titleForm"
+     [titleModal]="titleModal"
+     [dataInputContent]="dataInputContent"
+     (closeForm)="changeStateFrom()">
+  </app-form>

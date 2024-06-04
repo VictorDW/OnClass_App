@@ -21,7 +21,6 @@ import { ResponseMessages, Models } from "../../../shared/constants/constants";
 
 export class ContentTechnologyComponent {
 
-  selectedValue = 2;
   displayContentList = true;
   private _isShowFrom = false; 
 

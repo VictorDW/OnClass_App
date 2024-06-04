@@ -13,7 +13,7 @@ export enum  ValidationMessage {
 }
 
 export enum Pattern{
-  NAME = '^[A-Za-z+#\\s]+$',
+  NAME = '^[A-Za-zñÑ+#\\s]+$',
   DESCRIPTION = '^[A-Za-z0-9+#\\sáéíóúÁÉÍÓÚñÑ]+$'
 }
 
@@ -33,7 +33,8 @@ export const ResponseErrorMesages: FormatResponse = {
 }
 
 export enum Models {
-  TECHNOLOGY = 'Tecnología'
+  TECHNOLOGY = 'Tecnología',
+  CAPACITY = 'Capacidad'
 }
 
 export enum ResponseMessages  {
