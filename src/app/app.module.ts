@@ -25,6 +25,8 @@ import { AlertComponent } from './atomic-design/atoms/alert/alert/alert.componen
 import { ModalComponent } from './atomic-design/molecules/modal/modal.component';
 import { ListModelsComponent } from './atomic-design/organisms/list-models/list-models.component';
 import { SelectComponent } from './atomic-design/molecules/select/select.component';
+import { CapacityGateway } from './domain/gateway/capacity-gateway';
+import { CapacityApiService } from './infraestructure/driven-adapter/capacity-api/capacity-api.service';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { SelectComponent } from './atomic-design/molecules/select/select.compone
   ],
   providers: [
     {provide: TechnologyGateway, useClass: TechnologyApiService},
+    {provide: CapacityGateway, useClass: CapacityApiService},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]

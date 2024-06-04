@@ -1,16 +1,22 @@
 <main class="model-container">
-  <article class="model-container__article--models">  
+  <article class="model-container__article--models">
     <section class="model-container__order">
+
+      <!-- contenedor para el ordenamiento -->
+      <app-select *ngIf="displaySelectOrder"
+        [options]="optionOrdering"
+        (valueOptionSelected)="updateOrdering($event.toString())">
+      </app-select>
 
       <!-- botón para el ordenamiento -->
       <button class="order__btn" (click)="changeStateDirection()">
         <i [class]="buttonDirection.icon"></i>
         <span>{{ buttonDirection.text }}</span>
       </button>
-      
+
        <!-- contenedor para el tamaño de resultados -->
-      <app-select 
-        [options]="optionSize" 
+      <app-select
+        [options]="optionSize"
         (valueOptionSelected)="updateSize(+$event)">
       </app-select>
     </section>
@@ -29,14 +35,14 @@
   </article>
 
   <article class="model-container__article--pagination">
-    
+
     <!-- botón para mostrar formulario -->
     <app-button [itemButton]="dataButton" (click)="displayFrom()"></app-button>
 
     <!-- paginación -->
     <section class="model-container__paginate">
       <ul class="paginate__pages">
-        <li class="pages__page-icon page-icon--left" 
+        <li class="pages__page-icon page-icon--left"
           [ngClass]="{'page-icon--hidden': this.firstPage}"
           (click)="setPaginate(currentPage - this.constants.ONE_VALUE)">
             <i class="fa-solid fa-chevron-left"></i>
@@ -45,9 +51,9 @@
         <li class="pages__page" [ngClass]="{'page--active': isActivePage(page)}" *ngFor="let page of pages" (click)="setPaginate(page.value)">
           {{page.content}}
         </li>
-        
-        <li class="pages__page-icon page-icon--right" 
-          [ngClass]="{'page-icon--hidden': this.lastPage}" 
+
+        <li class="pages__page-icon page-icon--right"
+          [ngClass]="{'page-icon--hidden': this.lastPage}"
           (click)="setPaginate(currentPage + this.constants.ONE_VALUE)">
             <i class="fa-solid fa-chevron-right"></i>
         </li>
