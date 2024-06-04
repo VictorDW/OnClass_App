@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
-import { GetService, ServiceForm } from 'src/app/domain/interface/api-service';
+import { GetAllWithoutPaginationService, GetService, ServiceForm } from 'src/app/domain/interface/api-service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
 import { OptionSelect } from '../../molecules/select/select.component';
 import { Models, ResponseMessages } from 'src/app/shared/constants/constants';
@@ -10,6 +10,14 @@ import { ValidationTechnologyService } from 'src/app/shared/service/validations/
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
 import { Subscription } from 'rxjs';
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
+import { TechnologyBasic } from 'src/app/domain/models/technology';
+
+
+export type dataModel = {
+  content: TechnologyBasic[],
+  placeholder: string,
+  label: string
+}
 
 @Component({
   selector: 'app-content-capacity',
@@ -18,6 +26,7 @@ import { UpdateListServerService } from 'src/app/shared/service/observables/upda
   providers: [
     {provide: ValidationForm, useClass: ValidationTechnologyService},
     {provide: ServiceForm, useClass: TechnologyUseCaseService},
+    {provide: GetAllWithoutPaginationService, useClass: TechnologyUseCaseService},
     {provide: GetService, useClass: CapacityUseCaseService}
   ]
 })
@@ -25,20 +34,34 @@ export class ContentCapacityComponent{
 
   displayContentList = true;
   displaySelectOrder = true;
+  displayContainerAddModel = true;
   private _isShowFrom = false;
   private _updateListSubscription!: Subscription;
 
   dataButton!: buttonStructure;
   dataInputContent!: InputContentStructure[]
+  dataAddModel!: dataModel
   optionOrdering!: OptionSelect<string>[]
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.CAPACITY);
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.CAPACITY);
 
-  constructor(private _updateList: UpdateListServerService) {
+  constructor(private _updateList: UpdateListServerService, private _getAllTechnology: GetAllWithoutPaginationService) {
+    this.prueba();
     this.fillContentButton();
     this.fillContentSelectOrdering();
     this.fillContentInput();
     this.updateListModels();
+  }
+
+  prueba(): void {
+    this._getAllTechnology.getAllWithoutPagination()
+    .subscribe( (technologies) => {
+      this.dataAddModel = {
+        content: technologies,
+        placeholder: 'Seleccione las tecnologías',
+        label: 'Tecnologías'
+      }
+    });
   }
 
 
@@ -83,6 +106,7 @@ export class ContentCapacityComponent{
        }
      ]
    }
+
 
    updateListModels() {
     this._updateListSubscription = this._updateList.updateList$.subscribe(() => {

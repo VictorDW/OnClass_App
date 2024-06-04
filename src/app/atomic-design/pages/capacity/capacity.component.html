@@ -6,6 +6,7 @@
   (showFrom)="changeStateFrom()">
 </app-list-models>
 
+<!-- cambiar las clases -->
 <ng-template #create>
     <article class="technology">
 
@@ -23,5 +24,7 @@
      [titleForm]="titleForm"
      [titleModal]="titleModal"
      [dataInputContent]="dataInputContent"
+     [dataAddModel]="dataAddModel"
+     [displayContainerAddModel]="displayContainerAddModel"
      (closeForm)="changeStateFrom()">
   </app-form>

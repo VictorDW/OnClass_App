@@ -6,6 +6,7 @@ import { ValidationForm } from '../../../shared/service/interface/validation';
 import {ServiceForm} from "../../../domain/interface/api-service";
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 import { Subscription } from 'rxjs';
+import { dataModel } from '../../pages/capacity/capacity.component';
 
 type ObjectModelStructure = {
   [key: string]: string
@@ -22,6 +23,8 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() titleForm: string = '';
   @Input() titleModal: string = '';
   @Input() dataInputContent!: InputContentStructure[];
+  @Input() displayContainerAddModel: boolean = false
+  @Input() dataAddModel!: dataModel
   @Output() closeForm = new EventEmitter<void>();
 
   private _serviveSubcription!: Subscription;
@@ -30,6 +33,7 @@ export class FormComponent implements OnInit, OnDestroy {
   itemButton!: buttonStructure;
   isShowModalCreate: boolean = false;
 
+
   constructor(private _validationService: ValidationForm, private _service: ServiceForm, private _updateList: UpdateListServerService) {
     this._serviveSubcription = new Subscription();
     this.fillContentButton()
@@ -37,6 +41,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = this._validationService.addValidations();
+    console.log(this.dataAddModel.content)
   }
 
   get validationService() {

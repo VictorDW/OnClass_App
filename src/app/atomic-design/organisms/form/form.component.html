@@ -25,8 +25,17 @@
                     {{ this.validationService.getErrorMessage(data.controle, form)}}
                   </span>
                 </div>
-
             </div>
+            
+            <section  *ngIf="displayContainerAddModel" class="form__container">
+                <label class="container__label">{{dataAddModel.label}}</label>
+                <div>
+                    <input class="container__input" type="text" disabled [placeholder]="dataAddModel.placeholder">
+                    <select>
+                        <option *ngFor="let item of dataAddModel.content">{{ item.name }}</option>
+                    </select>
+                </div>
+            </section>
 
             <app-button [itemButton]="itemButton" [disabled]="this.disableButton()"></app-button>
         </form>
