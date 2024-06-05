@@ -7,6 +7,7 @@ import {ServiceForm} from "../../../domain/interface/api-service";
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 import { Subscription } from 'rxjs';
 import { dataModel } from '../../pages/capacity/capacity.component';
+import { TechnologyBasic } from 'src/app/domain/models/technology';
 
 type ObjectModelStructure = {
   [key: string]: string
@@ -32,16 +33,21 @@ export class FormComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
   itemButton!: buttonStructure;
   isShowModalCreate: boolean = false;
+  displaySelect: boolean = false;
+  placeHolderSelect: string = '';
 
 
-  constructor(private _validationService: ValidationForm, private _service: ServiceForm, private _updateList: UpdateListServerService) {
+  constructor(private _validationService: ValidationForm, 
+              private _service: ServiceForm, 
+              private _updateList: UpdateListServerService) {
+
     this._serviveSubcription = new Subscription();
     this.fillContentButton()
   }
 
   ngOnInit(): void {
     this.form = this._validationService.addValidations();
-    console.log(this.dataAddModel.content)
+    this.fillPlaceholderSelect();
   }
 
   get validationService() {
@@ -60,7 +66,14 @@ export class FormComponent implements OnInit, OnDestroy {
     };
   }
 
+  fillPlaceholderSelect(): void {
+    if(this.dataAddModel) {
+      this.placeHolderSelect = this.dataAddModel.placeholder;
+    }
+  }
+
   onCloseForm(): void {
+    this.fillPlaceholderSelect();
     this.closeForm.emit();
   }
 
@@ -71,6 +84,14 @@ export class FormComponent implements OnInit, OnDestroy {
 
   changeStatusModalCreate(): void {
     this.isShowModalCreate = !this.isShowModalCreate;
+  }
+
+  displaySelectContent(): void {
+    this.displaySelect = !this.displaySelect;
+  }
+
+  onSelectModel(model: TechnologyBasic): void {
+    this.placeHolderSelect = model.name;
   }
 
   onSubmitForm(): void {

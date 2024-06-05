@@ -88,7 +88,7 @@ export class ContentCapacityComponent{
   private fillContentSelectOrdering(){
     this.optionOrdering = [
       {value: 'name', name: "nombre"},
-      {value: 'technologies', name: "cantidad de tecnologías"}
+      {value: 'technologies', name: "tecnologías"}
     ]
   }
 

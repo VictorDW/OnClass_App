@@ -27,14 +27,21 @@
                 </div>
             </div>
             
-            <section  *ngIf="displayContainerAddModel" class="form__container">
+            <section  *ngIf="displayContainerAddModel" class="form__container form__container--select">
                 <label class="container__label">{{dataAddModel.label}}</label>
-                <div>
-                    <input class="container__input" type="text" disabled [placeholder]="dataAddModel.placeholder">
-                    <select>
-                        <option *ngFor="let item of dataAddModel.content">{{ item.name }}</option>
-                    </select>
+                <div class="container__select" (click)="displaySelectContent()">
+                    <div class="container__input select__model">
+                        <span class="model__placeholder">
+                            {{this.placeHolderSelect}}
+                        </span>
+                    </div>
+                    <div class="select__content" [ngClass]="{ 'show': displaySelect}">
+                        <div class="content__option" *ngFor="let model of dataAddModel.content" (click)="onSelectModel(model)">
+                            {{ model.name }}
+                        </div>
+                    </div> 
                 </div>
+                <button class="models__btn fa-regular fa-plus" (click)="displaySelectContent()"></button>
             </section>
 
             <app-button [itemButton]="itemButton" [disabled]="this.disableButton()"></app-button>
