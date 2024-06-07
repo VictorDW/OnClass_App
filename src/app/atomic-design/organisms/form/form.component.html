@@ -29,6 +29,11 @@
             
             <section  *ngIf="displayContainerAddModel" class="form__container form__container--select">
                 <label class="container__label">{{dataAddModel.label}}</label>
+                <div class="container__model">
+                    <div *ngFor="let model of selectModels" class="model__aggregates">
+                        <span class="aggregates">{{ model.name }}</span>
+                    </div>
+                </div>
                 <div class="container__select" (click)="displaySelectContent()">
                     <div class="container__input select__model">
                         <span class="model__placeholder">
@@ -41,7 +46,7 @@
                         </div>
                     </div> 
                 </div>
-                <button class="models__btn fa-regular fa-plus" (click)="displaySelectContent()"></button>
+                <button type="button" class="models__btn fa-regular fa-plus" (click)="displaySelectContent()"></button>
             </section>
 
             <app-button [itemButton]="itemButton" [disabled]="this.disableButton()"></app-button>

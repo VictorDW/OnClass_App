@@ -7,10 +7,10 @@ import {ServiceForm} from "../../../domain/interface/api-service";
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 import { Subscription } from 'rxjs';
 import { dataModel } from '../../pages/capacity/capacity.component';
-import { TechnologyBasic } from 'src/app/domain/models/technology';
+import { ModelsApiSelect } from 'src/app/shared/constants/constants';
 
 type ObjectModelStructure = {
-  [key: string]: string
+  [key: string]: string | ModelsApiSelect[]
 }
 
 @Component({
@@ -35,6 +35,7 @@ export class FormComponent implements OnInit, OnDestroy {
   isShowModalCreate: boolean = false;
   displaySelect: boolean = false;
   placeHolderSelect: string = '';
+  selectModels: ModelsApiSelect[] = [];
 
 
   constructor(private _validationService: ValidationForm, 
@@ -90,8 +91,15 @@ export class FormComponent implements OnInit, OnDestroy {
     this.displaySelect = !this.displaySelect;
   }
 
-  onSelectModel(model: TechnologyBasic): void {
-    this.placeHolderSelect = model.name;
+  onSelectModel(modelToAdd: ModelsApiSelect): void {
+    
+    this.placeHolderSelect = modelToAdd.name;
+
+    if(!this.selectModels.some(model => model.name === modelToAdd.name)) {
+      this.selectModels.push(modelToAdd);
+    }
+    
+
   }
 
   onSubmitForm(): void {
@@ -113,11 +121,16 @@ export class FormComponent implements OnInit, OnDestroy {
   MapperValuesToModel(): ObjectModelStructure {
 
     const properties = Object.keys(this.form.controls);
-
-    return properties.reduce((model: ObjectModelStructure, property: string): ObjectModelStructure => {
+    let model = properties.reduce((model: ObjectModelStructure, property: string): ObjectModelStructure => {
       model[property] = this.form.get(property)?.value;
       return  model
     }, {})
+
+    if(this.dataAddModel) {
+      model[this.dataAddModel.arrayModel] = this.selectModels;
+    }
+    
+    return model
   }
 
   verifyError(controlInput: string) {

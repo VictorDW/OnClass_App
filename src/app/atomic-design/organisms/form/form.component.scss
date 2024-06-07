@@ -100,6 +100,23 @@
 
 /* estilos para el agregar un modelo */
 
+.container__model {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 8px;
+}
+
+.model__aggregates {
+    padding: 0.1em 0.5em;
+    border-radius: 50px;
+    border: 1px solid $primary-color;
+}
+
+.aggregates {
+    font-size: $small-text;
+}
+
 .container__select {
     position: relative;
 }
@@ -164,6 +181,7 @@
         background: transparent;
     }
 }
+
 
 
 .input--invalid {

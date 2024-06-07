@@ -16,7 +16,8 @@ import { TechnologyBasic } from 'src/app/domain/models/technology';
 export type dataModel = {
   content: TechnologyBasic[],
   placeholder: string,
-  label: string
+  label: string,
+  arrayModel: string
 }
 
 @Component({
@@ -25,7 +26,7 @@ export type dataModel = {
   styleUrls: ['./capacity.component.scss'],
   providers: [
     {provide: ValidationForm, useClass: ValidationTechnologyService},
-    {provide: ServiceForm, useClass: TechnologyUseCaseService},
+    {provide: ServiceForm, useClass: CapacityUseCaseService},
     {provide: GetAllWithoutPaginationService, useClass: TechnologyUseCaseService},
     {provide: GetService, useClass: CapacityUseCaseService}
   ]
@@ -59,7 +60,8 @@ export class ContentCapacityComponent{
       this.dataAddModel = {
         content: technologies,
         placeholder: 'Seleccione las tecnologías',
-        label: 'Tecnologías'
+        label: 'Tecnologías',
+        arrayModel: 'technologies'
       }
     });
   }
