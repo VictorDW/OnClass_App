@@ -5,6 +5,6 @@ export interface Technology {
 }
 
 export interface TechnologyBasic {
-  id: number;
+  id?: number;
   name: string;
 }

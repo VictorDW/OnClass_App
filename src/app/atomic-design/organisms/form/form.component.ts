@@ -91,21 +91,27 @@ export class FormComponent implements OnInit, OnDestroy {
     this.displaySelect = !this.displaySelect;
   }
 
+  validateDataContent(): boolean {
+    return this.dataAddModel.content[0].id !== undefined;
+  }
+
   onSelectModel(modelToAdd: ModelsApiSelect): void {
     
-    this.placeHolderSelect = modelToAdd.name;
+    if(this.validateDataContent()) {
 
-    if(!this.selectModels.some(model => model.name === modelToAdd.name)) {
-      this.selectModels.push(modelToAdd);
+      this.placeHolderSelect = modelToAdd.name;
+
+      if(!this.selectModels.some(model => model.name === modelToAdd.name)) {
+        this.selectModels.push(modelToAdd);
+      }
     }
     
-
   }
 
   onSubmitForm(): void {
 
     if (this.form.valid) {
-         this._serviveSubcription = this._service.register(this.MapperValuesToModel())
+          this._serviveSubcription = this._service.register(this.MapperValuesToModel())
             .subscribe(() => {
               this.changeStatusModalCreate();
               this._updateList.update();

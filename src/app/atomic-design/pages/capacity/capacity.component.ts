@@ -8,7 +8,7 @@ import { InputContentStructure } from '../../organisms/form/util/InputContentStr
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { ValidationTechnologyService } from 'src/app/shared/service/validations/validation-technology.service';
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 import { TechnologyBasic } from 'src/app/domain/models/technology';
 
@@ -47,28 +47,36 @@ export class ContentCapacityComponent{
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.CAPACITY);
 
   constructor(private _updateList: UpdateListServerService, private _getAllTechnology: GetAllWithoutPaginationService) {
-    this.prueba();
+    this.createDataModel();
     this.fillContentButton();
     this.fillContentSelectOrdering();
     this.fillContentInput();
     this.updateListModels();
   }
 
-  prueba(): void {
-    this._getAllTechnology.getAllWithoutPagination()
-    .subscribe( (technologies) => {
+  
+  get showFrom() {
+    return this._isShowFrom;
+  }
+
+  private getTecnologies(): Observable<TechnologyBasic[]> {
+    return this._getAllTechnology.getAllWithoutPagination().pipe(
+      map((technologies) => {
+        return technologies.length > 0 ? technologies : [{name: 'No se encuentran tecnologías registradas'}];
+      })
+    );
+  }
+
+  private createDataModel(): void {
+    this.getTecnologies().subscribe((content) => {
       this.dataAddModel = {
-        content: technologies,
+        content: content ,
         placeholder: 'Seleccione las tecnologías',
         label: 'Tecnologías',
         arrayModel: 'technologies'
       }
-    });
-  }
+    })
 
-
-  get showFrom() {
-    return this._isShowFrom;
   }
 
   changeVisibilityModelList(status: boolean): void {

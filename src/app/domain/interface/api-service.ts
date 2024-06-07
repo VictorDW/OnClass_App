@@ -1,5 +1,4 @@
 import { Observable } from "rxjs";
-import { TechnologyBasic} from "../models/technology";
 import { Pagination } from "./pagination";
 import { Page } from "src/app/shared/service/interface/Page";
 import { ModelsApi, ModelsApiSelect } from "src/app/shared/constants/constants";
