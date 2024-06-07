@@ -22,7 +22,13 @@ export class CapacityUseCaseService implements ServiceForm, GetService {
 
 
   register(capacity: Capacity): Observable<void> {
-    throw new Error('Method not implemented.');
+    return this._capacityAdapter.registerCapacity(capacity)
+      .pipe(
+        catchError((error) => {
+          this._messageError = this._handlerError.handler(error);
+          this._alertService.showAlert(this._messageError);
+          return throwError(()=> error);
+        }));
   }
 
   getAll(pagination: Pagination): Observable<Page<ModelsApi>> {
