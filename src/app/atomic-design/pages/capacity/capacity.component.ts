@@ -3,7 +3,7 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { GetAllWithoutPaginationService, GetService, ServiceForm } from 'src/app/domain/interface/api-service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
 import { OptionSelect } from '../../molecules/select/select.component';
-import { Models, ModelsApiSelect, ResponseMessages, ValidationMessageCapacity } from 'src/app/shared/constants/constants';
+import { Models, ModelsApiSelect, ResponseMessages, StyleButton, ValidationMessageCapacity } from 'src/app/shared/constants/constants';
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
@@ -38,7 +38,7 @@ export class ContentCapacityComponent{
   displayContainerAddModel = true;
   private _isShowFrom = false;
 
-  dataButton!: buttonStructure;
+  dataButton: buttonStructure;
   dataInputContent!: InputContentStructure[]
   dataAddModel!: dataModel
   optionOrdering!: OptionSelect<string>[]
@@ -50,7 +50,7 @@ export class ContentCapacityComponent{
 
   constructor( private _getAllTechnology: GetAllWithoutPaginationService) {
     this.createDataModel();
-    this.fillContentButton();
+    this.dataButton = StyleButton.CREATE;
     this.fillContentSelectOrdering();
     this.fillContentInput();
   }
@@ -86,19 +86,8 @@ export class ContentCapacityComponent{
     });
   }
 
-
-
-
   changeStateFrom(): void {
     this._isShowFrom = !this._isShowFrom;
-  }
-
-  private fillContentButton(): void {
-    this.dataButton = {
-      showIcon: true,
-      icon: 'fa-solid fa-plus',
-      text: 'Crear'
-    };
   }
 
   private fillContentSelectOrdering(){

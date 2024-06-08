@@ -3,11 +3,11 @@ import { InputContentStructure } from 'src/app/atomic-design/organisms/form/util
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { FormGroup } from '@angular/forms';
 import { ValidationForm } from '../../../shared/service/interface/validation';
-import {ServiceForm} from "../../../domain/interface/api-service";
+import { ServiceForm } from "../../../domain/interface/api-service";
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 import { Subscription } from 'rxjs';
 import { dataModel } from '../../pages/capacity/capacity.component';
-import { ModelsApiSelect } from 'src/app/shared/constants/constants';
+import { ModelsApiSelect, StyleButton } from 'src/app/shared/constants/constants';
 
 type ObjectModelStructure = {
   [key: string]: string | ModelsApiSelect[]
@@ -31,7 +31,7 @@ export class FormComponent implements OnInit, OnDestroy {
   private _serviveSubcription!: Subscription;
 
   form: FormGroup = new FormGroup({});
-  itemButton!: buttonStructure;
+  itemButton: buttonStructure;
   isShowModalCreate: boolean = false;
   displaySelect: boolean = false;
   selectModels: ModelsApiSelect[] = [];
@@ -44,7 +44,7 @@ export class FormComponent implements OnInit, OnDestroy {
               private _updateList: UpdateListServerService) {
 
     this._serviveSubcription = new Subscription();
-    this.fillContentButton()
+    this.itemButton = StyleButton.CREATE;
   }
 
   ngOnInit(): void {
@@ -57,14 +57,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
   get showModelCreate() {
     return this.isShowModalCreate;
-  }
-
-  fillContentButton(): void {
-    this.itemButton = {
-      showIcon: true,
-      icon: 'fa-solid fa-plus',
-      text: 'Crear'
-    };
   }
 
   onCloseForm(): void {

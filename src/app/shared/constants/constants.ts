@@ -54,3 +54,11 @@ export enum ResponseMessages  {
   SUSSESS_MODEL = "¡{model} creada!",
   INVALID_FORM = 'El formulario no es valido, por favor comprueba si hay errores',
 }
+
+export const StyleButton = {
+  CREATE: {
+    showIcon: true,
+    icon: 'fa-solid fa-plus',
+    text: 'Crear'
+  }
+}

@@ -5,7 +5,7 @@ import { ValidationTechnologyService } from 'src/app/shared/service/validations/
 import { TechnologyUseCaseService } from "../../../domain/usecase/technology-use-case.service";
 import { ValidationForm } from "../../../shared/service/interface/validation";
 import { GetService, ServiceForm } from "../../../domain/interface/api-service";
-import { ResponseMessages, Models } from "../../../shared/constants/constants";
+import { ResponseMessages, Models, StyleButton } from "../../../shared/constants/constants";
 
 
 @Component({
@@ -32,9 +32,8 @@ export class ContentTechnologyComponent {
 
   constructor() {
       this.fillContentInput();
-      this.fillContentButton();
+      this.dataButton = StyleButton.CREATE;
   }
-
 
   get showFrom() {
     return this._isShowFrom;
@@ -42,15 +41,6 @@ export class ContentTechnologyComponent {
 
   changeStateFrom(): void {
     this._isShowFrom = !this._isShowFrom;
-  }
-
-
-  private fillContentButton(): void {
-    this.dataButton = {
-      showIcon: true,
-      icon: 'fa-solid fa-plus',
-      text: 'Crear'
-    };
   }
 
   private fillContentInput(): void {
