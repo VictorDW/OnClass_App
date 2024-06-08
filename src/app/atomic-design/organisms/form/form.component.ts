@@ -93,8 +93,12 @@ export class FormComponent implements OnInit, OnDestroy {
     this.displaySelect = !this.displaySelect;
   }
 
-  validateDataContent(): boolean {
+  private validateDataContent(): boolean {
     return this.dataAddModel.content[0].id !== undefined;
+  }
+
+  hasModelSelect(): boolean {
+    return this.selectModels.length > 0;
   }
 
   onSelectModel(modelToAdd: ModelsApiSelect): void {

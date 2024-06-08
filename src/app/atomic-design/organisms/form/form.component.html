@@ -20,7 +20,7 @@
                     autofocus>
 
                 <div class="alert">
-                  <span *ngIf="verifyError(data.controle)" class="alert__message--error">
+                  <span *ngIf="verifyError(data.controle)" class="alert__message--error fade-in">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                     {{ this.validationService.getErrorMessage(data.controle, form)}}
                   </span>
@@ -31,7 +31,7 @@
 
                 <label class="container__label">{{dataAddModel.label}}</label>
 
-                <div class="container__model">
+                <div class="container__model fade-in" *ngIf="hasModelSelect()">
                     <div *ngFor="let model of selectModels" class="model__aggregates">
                         <span class="aggregates">{{ model.name }}</span>
                     </div>
@@ -51,8 +51,8 @@
                     </div>
                 </div>
 
-                <div class="alert">
-                  <span *ngIf="!isCountModelValid" class="alert__message--error">
+                <div class="alert ">
+                  <span *ngIf="!isCountModelValid" class="alert__message--error fade-in">
                     <i  class="fa-solid fa-triangle-exclamation"></i>
                     {{ messageModelInvalid }}
                   </span>
