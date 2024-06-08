@@ -3,7 +3,7 @@
 
         <header class="section__header">
             <h2>{{ titleForm }}</h2>
-            <button class="header__button" (click)="onCloseForm()">
+            <button class="button header__button" (click)="onCloseForm()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </header>
@@ -34,6 +34,9 @@
                 <div class="container__model fade-in" *ngIf="hasModelSelect()">
                     <div *ngFor="let model of selectModels" class="model__aggregates">
                         <span class="aggregates">{{ model.name }}</span>
+                        <button class="button aggregates-button">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                 </div>
 

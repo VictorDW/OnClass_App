@@ -34,21 +34,24 @@
     }
 }
 
-.header__button {
+.button {
     color: $primary-color;
     background-color: transparent;
     border: none;
-    width: 1.5rem;
-    height: 1.5rem;
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
 
-    & i {
-      font-size: 1.5rem;
-    }
-
     &:hover{
         transform: scale(1.2);
+    }
+}
+
+.header__button {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    & i {
+      font-size: 1.5rem;
     }
 }
 
@@ -121,7 +124,10 @@
   }
 
 .model__aggregates {
-    padding: 0.1em 0.5em;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.2em 0.5em;
     border-radius: 50px;
     border: 1px solid $primary-color;
 }
@@ -130,6 +136,16 @@
     font-size: $small-text;
 }
 
+.aggregates-button {
+    display: flex;
+    justify-content: center;
+    width: 0.8rem;
+    height: 0.8rem;
+
+    &i {
+        font-size: 0.8rem;
+    }
+}
 .container__select {
     position: relative;
 }
