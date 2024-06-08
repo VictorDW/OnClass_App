@@ -34,7 +34,6 @@ export class FormComponent implements OnInit, OnDestroy {
   itemButton!: buttonStructure;
   isShowModalCreate: boolean = false;
   displaySelect: boolean = false;
-  placeHolderSelect: string = '';
   selectModels: ModelsApiSelect[] = [];
   isCountModelValid: boolean = true
   messageModelInvalid: string = '';
@@ -50,7 +49,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = this._validationService.addValidations();
-    this.fillPlaceholderSelect();
   }
 
   get validationService() {
@@ -69,14 +67,8 @@ export class FormComponent implements OnInit, OnDestroy {
     };
   }
 
-  fillPlaceholderSelect(): void {
-    if(this.dataAddModel) {
-      this.placeHolderSelect = this.dataAddModel.placeholder;
-    }
-  }
-
   onCloseForm(): void {
-    this.fillPlaceholderSelect();
+
     this.closeForm.emit();
   }
 
@@ -102,15 +94,17 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onSelectModel(modelToAdd: ModelsApiSelect): void {
+    
     if(this.validateDataContent()) {
-      this.placeHolderSelect = modelToAdd.name;
       this.addModelIfNotExists(modelToAdd);
       this.verifySelectModelStatus();
     }
   }
   
   private addModelIfNotExists(modelToAdd: ModelsApiSelect): void {
+
     const modelExists = this.selectModels.some(model => model.name === modelToAdd.name);
+
     if(!modelExists) {
       this.selectModels.push(modelToAdd);
     }
