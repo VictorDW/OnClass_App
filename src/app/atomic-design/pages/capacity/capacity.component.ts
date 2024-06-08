@@ -8,8 +8,7 @@ import { InputContentStructure } from '../../organisms/form/util/InputContentStr
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { ValidationTechnologyService } from 'src/app/shared/service/validations/validation-technology.service';
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
-import { Observable, Subscription, map } from 'rxjs';
-import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
+import { Observable, map } from 'rxjs';
 import { TechnologyBasic } from 'src/app/domain/models/technology';
 
 
@@ -33,28 +32,26 @@ export type dataModel = {
 })
 export class ContentCapacityComponent{
 
-  displayContentList = true;
   displaySelectOrder = true;
   displayContainerAddModel = true;
   private _isShowFrom = false;
-  private _updateListSubscription!: Subscription;
 
   dataButton!: buttonStructure;
   dataInputContent!: InputContentStructure[]
   dataAddModel!: dataModel
   optionOrdering!: OptionSelect<string>[]
+  messageCreateModel: string = ResponseMessages.CREATE_MODEL.replace('{model}', `una ${Models.CAPACITY}`);
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.CAPACITY);
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.CAPACITY);
 
-  constructor(private _updateList: UpdateListServerService, private _getAllTechnology: GetAllWithoutPaginationService) {
+  constructor( private _getAllTechnology: GetAllWithoutPaginationService) {
     this.createDataModel();
     this.fillContentButton();
     this.fillContentSelectOrdering();
     this.fillContentInput();
-    this.updateListModels();
   }
 
-  
+
   get showFrom() {
     return this._isShowFrom;
   }
@@ -79,9 +76,6 @@ export class ContentCapacityComponent{
 
   }
 
-  changeVisibilityModelList(status: boolean): void {
-    this.displayContentList = status;
-  }
 
   changeStateFrom(): void {
     this._isShowFrom = !this._isShowFrom;
@@ -116,18 +110,5 @@ export class ContentCapacityComponent{
        }
      ]
    }
-
-
-   updateListModels() {
-    this._updateListSubscription = this._updateList.updateList$.subscribe(() => {
-      if(!this.displayContentList) {
-        this.changeVisibilityModelList(true);
-      } 
-    })
-  }
-
-  ngOnDestroy(): void {
-    this,this._updateListSubscription.unsubscribe();
-  }
 
 }
