@@ -102,18 +102,33 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onSelectModel(modelToAdd: ModelsApiSelect): void {
-
     if(this.validateDataContent()) {
-
       this.placeHolderSelect = modelToAdd.name;
-
-      if(!this.selectModels.some(model => model.name === modelToAdd.name)) {
-        this.selectModels.push(modelToAdd);
-      }
-
-      this.isCountModelValid = this.dataAddModel.validation(this.selectModels);
-      this.messageModelInvalid = !this.isCountModelValid ? this.dataAddModel.messageValidation : '';
+      this.addModelIfNotExists(modelToAdd);
+      this.verifySelectModelStatus();
     }
+  }
+  
+  private addModelIfNotExists(modelToAdd: ModelsApiSelect): void {
+    const modelExists = this.selectModels.some(model => model.name === modelToAdd.name);
+    if(!modelExists) {
+      this.selectModels.push(modelToAdd);
+    }
+  }
+
+  private verifySelectModelStatus(): void {
+    this.isCountModelValid = this.validateModels();
+    this.setMessageModelInvalid();
+  }
+  
+  private validateModels(): boolean {
+    const isValid = this.dataAddModel.validation(this.selectModels);
+    this.form.setErrors(isValid ? null : {invalid: true});
+    return isValid;
+  }
+  
+  private setMessageModelInvalid(): void {
+    this.messageModelInvalid = this.isCountModelValid ? '' : this.dataAddModel.validationMessage;
   }
 
   onSubmitForm(): void {

@@ -17,7 +17,7 @@ export type dataModel = {
   placeholder: string,
   label: string,
   arrayModel: string,
-  messageValidation: string,
+  validationMessage: string,
   validation: (selectModels: ModelsApiSelect[]) => boolean
 }
 
@@ -77,9 +77,8 @@ export class ContentCapacityComponent{
         placeholder: 'Seleccione las tecnologías',
         label: 'Tecnologías',
         arrayModel: 'technologies',
-        messageValidation: ValidationMessageCapacity['VALIDATION_TECHNOLOGIES'],
+        validationMessage: ValidationMessageCapacity['VALIDATION_TECHNOLOGIES'],
         validation: (selectModels: TechnologyBasic[]) => {
-
           return selectModels.length >= this._DEFAULT_MIN_NUMBER_TECHNOLOGIES &&
                 selectModels.length <= this._DEFAULT_MAX_NUMBER_TECHNOLOGIES
         }
