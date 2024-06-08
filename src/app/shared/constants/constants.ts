@@ -60,5 +60,9 @@ export const StyleButton = {
     showIcon: true,
     icon: 'fa-solid fa-plus',
     text: 'Crear'
+  },
+  SUSSESS: {
+    showIcon: false,
+    text: 'Aceptar'
   }
 }
