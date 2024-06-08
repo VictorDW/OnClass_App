@@ -36,10 +36,12 @@ export class FormComponent implements OnInit, OnDestroy {
   displaySelect: boolean = false;
   placeHolderSelect: string = '';
   selectModels: ModelsApiSelect[] = [];
+  isCountModelValid: boolean = true
+  messageModelInvalid: string = '';
 
 
-  constructor(private _validationService: ValidationForm, 
-              private _service: ServiceForm, 
+  constructor(private _validationService: ValidationForm,
+              private _service: ServiceForm,
               private _updateList: UpdateListServerService) {
 
     this._serviveSubcription = new Subscription();
@@ -96,7 +98,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onSelectModel(modelToAdd: ModelsApiSelect): void {
-    
+
     if(this.validateDataContent()) {
 
       this.placeHolderSelect = modelToAdd.name;
@@ -104,8 +106,10 @@ export class FormComponent implements OnInit, OnDestroy {
       if(!this.selectModels.some(model => model.name === modelToAdd.name)) {
         this.selectModels.push(modelToAdd);
       }
+
+      this.isCountModelValid = this.dataAddModel.validation(this.selectModels);
+      this.messageModelInvalid = !this.isCountModelValid ? this.dataAddModel.messageValidation : '';
     }
-    
   }
 
   onSubmitForm(): void {
@@ -135,7 +139,7 @@ export class FormComponent implements OnInit, OnDestroy {
     if(this.dataAddModel) {
       model[this.dataAddModel.arrayModel] = this.selectModels;
     }
-    
+
     return model
   }
 

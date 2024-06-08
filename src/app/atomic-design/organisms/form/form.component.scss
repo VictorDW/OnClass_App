@@ -165,7 +165,7 @@
     width: 32px;
     height: 32px;
     position: absolute;
-    bottom: 4px;
+    bottom: 28px;
     right: 4px;
     border-radius: 50%;
     color: white;
@@ -174,7 +174,7 @@
     border: 1px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease-out;
-    
+
     &:hover {
         color: $primary-color;
         border: 1px solid $primary-color;

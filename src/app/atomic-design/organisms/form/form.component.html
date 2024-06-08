@@ -26,35 +26,48 @@
                   </span>
                 </div>
             </div>
-            
+
             <section  *ngIf="displayContainerAddModel" class="form__container form__container--select">
+
                 <label class="container__label">{{dataAddModel.label}}</label>
+
                 <div class="container__model">
                     <div *ngFor="let model of selectModels" class="model__aggregates">
                         <span class="aggregates">{{ model.name }}</span>
                     </div>
                 </div>
+
                 <div class="container__select" (click)="displaySelectContent()">
                     <div class="container__input select__model">
                         <span class="model__placeholder">
                             {{this.placeHolderSelect}}
                         </span>
                     </div>
+
                     <div class="select__content" [ngClass]="{ 'show': displaySelect}">
                         <div class="content__option" *ngFor="let model of dataAddModel.content" (click)="onSelectModel(model)">
                             {{ model.name }}
                         </div>
-                    </div> 
+                    </div>
                 </div>
+
+                <div class="alert">
+                  <span *ngIf="!isCountModelValid" class="alert__message--error">
+                    <i  class="fa-solid fa-triangle-exclamation"></i>
+                    {{ messageModelInvalid }}
+                  </span>
+                </div>
+
                 <button type="button" class="models__btn fa-regular fa-plus" (click)="displaySelectContent()"></button>
-            </section>
+
+              </section>
 
             <app-button [itemButton]="itemButton" [disabled]="this.disableButton()"></app-button>
         </form>
     </section>
 
-    <app-modal *ngIf="showModelCreate" 
-        [titleModal]="titleModal" 
+    <app-modal *ngIf="showModelCreate"
+        [titleModal]="titleModal"
         (closeModal)="onCloseModals()">
     </app-modal>
 </div>

@@ -3,20 +3,22 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { GetAllWithoutPaginationService, GetService, ServiceForm } from 'src/app/domain/interface/api-service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
 import { OptionSelect } from '../../molecules/select/select.component';
-import { Models, ResponseMessages } from 'src/app/shared/constants/constants';
+import { Models, ModelsApiSelect, ResponseMessages, ValidationMessageCapacity } from 'src/app/shared/constants/constants';
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
-import { ValidationTechnologyService } from 'src/app/shared/service/validations/validation-technology.service';
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
 import { Observable, map } from 'rxjs';
 import { TechnologyBasic } from 'src/app/domain/models/technology';
+import { ValidationCapacityService } from 'src/app/shared/service/validations/validation-capacity.service';
 
 
 export type dataModel = {
-  content: TechnologyBasic[],
+  content: ModelsApiSelect[],
   placeholder: string,
   label: string,
-  arrayModel: string
+  arrayModel: string,
+  messageValidation: string,
+  validation: (selectModels: ModelsApiSelect[]) => boolean
 }
 
 @Component({
@@ -24,7 +26,7 @@ export type dataModel = {
   templateUrl: './capacity.component.html',
   styleUrls: ['./capacity.component.scss'],
   providers: [
-    {provide: ValidationForm, useClass: ValidationTechnologyService},
+    {provide: ValidationForm, useClass: ValidationCapacityService},
     {provide: ServiceForm, useClass: CapacityUseCaseService},
     {provide: GetAllWithoutPaginationService, useClass: TechnologyUseCaseService},
     {provide: GetService, useClass: CapacityUseCaseService}
@@ -43,6 +45,8 @@ export class ContentCapacityComponent{
   messageCreateModel: string = ResponseMessages.CREATE_MODEL.replace('{model}', `una ${Models.CAPACITY}`);
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.CAPACITY);
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.CAPACITY);
+  private _DEFAULT_MIN_NUMBER_TECHNOLOGIES = 3;
+  private _DEFAULT_MAX_NUMBER_TECHNOLOGIES = 20;
 
   constructor( private _getAllTechnology: GetAllWithoutPaginationService) {
     this.createDataModel();
@@ -65,16 +69,25 @@ export class ContentCapacityComponent{
   }
 
   private createDataModel(): void {
+
     this.getTecnologies().subscribe((content) => {
+
       this.dataAddModel = {
-        content: content ,
+        content: content,
         placeholder: 'Seleccione las tecnologías',
         label: 'Tecnologías',
-        arrayModel: 'technologies'
-      }
-    })
+        arrayModel: 'technologies',
+        messageValidation: ValidationMessageCapacity['VALIDATION_TECHNOLOGIES'],
+        validation: (selectModels: TechnologyBasic[]) => {
 
+          return selectModels.length >= this._DEFAULT_MIN_NUMBER_TECHNOLOGIES &&
+                selectModels.length <= this._DEFAULT_MAX_NUMBER_TECHNOLOGIES
+        }
+      }
+    });
   }
+
+
 
 
   changeStateFrom(): void {
