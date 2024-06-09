@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Models, ResponseMessages, StyleButton } from 'src/app/shared/constants/constants';
+import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 
 @Component({
   selector: 'app-bootcamp',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BootcampComponent implements OnInit {
 
-  constructor() { }
+  dataButton: buttonStructure;
+  messageCreateModel: string = ResponseMessages.CREATE_MODEL.replace('{model}', `un ${Models.BOOTCAMP}`);
+
+  constructor() {
+    this.dataButton = StyleButton.CREATE;
+  }
 
   ngOnInit(): void {
   }

@@ -45,8 +45,9 @@ export const ResponseErrorMesages: FormatResponse = {
 }
 
 export enum Models {
-  TECHNOLOGY = 'Tecnología',
-  CAPACITY = 'Capacidad'
+  TECHNOLOGY = 'tecnología',
+  CAPACITY = 'capacidad',
+  BOOTCAMP = 'bootcamp'
 }
 
 export enum ResponseMessages  {
