@@ -3,7 +3,7 @@
 
         <header class="section__header">
             <h2>{{ titleForm }}</h2>
-            <button class="header__button" (click)="onCloseForm()">
+            <button class="button header__button" (click)="onCloseForm()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </header>
@@ -20,29 +20,57 @@
                     autofocus>
 
                 <div class="alert">
-                  <span *ngIf="verifyError(data.controle)" class="alert__message--error">
+                  <span *ngIf="verifyError(data.controle)" class="alert__message--error fade-in">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                     {{ this.validationService.getErrorMessage(data.controle, form)}}
                   </span>
                 </div>
             </div>
-            
-            <section  *ngIf="displayContainerAddModel" class="form__container">
+
+            <section  *ngIf="displayContainerAddModel" class="form__container form__container--select">
+
                 <label class="container__label">{{dataAddModel.label}}</label>
-                <div>
-                    <input class="container__input" type="text" disabled [placeholder]="dataAddModel.placeholder">
-                    <select>
-                        <option *ngFor="let item of dataAddModel.content">{{ item.name }}</option>
-                    </select>
+
+                <div class="container__model fade-in" *ngIf="hasModelSelect()">
+                    <div *ngFor="let model of selectModels" class="model__aggregates">
+                        <span class="aggregates">{{ model.name }}</span>
+                        <button class="button aggregates-button" (click)="onRemoveModel(model)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
                 </div>
-            </section>
+
+                <div class="container__select" (click)="displaySelectContent()">
+                    <div class="container__input select__model">
+                        <span class="model__placeholder">
+                            {{dataAddModel.placeholder}}
+                        </span>
+                    </div>
+
+                    <div class="select__content" [ngClass]="{ 'show': displaySelect}">
+                        <div class="content__option" *ngFor="let model of dataAddModel.content" (click)="onSelectModel(model)">
+                            {{ model.name }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert ">
+                  <span *ngIf="!isCountModelValid" class="alert__message--error fade-in">
+                    <i  class="fa-solid fa-triangle-exclamation"></i>
+                    {{ messageModelInvalid }}
+                  </span>
+                </div>
+
+                <button type="button" class="models__btn fa-regular fa-plus" (click)="displaySelectContent()"></button>
+
+              </section>
 
             <app-button [itemButton]="itemButton" [disabled]="this.disableButton()"></app-button>
         </form>
     </section>
 
-    <app-modal *ngIf="showModelCreate" 
-        [titleModal]="titleModal" 
+    <app-modal *ngIf="showModelCreate"
+        [titleModal]="titleModal"
         (closeModal)="onCloseModals()">
     </app-modal>
 </div>

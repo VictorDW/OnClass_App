@@ -3,20 +3,22 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { GetAllWithoutPaginationService, GetService, ServiceForm } from 'src/app/domain/interface/api-service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
 import { OptionSelect } from '../../molecules/select/select.component';
-import { Models, ResponseMessages } from 'src/app/shared/constants/constants';
+import { Models, ModelsApiSelect, ResponseMessages, StyleButton, ValidationMessageCapacity } from 'src/app/shared/constants/constants';
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
-import { ValidationTechnologyService } from 'src/app/shared/service/validations/validation-technology.service';
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
-import { Subscription } from 'rxjs';
-import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
+import { Observable, map } from 'rxjs';
 import { TechnologyBasic } from 'src/app/domain/models/technology';
+import { ValidationCapacityService } from 'src/app/shared/service/validations/validation-capacity.service';
 
 
 export type dataModel = {
-  content: TechnologyBasic[],
+  content: ModelsApiSelect[],
   placeholder: string,
-  label: string
+  label: string,
+  arrayModel: string,
+  validationMessage: string,
+  validation: (selectModels: ModelsApiSelect[]) => boolean
 }
 
 @Component({
@@ -24,44 +26,33 @@ export type dataModel = {
   templateUrl: './capacity.component.html',
   styleUrls: ['./capacity.component.scss'],
   providers: [
-    {provide: ValidationForm, useClass: ValidationTechnologyService},
-    {provide: ServiceForm, useClass: TechnologyUseCaseService},
+    {provide: ValidationForm, useClass: ValidationCapacityService},
+    {provide: ServiceForm, useClass: CapacityUseCaseService},
     {provide: GetAllWithoutPaginationService, useClass: TechnologyUseCaseService},
     {provide: GetService, useClass: CapacityUseCaseService}
   ]
 })
 export class ContentCapacityComponent{
 
-  displayContentList = true;
   displaySelectOrder = true;
   displayContainerAddModel = true;
   private _isShowFrom = false;
-  private _updateListSubscription!: Subscription;
 
-  dataButton!: buttonStructure;
+  dataButton: buttonStructure;
   dataInputContent!: InputContentStructure[]
   dataAddModel!: dataModel
   optionOrdering!: OptionSelect<string>[]
+  messageCreateModel: string = ResponseMessages.CREATE_MODEL.replace('{model}', `una ${Models.CAPACITY}`);
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.CAPACITY);
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.CAPACITY);
+  private _DEFAULT_MIN_NUMBER_TECHNOLOGIES = 3;
+  private _DEFAULT_MAX_NUMBER_TECHNOLOGIES = 20;
 
-  constructor(private _updateList: UpdateListServerService, private _getAllTechnology: GetAllWithoutPaginationService) {
-    this.prueba();
-    this.fillContentButton();
+  constructor( private _getAllTechnology: GetAllWithoutPaginationService) {
+    this.createDataModel();
+    this.dataButton = StyleButton.CREATE;
     this.fillContentSelectOrdering();
     this.fillContentInput();
-    this.updateListModels();
-  }
-
-  prueba(): void {
-    this._getAllTechnology.getAllWithoutPagination()
-    .subscribe( (technologies) => {
-      this.dataAddModel = {
-        content: technologies,
-        placeholder: 'Seleccione las tecnologías',
-        label: 'Tecnologías'
-      }
-    });
   }
 
 
@@ -69,26 +60,40 @@ export class ContentCapacityComponent{
     return this._isShowFrom;
   }
 
-  changeVisibilityModelList(status: boolean): void {
-    this.displayContentList = status;
+  private getTecnologies(): Observable<TechnologyBasic[]> {
+    return this._getAllTechnology.getAllWithoutPagination().pipe(
+      map((technologies) => {
+        return technologies.length > 0 ? technologies : [{name: 'No se encuentran tecnologías registradas'}];
+      })
+    );
+  }
+
+  private createDataModel(): void {
+
+    this.getTecnologies().subscribe((content) => {
+
+      this.dataAddModel = {
+        content: content,
+        placeholder: 'Seleccione las tecnologías',
+        label: 'Tecnologías',
+        arrayModel: 'technologies',
+        validationMessage: ValidationMessageCapacity['VALIDATION_TECHNOLOGIES'],
+        validation: (selectModels: TechnologyBasic[]) => {
+          return selectModels.length >= this._DEFAULT_MIN_NUMBER_TECHNOLOGIES &&
+                selectModels.length <= this._DEFAULT_MAX_NUMBER_TECHNOLOGIES
+        }
+      }
+    });
   }
 
   changeStateFrom(): void {
     this._isShowFrom = !this._isShowFrom;
   }
 
-  private fillContentButton(): void {
-    this.dataButton = {
-      showIcon: true,
-      icon: 'fa-solid fa-plus',
-      text: 'Crear'
-    };
-  }
-
   private fillContentSelectOrdering(){
     this.optionOrdering = [
       {value: 'name', name: "nombre"},
-      {value: 'technologies', name: "cantidad de tecnologías"}
+      {value: 'technologies', name: "tecnologías"}
     ]
   }
 
@@ -106,18 +111,5 @@ export class ContentCapacityComponent{
        }
      ]
    }
-
-
-   updateListModels() {
-    this._updateListSubscription = this._updateList.updateList$.subscribe(() => {
-      if(!this.displayContentList) {
-        this.changeVisibilityModelList(true);
-      } 
-    })
-  }
-
-  ngOnDestroy(): void {
-    this,this._updateListSubscription.unsubscribe();
-  }
 
 }

@@ -28,8 +28,8 @@ type Pages = {
 export class ListModelsComponent implements OnInit, OnDestroy {
   @Input()  displaySelectOrder: boolean
   @Input()  optionOrdering!: OptionSelect<string>[];
-  @Input()  dataButton!: buttonStructure
-  @Output() displayContent = new EventEmitter<boolean>();
+  @Input()  dataButton!: buttonStructure;
+  @Input()  messageCreateModel!: string;
   @Output() showFrom = new EventEmitter<boolean>();
 
   private _paginationDate!: Pagination;
@@ -42,6 +42,7 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   direction!: string
   models: Technology[] = [];
   KeyEnum = KeyEnum;
+  displayContentList = true;
 
   pages: Pages[] = [];
   currentPage!: number;
@@ -260,11 +261,11 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   update() {
     this._updateListSubscription = this._updateList.updateList$.subscribe(() => {
       this.updateList(this._paginationDate);
-    })
+    });
   }
 
   displayContentStatus(status: boolean): void {
-    this.displayContent.emit(status);
+    this.displayContentList = status;
   }
 
   setPaginate(value: number): void {

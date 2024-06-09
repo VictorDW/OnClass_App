@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonStructure';
+import { StyleButton } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-home',
@@ -7,18 +8,14 @@ import { buttonStructure } from 'src/app/atomic-design/atoms/button/util/buttonS
   styleUrls: ['./home.component.scss']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
 
- dataButton: buttonStructure = {
-  showIcon: true,
-  icon: 'fa-solid fa-plus',
-  text: 'Crear'
-  };
+  dataButton: buttonStructure;;
 
-  constructor() { }
+  constructor() {
+    this.dataButton = StyleButton.CREATE;
+   }
 
-  ngOnInit(): void {
-  }
 
 }

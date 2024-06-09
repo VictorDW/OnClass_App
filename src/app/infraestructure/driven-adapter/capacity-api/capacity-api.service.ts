@@ -15,7 +15,7 @@ export class CapacityApiService implements CapacityGateway {
   constructor(private _httpClient: HttpClient) { }
 
   registerCapacity(capacity: Capacity): Observable<void> {
-    throw new Error('Method not implemented.');
+    return this._httpClient.post<void>(this._url, capacity);
   }
   getCapacities(pagination: Pagination): Observable<Page<Capacity>> {
     return this._httpClient.get<Page<Capacity>>(`${this._url}?size=${pagination[KeyEnum.SIZE]}&direction=${pagination[KeyEnum.DIRECTION]}&page=${pagination[KeyEnum.PAGE]}&orderBy=${pagination[KeyEnum.ORDERBY]}`);

@@ -1,13 +1,13 @@
 
 
  <!-- contenedor para el listado de tecnologías -->
-  <app-list-models *ngIf="displayContentList; else create" 
+  <app-list-models
     [dataButton]="dataButton"
-    (displayContent)="changeVisibilityModelList($event)" 
+    [messageCreateModel]="messageCreateModel"
     (showFrom)="changeStateFrom()">
   </app-list-models>
 
-  <!-- contenedor para crear una tecnologia -->
+  <!-- contenedor para crear una tecnologia
   <ng-template #create>
     <article class="technology">
 
@@ -18,7 +18,7 @@
       <app-button class="technology__button" [itemButton]="dataButton" (click)="changeStateFrom()"></app-button>
 
     </article>
-  </ng-template>
+  </ng-template>-->
 
   <!-- formulario para crear una tecnologia -->
   <app-form *ngIf="showFrom"

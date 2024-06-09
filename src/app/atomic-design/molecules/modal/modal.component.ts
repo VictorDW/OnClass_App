@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
+import { StyleButton } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-modal',
@@ -14,14 +15,7 @@ export class ModalComponent {
   itemButton!: buttonStructure;
 
   constructor() { 
-    this.fillContentButton();
-  }
-  
-  fillContentButton(): void {
-    this.itemButton = {
-      showIcon: false,
-      text: 'Aceptar'
-    };
+    this.itemButton = StyleButton.SUSSESS;
   }
 
   OncloseModal(): void {

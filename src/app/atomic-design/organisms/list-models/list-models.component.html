@@ -1,4 +1,4 @@
-<main class="model-container">
+<main class="model-container" *ngIf="displayContentList; else create">
   <article class="model-container__article--models">
     <section class="model-container__order">
 
@@ -61,3 +61,15 @@
     </section>
   </article>
 </main>
+
+<ng-template #create>
+  <article class="model-create">
+
+    <div class="model-create__text-container">
+      <p class="text-container__message">{{ messageCreateModel }}</p>
+    </div>
+
+    <app-button class="model-create__button" [itemButton]="dataButton" (click)="displayFrom()"></app-button>
+
+  </article>
+</ng-template>
