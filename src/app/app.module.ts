@@ -27,6 +27,7 @@ import { ListModelsComponent } from './atomic-design/organisms/list-models/list-
 import { SelectComponent } from './atomic-design/molecules/select/select.component';
 import { CapacityGateway } from './domain/gateway/capacity-gateway';
 import { CapacityApiService } from './infraestructure/driven-adapter/capacity-api/capacity-api.service';
+import { BootcampComponent } from './atomic-design/pages/bootcamp/bootcamp.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { CapacityApiService } from './infraestructure/driven-adapter/capacity-ap
     AlertComponent,
     ModalComponent,
     ListModelsComponent,
-    SelectComponent
+    SelectComponent,
+    BootcampComponent
   ],
   imports: [
     BrowserModule,

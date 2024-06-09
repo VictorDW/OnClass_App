@@ -23,7 +23,7 @@ export class TabsNavComponent {
       }
 
     },{
-      _href:'/bootcamp',
+      _href:'/library/bootcamp',
       _link: {
         _title: 'Bootcamps'
       }
