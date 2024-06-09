@@ -34,7 +34,7 @@
                 <div class="container__model fade-in" *ngIf="hasModelSelect()">
                     <div *ngFor="let model of selectModels" class="model__aggregates">
                         <span class="aggregates">{{ model.name }}</span>
-                        <button class="button aggregates-button">
+                        <button class="button aggregates-button" (click)="onRemoveModel(model)">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
