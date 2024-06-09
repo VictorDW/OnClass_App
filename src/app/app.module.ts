@@ -28,6 +28,7 @@ import { SelectComponent } from './atomic-design/molecules/select/select.compone
 import { CapacityGateway } from './domain/gateway/capacity-gateway';
 import { CapacityApiService } from './infraestructure/driven-adapter/capacity-api/capacity-api.service';
 import { BootcampComponent } from './atomic-design/pages/bootcamp/bootcamp.component';
+import { ListBootcampsComponent } from './atomic-design/organisms/list-bootcamps/list-bootcamps.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { BootcampComponent } from './atomic-design/pages/bootcamp/bootcamp.compo
     ModalComponent,
     ListModelsComponent,
     SelectComponent,
-    BootcampComponent
+    BootcampComponent,
+    ListBootcampsComponent
   ],
   imports: [
     BrowserModule,
