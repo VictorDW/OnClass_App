@@ -7,7 +7,7 @@ import { Models, ModelsApiSelect, ResponseMessages, StyleButton, ValidationMessa
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { TechnologyBasic } from 'src/app/domain/models/technology';
 import { ValidationCapacityService } from 'src/app/shared/service/validations/validation-capacity.service';
 
@@ -110,6 +110,6 @@ export class ContentCapacityComponent{
          controle: 'description'
        }
      ]
-   }
+  }
 
 }

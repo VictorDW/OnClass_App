@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 
 @Component({
@@ -8,12 +8,16 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 })
 export class ListBootcampsComponent implements OnInit {
 
-  @Input()  dataButton!: buttonStructure;
+  @Input() dataButton!: buttonStructure;
   @Input() messageCreateModel!: string;
+  @Output() showFrom = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  displayFrom() {
+    return this.showFrom.emit();
+  }
 }
