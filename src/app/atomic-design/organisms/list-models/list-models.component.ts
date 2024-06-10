@@ -7,6 +7,7 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 import { Subscription } from 'rxjs';
 import { OptionSelect } from '../../molecules/select/select.component';
+import { ModelsApi } from 'src/app/shared/constants/constants';
 
 
 type ButtonDirection = {
@@ -40,7 +41,7 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   buttonDirection!: ButtonDirection;
   size!: number;
   direction!: string
-  models: Technology[] = [];
+  models: ModelsApi[] = [];
   KeyEnum = KeyEnum;
   displayContentList = true;
 
@@ -128,6 +129,7 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   private populateModelList(): void {
 
     this._modelSubcription = this._serviceListModel.modelObservable$.subscribe((data) => {
+      console.log(data.content);
       this.displayContentStatus(!data.empty);
       this.models = data.content;
       this.currentPage = (data.pageNumber + 1);
