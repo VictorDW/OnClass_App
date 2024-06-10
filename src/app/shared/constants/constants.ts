@@ -20,11 +20,11 @@ export enum ValidationMessageCapacity {
   DESCRIPTION_REQUIRED = 'La descripción es obligatoria',
   DESCRIPTION_MAXLENGTH = 'La descripción debe ser menor a 90 caracteres',
   DESCRIPTION_MINLENGTH = 'La descripción debe ser mayor a 10 caracteres',
-  VALIDATION_TECHNOLOGIES = 'El numero de tecnologías debe ser mayor 3 y menor a 20',
+  VALIDATION_TECHNOLOGIES = 'El numero de tecnologías debe ser mayor igual a 3 y menor igual a 20',
 }
 
 export enum ValidationMessageBootcamp {
-  VALIDATION_CAPACITIES = 'El numero de capacidades debe ser mayor 1 y menor a 4',
+  VALIDATION_CAPACITIES = 'El numero de capacidades debe ser mayor igual a 1 y menor igual a 4',
 }
 
 export enum Pattern{
