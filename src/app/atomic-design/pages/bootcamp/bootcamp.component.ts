@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Models, ResponseMessages, StyleButton, ValidationMessageBootcamp} from 'src/app/shared/constants/constants';
+import { Models, ResponseMessages, StyleButton, ValidationMessageBootcamp, dataToAddListModels} from 'src/app/shared/constants/constants';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
-import { dataModel } from '../capacity/capacity.component';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { ServiceForm, GetAllWithoutPaginationService, GetService } from 'src/app/domain/interface/api-service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
@@ -24,17 +23,19 @@ import { CapacityBasic } from 'src/app/domain/models/capacity';
 })
 export class BootcampComponent{
 
-  displayContainerAddCapacity = true;
-  private _isShowFrom = false;
 
+  private _isShowFrom = false;
+  private _DEFAULT_MIN_NUMBER_CAPACITIES = 1;
+  private _DEFAULT_MAX_NUMBER_CAPACITIES = 4;
+
+  displayContainerAddCapacity = true;
   dataButton: buttonStructure;
   dataInputContent!: InputContentStructure[];
-  dataAddCapacity!: dataModel;
+  dataAddCapacity!: dataToAddListModels;
   messageCreateModel: string = ResponseMessages.CREATE_MODEL.replace('{model}', `un ${Models.BOOTCAMP}`);
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.BOOTCAMP);
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.BOOTCAMP);
-  private _DEFAULT_MIN_NUMBER_CAPACITIES = 1;
-  private _DEFAULT_MAX_NUMBER_CAPACITIES = 4;
+
 
   constructor(private _getAllTechnology: GetAllWithoutPaginationService) {
     this.createDataCapacity();
@@ -84,7 +85,7 @@ export class BootcampComponent{
         label: 'Capacidades',
         arrayModel: 'capacities',
         validationMessage: ValidationMessageBootcamp['VALIDATION_CAPACITIES'],
-        validation: (selectCapacities: CapacityBasic[]) => {
+        customizedValidation: (selectCapacities: CapacityBasic[]) => {
           return selectCapacities.length >= this._DEFAULT_MIN_NUMBER_CAPACITIES  &&
                 selectCapacities.length <= this._DEFAULT_MAX_NUMBER_CAPACITIES;
         }

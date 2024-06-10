@@ -35,6 +35,15 @@ export enum Pattern{
 export type ModelsApi = Technology | Capacity;
 export type ModelsApiSelect = TechnologyBasic | CapacityBasic;
 
+export type dataToAddListModels = {
+  content: ModelsApiSelect[],
+  placeholder: string,
+  label: string,
+  arrayModel: string,
+  validationMessage: string,
+  customizedValidation: (selectModels: ModelsApiSelect[]) => boolean
+}
+
 
 type FormatResponse = {
   [key: number]: string

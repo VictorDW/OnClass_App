@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { InputContentStructure } from 'src/app/atomic-design/organisms/form/util/InputContentStructure';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
-import { FormGroup } from '@angular/forms';
+import {  FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ValidationForm } from '../../../shared/service/interface/validation';
 import { ServiceForm } from "../../../domain/interface/api-service";
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 import { Subscription } from 'rxjs';
-import { dataModel } from '../../pages/capacity/capacity.component';
-import { ModelsApiSelect, StyleButton } from 'src/app/shared/constants/constants';
+import { ModelsApiSelect, StyleButton, dataToAddListModels } from 'src/app/shared/constants/constants';
 
 type ObjectModelStructure = {
   [key: string]: string | ModelsApiSelect[]
@@ -25,7 +24,7 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() titleModal: string = '';
   @Input() dataInputContent!: InputContentStructure[];
   @Input() displayContainerAddModel: boolean = false
-  @Input() dataAddModel!: dataModel
+  @Input() dataAddModel!: dataToAddListModels
   @Output() closeForm = new EventEmitter<void>();
 
   private _serviveSubcription!: Subscription;
@@ -35,7 +34,7 @@ export class FormComponent implements OnInit, OnDestroy {
   isShowModalCreate: boolean = false;
   displaySelect: boolean = false;
   selectModels: ModelsApiSelect[] = [];
-  isCountModelValid: boolean = true
+  isQuantityModeIsValid: boolean = true
   messageModelInvalid: string = '';
 
 
@@ -48,7 +47,12 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     this.form = this._validationService.addValidations();
+
+    if(this.dataAddModel !== undefined) {
+      this.form.setValidators(this.initialCustomValidationCheck())
+    }
   }
 
   get validationService() {
@@ -77,7 +81,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this.displaySelect = !this.displaySelect;
   }
 
-  private validateDataContent(): boolean {
+  private isNotDefaultSelection(): boolean {
     return this.dataAddModel.content[0].id !== undefined;
   }
 
@@ -87,7 +91,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   onSelectModel(modelToAdd: ModelsApiSelect): void {
 
-    if(this.validateDataContent()) {
+    if(this.isNotDefaultSelection()) {
       this.addModelIfNotExists(modelToAdd);
       this.verifySelectModelStatus();
     }
@@ -111,19 +115,35 @@ export class FormComponent implements OnInit, OnDestroy {
     this.verifySelectModelStatus();
   }
 
+  private initialCustomValidationCheck(): ValidatorFn {
+
+    return (): ValidationErrors | null => {
+
+      if(!this.dataAddModel.customizedValidation(this.selectModels) && this.form.valid) {
+        return {invalid: true};
+      }
+
+      return null
+    }
+  }
+
+  private updateFormValidityStatus(): void {
+    this.form.updateValueAndValidity();
+  }
+
   private verifySelectModelStatus(): void {
-    this.isCountModelValid = this.validateModels();
+    this.isQuantityModeIsValid = this.validateModels();
     this.setMessageModelInvalid();
   }
 
   private validateModels(): boolean {
-    const isValid = this.dataAddModel.validation(this.selectModels);
-    this.form.setErrors(isValid ? null : {invalid: true});
+    const isValid = this.dataAddModel.customizedValidation(this.selectModels);
+    this.updateFormValidityStatus();
     return isValid;
   }
 
   private setMessageModelInvalid(): void {
-    this.messageModelInvalid = this.isCountModelValid ? '' : this.dataAddModel.validationMessage;
+    this.messageModelInvalid = this.isQuantityModeIsValid ? '' : this.dataAddModel.validationMessage;
   }
 
   onSubmitForm(): void {
