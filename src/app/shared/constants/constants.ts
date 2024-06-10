@@ -96,3 +96,22 @@ export const StyleButton = {
     text: 'Aceptar'
   }
 }
+
+export const SelectSize =[
+  {value: 2, name: "2 por página"},
+  {value: 5, name: "5 por página"},
+  {value: 10, name: "10 por página"}
+]
+
+export const Direction = {
+  ASC: {
+    icon: 'fa-solid fa-arrow-up-wide-short',
+    text: 'ASC'
+  },
+  DESC: {
+    icon: 'fa-solid fa-arrow-down-wide-short',
+    text: 'DESC'
+  }
+}
+
+export const DEFAULT_ORDER_BY = 'name';

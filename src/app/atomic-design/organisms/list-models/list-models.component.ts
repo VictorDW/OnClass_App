@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { GetService } from 'src/app/domain/interface/api-service';
 import { Pagination, KeyEnum } from 'src/app/domain/interface/pagination';
-import { Technology } from 'src/app/domain/models/technology';
 import { ListModelService } from 'src/app/shared/service/observables/list-model.service';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
 import { Subscription } from 'rxjs';
 import { OptionSelect } from '../../molecules/select/select.component';
-import { ModelsApi } from 'src/app/shared/constants/constants';
+import { DEFAULT_ORDER_BY, Direction, ModelsApi, SelectSize } from 'src/app/shared/constants/constants';
 
 
 type ButtonDirection = {
@@ -31,7 +30,7 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   @Input()  optionOrdering!: OptionSelect<string>[];
   @Input()  dataButton!: buttonStructure;
   @Input()  messageCreateModel!: string;
-  @Output() showFrom = new EventEmitter<boolean>();
+  @Output() showFrom = new EventEmitter<void>();
 
   private _paginationDate!: Pagination;
   private _modelSubcription!: Subscription;
@@ -79,18 +78,11 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   }
 
   private fillContentSelectSize(){
-    this.optionSize = [
-      {value: 2, name: "2 por página"},
-      {value: 5, name: "5 por página"},
-      {value: 10, name: "10 por página"}
-    ]
+    this.optionSize = SelectSize;
   }
 
   private fillContentButton(): void {
-    this.buttonDirection = {
-      icon: 'fa-solid fa-arrow-up-wide-short',
-      text: 'ASC'
-    };
+    this.buttonDirection = Direction.ASC;
   }
 
   loadInitialValues(): void {
@@ -100,16 +92,12 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   }
 
   changeStateDirection() {
-
-    this.buttonDirection =  (this.buttonDirection.text != 'ASC') ?
-    {icon: 'fa-solid fa-arrow-up-wide-short', text: 'ASC'} :
-    {icon: 'fa-solid fa-arrow-down-wide-short', text: 'DESC'};
-
+    this.buttonDirection =  (this.buttonDirection.text != 'ASC') ? Direction.ASC : Direction.DESC;
     this.updateDirection(this.buttonDirection.text);
   }
 
   displayFrom() {
-    return this.showFrom.emit(true);
+    return this.showFrom.emit();
   }
 
   private fillObjectPagination(): void {
@@ -122,7 +110,7 @@ export class ListModelsComponent implements OnInit, OnDestroy {
 
   private addOrdering() {
     if(this.displaySelectOrder) {
-      this._paginationDate.orderBy = "name";
+      this._paginationDate.orderBy = DEFAULT_ORDER_BY;
     }
   }
 
