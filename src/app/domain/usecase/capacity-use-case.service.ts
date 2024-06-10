@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { GetService, ServiceForm } from '../interface/api-service';
+import { GetAllWithoutPaginationService, GetService, ServiceForm } from '../interface/api-service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { ModelsApi } from 'src/app/shared/constants/constants';
 import { Page } from 'src/app/shared/service/interface/Page';
 import { Pagination } from '../interface/pagination';
-import { Capacity } from '../models/capacity';
+import { Capacity, CapacityBasic } from '../models/capacity';
 import { CapacityGateway } from '../gateway/capacity-gateway';
 import { HandlerErrorService } from 'src/app/shared/service/handler/handler-error.service';
 import { AlertService } from 'src/app/shared/service/observables/alert.service';
 
 @Injectable()
-export class CapacityUseCaseService implements ServiceForm, GetService {
+export class CapacityUseCaseService implements ServiceForm, GetService, GetAllWithoutPaginationService {
 
   private _messageError!: string;
 
-  constructor(private _capacityAdapter: CapacityGateway, 
+  constructor(private _capacityAdapter: CapacityGateway,
               private _handlerError: HandlerErrorService,
               private _alertService: AlertService) {
 
@@ -40,5 +40,9 @@ export class CapacityUseCaseService implements ServiceForm, GetService {
         return throwError(()=> error);
       })
     );
+  }
+
+  getAllWithoutPagination(): Observable<CapacityBasic[]> {
+    return this._capacityAdapter.getCapacitesWithoutPagination();
   }
 }

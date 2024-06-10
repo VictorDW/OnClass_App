@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { Models, ResponseMessages, StyleButton, ValidationMessageCapacity } from 'src/app/shared/constants/constants';
+import { Models, ResponseMessages, StyleButton, ValidationMessageBootcamp} from 'src/app/shared/constants/constants';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
 import { dataModel } from '../capacity/capacity.component';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { ServiceForm, GetAllWithoutPaginationService, GetService } from 'src/app/domain/interface/api-service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
-import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
 import { ValidationCapacityService } from 'src/app/shared/service/validations/validation-capacity.service';
 import { Observable, map } from 'rxjs';
-import { TechnologyBasic } from 'src/app/domain/models/technology';
+import { BootcampUseCaseService } from 'src/app/domain/usecase/bootcamp/bootcamp-use-case.service';
+import { CapacityBasic } from 'src/app/domain/models/capacity';
 
 @Component({
   selector: 'app-bootcamp',
@@ -17,8 +17,8 @@ import { TechnologyBasic } from 'src/app/domain/models/technology';
   styleUrls: ['./bootcamp.component.scss'],
   providers: [
     {provide: ValidationForm, useClass: ValidationCapacityService},
-    {provide: ServiceForm, useClass: CapacityUseCaseService},
-    {provide: GetAllWithoutPaginationService, useClass: TechnologyUseCaseService},
+    {provide: ServiceForm, useClass: BootcampUseCaseService},
+    {provide: GetAllWithoutPaginationService, useClass: CapacityUseCaseService},
    // {provide: GetService, useClass: CapacityUseCaseService}
   ]
 })
@@ -33,8 +33,8 @@ export class BootcampComponent{
   messageCreateModel: string = ResponseMessages.CREATE_MODEL.replace('{model}', `un ${Models.BOOTCAMP}`);
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.BOOTCAMP);
   titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.BOOTCAMP);
-  private _DEFAULT_MIN_NUMBER_CAPACITIES = 3;
-  private _DEFAULT_MAX_NUMBER_CAPACITIES = 20;
+  private _DEFAULT_MIN_NUMBER_CAPACITIES = 1;
+  private _DEFAULT_MAX_NUMBER_CAPACITIES = 4;
 
   constructor(private _getAllTechnology: GetAllWithoutPaginationService) {
     this.createDataCapacity();
@@ -66,10 +66,10 @@ export class BootcampComponent{
     this._isShowFrom = !this._isShowFrom;
   }
 
-  private getCapacities(): Observable<TechnologyBasic[]> {
+  private getCapacities(): Observable<CapacityBasic[]> {
     return this._getAllTechnology.getAllWithoutPagination().pipe(
-      map((technologies) => {
-        return technologies.length > 0 ? technologies : [{name: 'No se encuentran tecnologías registradas'}];
+      map((capacities) => {
+        return capacities.length > 0 ? capacities : [{name: 'No se encuentran capacidades registradas'}];
       })
     );
   }
@@ -83,10 +83,10 @@ export class BootcampComponent{
         placeholder: 'Seleccione las capacidades',
         label: 'Capacidades',
         arrayModel: 'capacities',
-        validationMessage: ValidationMessageCapacity['VALIDATION_TECHNOLOGIES'],
-        validation: (selectModels: TechnologyBasic[]) => {
-          return selectModels.length >= this._DEFAULT_MIN_NUMBER_CAPACITIES  &&
-                selectModels.length <= this._DEFAULT_MAX_NUMBER_CAPACITIES;
+        validationMessage: ValidationMessageBootcamp['VALIDATION_CAPACITIES'],
+        validation: (selectCapacities: CapacityBasic[]) => {
+          return selectCapacities.length >= this._DEFAULT_MIN_NUMBER_CAPACITIES  &&
+                selectCapacities.length <= this._DEFAULT_MAX_NUMBER_CAPACITIES;
         }
       }
     });
