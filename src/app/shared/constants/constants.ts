@@ -1,4 +1,4 @@
-import { Capacity } from "src/app/domain/models/capacity";
+import { Capacity, CapacityBasic } from "src/app/domain/models/capacity";
 import { Technology, TechnologyBasic } from "src/app/domain/models/technology";
 
 export enum  ValidationMessage {
@@ -23,13 +23,17 @@ export enum ValidationMessageCapacity {
   VALIDATION_TECHNOLOGIES = 'El numero de tecnologías debe ser mayor 3 y menor a 20',
 }
 
+export enum ValidationMessageBootcamp {
+  VALIDATION_CAPACITIES = 'El numero de capacidades debe ser mayor 1 y menor a 4',
+}
+
 export enum Pattern{
   NAME = '^[A-Za-zñÑ+#\\s]+$',
   DESCRIPTION = '^[A-Za-z0-9+#\\sáéíóúÁÉÍÓÚñÑ]+$'
 }
 
 export type ModelsApi = Technology | Capacity;
-export type ModelsApiSelect = TechnologyBasic;
+export type ModelsApiSelect = TechnologyBasic | CapacityBasic;
 
 
 type FormatResponse = {
