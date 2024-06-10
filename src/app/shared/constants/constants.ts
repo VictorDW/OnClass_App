@@ -12,6 +12,13 @@ export enum  ValidationMessage {
   DESCRIPTION_PATTERN = 'No debe contener caracteres especiales distintos de # y +',
 }
 
+export enum MessageTechnology {
+  TECNOLOGIES_EMPTY = 'No se encuentran tecnologías registradas',
+  PLACEHOLDER_TECNOLOGIES = 'Seleccione las tecnologías',
+  LABEL_TECHNOLOGIES = 'Tecnologías',
+  FIELD_ARRAY_TECHNOLOGY = 'technologies'
+}
+
 export enum ValidationMessageCapacity {
   NAME_REQUIRED = 'El nombre es obligatorio',
   NAME_MAXLENGTH = 'El nombre debe ser menor a 50 caracteres',
@@ -20,11 +27,18 @@ export enum ValidationMessageCapacity {
   DESCRIPTION_REQUIRED = 'La descripción es obligatoria',
   DESCRIPTION_MAXLENGTH = 'La descripción debe ser menor a 90 caracteres',
   DESCRIPTION_MINLENGTH = 'La descripción debe ser mayor a 10 caracteres',
-  VALIDATION_TECHNOLOGIES = 'El numero de tecnologías debe ser mayor igual a 3 y menor igual a 20',
+  VALIDATION_TECHNOLOGIES = 'El número de tecnologías debe ser, como mínimo 3 y como máximo 20.',
+}
+
+export enum MessageCapacity {
+  CAPACITIES_EMPTY = 'No se encuentran capacidades registradas',
+  PLACEHOLDER_CAPACITIES = 'Seleccione las capacidades',
+  LABEL_CAPACITIES = 'capacidades',
+  FIELD_ARRAY_CAPACITY = 'capacities'
 }
 
 export enum ValidationMessageBootcamp {
-  VALIDATION_CAPACITIES = 'El numero de capacidades debe ser mayor igual a 1 y menor igual a 4',
+  VALIDATION_CAPACITIES = 'El número de capacidades debe ser, como mínimo 1 y como máximo 4.',
 }
 
 export enum Pattern{
@@ -39,7 +53,7 @@ export type dataToAddListModels = {
   content: ModelsApiSelect[],
   placeholder: string,
   label: string,
-  arrayModel: string,
+  fieldArrayModel: string,
   validationMessage: string,
   customizedValidation: (selectModels: ModelsApiSelect[]) => boolean
 }
@@ -65,8 +79,10 @@ export enum Models {
 
 export enum ResponseMessages  {
   CREATE_MODEL = "Crear {model}",
+  CREATE_MODEL_EMPTY = "Crear una {model}",
+  CREATE_MODEL_EMPTY_BOOTCAMP = "Crear un {model}",
   SUSSESS_MODEL = "¡{model} creada!",
-  INVALID_FORM = 'El formulario no es valido, por favor comprueba si hay errores',
+  SUSSESS_MODEL_BOOTCAMP = "¡{model} creado!",
 }
 
 export const StyleButton = {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Models, ResponseMessages, StyleButton, ValidationMessageBootcamp, dataToAddListModels} from 'src/app/shared/constants/constants';
+import { MessageCapacity,Models, ResponseMessages, StyleButton, ValidationMessageBootcamp, dataToAddListModels} from 'src/app/shared/constants/constants';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
@@ -32,9 +32,9 @@ export class BootcampComponent{
   dataButton: buttonStructure;
   dataInputContent!: InputContentStructure[];
   dataAddCapacity!: dataToAddListModels;
-  messageCreateModel: string = ResponseMessages.CREATE_MODEL.replace('{model}', `un ${Models.BOOTCAMP}`);
+  messageCreateModel: string = ResponseMessages.CREATE_MODEL_EMPTY_BOOTCAMP.replace('{model}', Models.BOOTCAMP);
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.BOOTCAMP);
-  titleModal: string = ResponseMessages.SUSSESS_MODEL.replace('{model}', Models.BOOTCAMP);
+  titleModal: string = ResponseMessages.SUSSESS_MODEL_BOOTCAMP.replace('{model}', Models.BOOTCAMP);
 
 
   constructor(private _getAllTechnology: GetAllWithoutPaginationService) {
@@ -70,7 +70,7 @@ export class BootcampComponent{
   private getCapacities(): Observable<CapacityBasic[]> {
     return this._getAllTechnology.getAllWithoutPagination().pipe(
       map((capacities) => {
-        return capacities.length > 0 ? capacities : [{name: 'No se encuentran capacidades registradas'}];
+        return capacities.length > 0 ? capacities : [{name: MessageCapacity.CAPACITIES_EMPTY}];
       })
     );
   }
@@ -81,9 +81,9 @@ export class BootcampComponent{
 
       this.dataAddCapacity = {
         content: content,
-        placeholder: 'Seleccione las capacidades',
-        label: 'Capacidades',
-        arrayModel: 'capacities',
+        placeholder: MessageCapacity.PLACEHOLDER_CAPACITIES,
+        label: MessageCapacity.LABEL_CAPACITIES,
+        fieldArrayModel: MessageCapacity.FIELD_ARRAY_CAPACITY,
         validationMessage: ValidationMessageBootcamp['VALIDATION_CAPACITIES'],
         customizedValidation: (selectCapacities: CapacityBasic[]) => {
           return selectCapacities.length >= this._DEFAULT_MIN_NUMBER_CAPACITIES  &&

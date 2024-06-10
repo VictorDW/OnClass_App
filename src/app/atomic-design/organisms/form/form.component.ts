@@ -171,7 +171,7 @@ export class FormComponent implements OnInit, OnDestroy {
     }, {})
 
     if(this.dataAddModel) {
-      model[this.dataAddModel.arrayModel] = this.selectModels;
+      model[this.dataAddModel.fieldArrayModel] = this.selectModels;
     }
 
     return model
