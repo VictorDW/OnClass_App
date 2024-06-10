@@ -1,4 +1,4 @@
-import { Capacity } from "src/app/domain/models/capacity";
+import { Capacity, CapacityBasic } from "src/app/domain/models/capacity";
 import { Technology, TechnologyBasic } from "src/app/domain/models/technology";
 
 export enum  ValidationMessage {
@@ -20,7 +20,11 @@ export enum ValidationMessageCapacity {
   DESCRIPTION_REQUIRED = 'La descripción es obligatoria',
   DESCRIPTION_MAXLENGTH = 'La descripción debe ser menor a 90 caracteres',
   DESCRIPTION_MINLENGTH = 'La descripción debe ser mayor a 10 caracteres',
-  VALIDATION_TECHNOLOGIES = 'El numero de tecnologías debe ser mayor 3 y menor a 20',
+  VALIDATION_TECHNOLOGIES = 'El numero de tecnologías debe ser mayor igual a 3 y menor igual a 20',
+}
+
+export enum ValidationMessageBootcamp {
+  VALIDATION_CAPACITIES = 'El numero de capacidades debe ser mayor igual a 1 y menor igual a 4',
 }
 
 export enum Pattern{
@@ -29,7 +33,16 @@ export enum Pattern{
 }
 
 export type ModelsApi = Technology | Capacity;
-export type ModelsApiSelect = TechnologyBasic;
+export type ModelsApiSelect = TechnologyBasic | CapacityBasic;
+
+export type dataToAddListModels = {
+  content: ModelsApiSelect[],
+  placeholder: string,
+  label: string,
+  arrayModel: string,
+  validationMessage: string,
+  customizedValidation: (selectModels: ModelsApiSelect[]) => boolean
+}
 
 
 type FormatResponse = {
@@ -45,8 +58,9 @@ export const ResponseErrorMesages: FormatResponse = {
 }
 
 export enum Models {
-  TECHNOLOGY = 'Tecnología',
-  CAPACITY = 'Capacidad'
+  TECHNOLOGY = 'tecnología',
+  CAPACITY = 'capacidad',
+  BOOTCAMP = 'bootcamp'
 }
 
 export enum ResponseMessages  {

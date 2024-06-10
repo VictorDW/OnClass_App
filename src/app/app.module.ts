@@ -27,6 +27,10 @@ import { ListModelsComponent } from './atomic-design/organisms/list-models/list-
 import { SelectComponent } from './atomic-design/molecules/select/select.component';
 import { CapacityGateway } from './domain/gateway/capacity-gateway';
 import { CapacityApiService } from './infraestructure/driven-adapter/capacity-api/capacity-api.service';
+import { BootcampComponent } from './atomic-design/pages/bootcamp/bootcamp.component';
+import { ListBootcampsComponent } from './atomic-design/organisms/list-bootcamps/list-bootcamps.component';
+import { BootcampGateway } from './domain/gateway/bootcamp-gateway';
+import { BootcampApiService } from './infraestructure/driven-adapter/bootcamp-api/bootcamp-api.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,9 @@ import { CapacityApiService } from './infraestructure/driven-adapter/capacity-ap
     AlertComponent,
     ModalComponent,
     ListModelsComponent,
-    SelectComponent
+    SelectComponent,
+    BootcampComponent,
+    ListBootcampsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +64,7 @@ import { CapacityApiService } from './infraestructure/driven-adapter/capacity-ap
   providers: [
     {provide: TechnologyGateway, useClass: TechnologyApiService},
     {provide: CapacityGateway, useClass: CapacityApiService},
+    {provide: BootcampGateway, useClass: BootcampApiService},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]

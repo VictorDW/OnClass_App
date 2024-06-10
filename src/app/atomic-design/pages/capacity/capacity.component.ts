@@ -3,23 +3,14 @@ import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { GetAllWithoutPaginationService, GetService, ServiceForm } from 'src/app/domain/interface/api-service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
 import { OptionSelect } from '../../molecules/select/select.component';
-import { Models, ModelsApiSelect, ResponseMessages, StyleButton, ValidationMessageCapacity } from 'src/app/shared/constants/constants';
+import { Models, ResponseMessages, StyleButton, ValidationMessageCapacity, dataToAddListModels } from 'src/app/shared/constants/constants';
 import { InputContentStructure } from '../../organisms/form/util/InputContentStructure';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { TechnologyUseCaseService } from 'src/app/domain/usecase/technology-use-case.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { TechnologyBasic } from 'src/app/domain/models/technology';
 import { ValidationCapacityService } from 'src/app/shared/service/validations/validation-capacity.service';
 
-
-export type dataModel = {
-  content: ModelsApiSelect[],
-  placeholder: string,
-  label: string,
-  arrayModel: string,
-  validationMessage: string,
-  validation: (selectModels: ModelsApiSelect[]) => boolean
-}
 
 @Component({
   selector: 'app-content-capacity',
@@ -40,7 +31,7 @@ export class ContentCapacityComponent{
 
   dataButton: buttonStructure;
   dataInputContent!: InputContentStructure[]
-  dataAddModel!: dataModel
+  dataAddModel!: dataToAddListModels
   optionOrdering!: OptionSelect<string>[]
   messageCreateModel: string = ResponseMessages.CREATE_MODEL.replace('{model}', `una ${Models.CAPACITY}`);
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.CAPACITY);
@@ -78,7 +69,7 @@ export class ContentCapacityComponent{
         label: 'Tecnologías',
         arrayModel: 'technologies',
         validationMessage: ValidationMessageCapacity['VALIDATION_TECHNOLOGIES'],
-        validation: (selectModels: TechnologyBasic[]) => {
+        customizedValidation: (selectModels: TechnologyBasic[]) => {
           return selectModels.length >= this._DEFAULT_MIN_NUMBER_TECHNOLOGIES &&
                 selectModels.length <= this._DEFAULT_MAX_NUMBER_TECHNOLOGIES
         }
@@ -110,6 +101,6 @@ export class ContentCapacityComponent{
          controle: 'description'
        }
      ]
-   }
+  }
 
 }

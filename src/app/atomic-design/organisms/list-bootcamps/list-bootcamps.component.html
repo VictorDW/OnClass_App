@@ -1,0 +1,14 @@
+<main class="model-container" *ngIf="false; else create">
+</main>
+
+<ng-template #create>
+  <article class="model-create">
+
+    <div class="model-create__text-container">
+      <p class="text-container__message">{{ messageCreateModel }}</p>
+    </div>
+
+    <app-button class="model-create__button" [itemButton]="dataButton" (click)="displayFrom()"></app-button>
+
+  </article>
+</ng-template>

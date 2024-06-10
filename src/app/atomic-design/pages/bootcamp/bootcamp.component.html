@@ -1,0 +1,15 @@
+<app-list-bootcamps
+  [dataButton]="dataButton"
+  [messageCreateModel]="messageCreateModel"
+  (showFrom)="changeStateFrom()">
+</app-list-bootcamps>
+
+<!-- formulario para crear una capaicdad -->
+<app-form *ngIf="showFrom"
+[titleForm]="titleForm"
+[titleModal]="titleModal"
+[dataInputContent]="dataInputContent"
+[dataAddModel]="dataAddCapacity"
+[displayContainerAddModel]="displayContainerAddCapacity"
+(closeForm)="changeStateFrom()">
+</app-form>

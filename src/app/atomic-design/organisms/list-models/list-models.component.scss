@@ -1,4 +1,5 @@
 @import '../../../../styles/_variables.scss';
+@import '../../../../styles/styles-list.scss';
 
 .model-container {
     display: flex;
@@ -168,32 +169,4 @@
     background: $primary-color;
     box-shadow: 0px 4px 5px 1px rgba(231, 131, 61, 0.8);
 }
- //___________________________________
 
- .model-create {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 80vh;
-  position: relative;
-}
-
-.model-create__text-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  position: relative;
-}
-
-.text-container__message{
-  font-weight: bold;
-  color: $primary-color;
-  font-size: $medium-text;
-}
-
-.model-create__button {
-  position: absolute;
-  right: 50px;
-  bottom: 75px;
-}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ValidationForm } from '../interface/validation';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModelsApiSelect, Pattern, ValidationMessageCapacity } from '../../constants/constants';
+import { Pattern, ValidationMessageCapacity } from '../../constants/constants';
 
 @Injectable()
 export class ValidationCapacityService implements ValidationForm {
