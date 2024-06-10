@@ -1,4 +1,27 @@
-<main class="model-container" *ngIf="false; else create">
+<main class="model-container" *ngIf="displayContentList; else create">
+  <article class="model-container__article--models">
+    <section class="model-container__order">
+
+      <!-- contenedor para el ordenamiento -->
+      <app-select
+        [options]="optionOrdering"
+        (valueOptionSelected)="updateOrdering($event.toString())">
+      </app-select>
+
+      <!-- botón para el ordenamiento -->
+      <button class="order__btn" (click)="changeStateDirection()">
+        <i [class]="buttonDirection.icon"></i>
+        <span>{{ buttonDirection.text }}</span>
+      </button>
+
+       <!-- contenedor para el tamaño de resultados -->
+      <app-select
+        [options]="optionSize"
+        (valueOptionSelected)="updateSize(+$event)">
+      </app-select>
+    </section>
+
+  </article>
 </main>
 
 <ng-template #create>

@@ -9,6 +9,7 @@ import { ValidationCapacityService } from 'src/app/shared/service/validations/va
 import { Observable, map } from 'rxjs';
 import { BootcampUseCaseService } from 'src/app/domain/usecase/bootcamp/bootcamp-use-case.service';
 import { CapacityBasic } from 'src/app/domain/models/capacity';
+import { OptionSelect } from '../../molecules/select/select.component';
 
 @Component({
   selector: 'app-bootcamp',
@@ -32,6 +33,7 @@ export class BootcampComponent{
   dataButton: buttonStructure;
   dataInputContent!: InputContentStructure[];
   dataAddCapacity!: dataToAddListModels;
+  optionOrdering!: OptionSelect<string>[]
   messageCreateModel: string = ResponseMessages.CREATE_MODEL_EMPTY_BOOTCAMP.replace('{model}', Models.BOOTCAMP);
   titleForm: string =  ResponseMessages.CREATE_MODEL.replace('{model}', Models.BOOTCAMP);
   titleModal: string = ResponseMessages.SUSSESS_MODEL_BOOTCAMP.replace('{model}', Models.BOOTCAMP);
@@ -40,6 +42,7 @@ export class BootcampComponent{
   constructor(private _getAllTechnology: GetAllWithoutPaginationService) {
     this.createDataCapacity();
     this.dataButton = StyleButton.CREATE;
+    this.fillContentSelectOrdering();
     this.fillContentInput();
   }
 
@@ -48,8 +51,14 @@ export class BootcampComponent{
     return this._isShowFrom;
   }
 
-  private fillContentInput(): void {
+  private fillContentSelectOrdering(){
+    this.optionOrdering = [
+      {value: 'name', name: "nombre"},
+      {value: 'capacities', name: "capacidades"}
+    ]
+  }
 
+  private fillContentInput(): void {
     this.dataInputContent = [
        {
          label: 'Nombre',
