@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PathImages } from 'src/app/util/path.images'
 
 @Component({
@@ -6,13 +6,8 @@ import { PathImages } from 'src/app/util/path.images'
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   pathImg = PathImages.IMG_USER;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

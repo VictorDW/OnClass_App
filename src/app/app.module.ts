@@ -31,6 +31,7 @@ import { BootcampComponent } from './atomic-design/pages/bootcamp/bootcamp.compo
 import { ListBootcampsComponent } from './atomic-design/organisms/list-bootcamps/list-bootcamps.component';
 import { BootcampGateway } from './domain/gateway/bootcamp-gateway';
 import { BootcampApiService } from './infraestructure/driven-adapter/bootcamp-api/bootcamp-api.service';
+import { LoginComponent } from './atomic-design/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { BootcampApiService } from './infraestructure/driven-adapter/bootcamp-ap
     ListModelsComponent,
     SelectComponent,
     BootcampComponent,
-    ListBootcampsComponent
+    ListBootcampsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
