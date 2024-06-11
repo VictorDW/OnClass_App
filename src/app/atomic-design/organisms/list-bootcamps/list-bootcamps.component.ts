@@ -6,7 +6,8 @@ import { DEFAULT_ORDER_BY, DEFAULT_VALUE_FOR_PAGINATION, Direction, ModelsApi, S
 import { GetService } from 'src/app/domain/interface/api-service';
 import { ListModelService } from 'src/app/shared/service/observables/list-model.service';
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
+import { Page } from 'src/app/shared/service/interface/Page';
 
 type ButtonDirection = {
   icon: string,
@@ -37,9 +38,11 @@ export class ListBootcampsComponent implements OnInit, OnDestroy {
   displayContentList = true;
   optionSize!: OptionSelect<number>[];
   buttonDirection!: ButtonDirection;
+  listBootcampObservable$!: Observable<Page<ModelsApi>>;
 
   models: ModelsApi[] = [];
   pages: Pages[] = [];
+  one_value = DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE;
   currentPage: number = DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE;
   totalPages!: number;
   firstPage = true;
@@ -56,7 +59,8 @@ export class ListBootcampsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fillObjectPagination();
     this._serviceListModel.loadDate(this._getService, this._paginationDate);
-    this.populateModelList();
+    this.listBootcampObservable$ =this.populateModelList();
+    this.update();
   }
 
   private fillContentButton(): void {
@@ -80,18 +84,21 @@ export class ListBootcampsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private populateModelList(): void {
+  private populateModelList(): Observable<Page<ModelsApi>> {
 
-    this._modelSubcription = this._serviceListModel.modelObservable$.subscribe((data) => {
+    return this._serviceListModel.modelObservable$.pipe(
+      map((data) => {
 
-      this.displayContentStatus(!data.empty);
       this.models = data.content;
       this.currentPage = (data.pageNumber + DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE);
       this.totalPages = data.totalPages;
       this.firstPage = data.first;
       this.lastPage = data.last;
       this.pages = this.createPagination();
-    });
+
+      return data;
+      })
+    );
   }
 
   changeStateDirection() {
@@ -219,11 +226,16 @@ export class ListBootcampsComponent implements OnInit, OnDestroy {
 
   private updateList(paginationDate: Pagination): void {
     this._serviceListModel.updateObservable(paginationDate);
-   }
+  }
+
+  private update() {
+    this._updateListSubscription = this._updateList.updateList$.subscribe(() => {
+      this.updateList(this._paginationDate);
+    });
+  }
 
   setPaginate(value: number): void {
     this.currentPage = value;
-    this.pages = this.createPagination();
     this.updatePage(this.currentPage - 1);
   }
 
@@ -253,7 +265,6 @@ export class ListBootcampsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._modelSubcription.unsubscribe();
-    //this._updateListSubscription.unsubscribe();
+    this._updateListSubscription.unsubscribe();
   }
 }

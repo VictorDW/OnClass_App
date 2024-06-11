@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { GetService } from 'src/app/domain/interface/api-service';
-import { Pagination, KeyEnum } from 'src/app/domain/interface/pagination';
+import { Pagination } from 'src/app/domain/interface/pagination';
 import { ListModelService } from 'src/app/shared/service/observables/list-model.service';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
 import { UpdateListServerService } from 'src/app/shared/service/observables/update-list.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { OptionSelect } from '../../molecules/select/select.component';
-import { DEFAULT_ORDER_BY, Direction, ModelsApi, SelectSize } from 'src/app/shared/constants/constants';
+import { DEFAULT_ORDER_BY, DEFAULT_VALUE_FOR_PAGINATION, Direction, ModelsApi, SelectSize } from 'src/app/shared/constants/constants';
+import { Page } from 'src/app/shared/service/interface/Page';
 
 
 type ButtonDirection = {
@@ -33,30 +34,20 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   @Output() showFrom = new EventEmitter<void>();
 
   private _paginationDate!: Pagination;
-  private _modelSubcription!: Subscription;
   private _updateListSubscription!: Subscription;
 
+  displayContentList = true;
   optionSize!: OptionSelect<number>[];
   buttonDirection!: ButtonDirection;
-  size!: number;
-  direction!: string
-  models: ModelsApi[] = [];
-  KeyEnum = KeyEnum;
-  displayContentList = true;
+  listmodelObservation$!: Observable<Page<ModelsApi>>;
 
+  models: ModelsApi[] = [];
   pages: Pages[] = [];
-  currentPage!: number;
+  one_value = DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE;
+  currentPage = DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE;
   totalPages!: number;
   firstPage = true;
   lastPage = false;
-
-  constants = {
-    ONE_VALUE: 1,
-    TWO_VALUE: 2,
-    THREE_VALUE: 3,
-    FOUR_VALUE: 4,
-    DOTS_KEY: '...',
-  };
 
   constructor(private getService: GetService,
               private _serviceListModel: ListModelService,
@@ -65,7 +56,6 @@ export class ListModelsComponent implements OnInit, OnDestroy {
     this.displaySelectOrder = false;
     this.fillContentSelectSize();
     this.fillContentButton();
-    this.loadInitialValues();
   }
 
   ngOnInit(): void {
@@ -73,7 +63,7 @@ export class ListModelsComponent implements OnInit, OnDestroy {
     this.fillObjectPagination();
     this.addOrdering();
     this._serviceListModel.loadDate(this.getService, this._paginationDate);
-    this.populateModelList();
+    this.listmodelObservation$ = this.populateModelList();
     this.update();
   }
 
@@ -83,12 +73,6 @@ export class ListModelsComponent implements OnInit, OnDestroy {
 
   private fillContentButton(): void {
     this.buttonDirection = Direction.ASC;
-  }
-
-  loadInitialValues(): void {
-    this.size = this.optionSize[0].value;
-    this.direction = this.buttonDirection.text;
-    this.currentPage = this.constants.ONE_VALUE;
   }
 
   changeStateDirection() {
@@ -102,9 +86,9 @@ export class ListModelsComponent implements OnInit, OnDestroy {
 
   private fillObjectPagination(): void {
       this._paginationDate = {
-        size: this.size,
-        direction: this.direction,
-        page: (this.currentPage - 1)
+        size: this.optionSize[0].value,
+        direction: this.buttonDirection.text,
+        page: (this.currentPage - DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE),
       }
   }
 
@@ -114,18 +98,21 @@ export class ListModelsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private populateModelList(): void {
+  private populateModelList(): Observable<Page<ModelsApi>> {
 
-    this._modelSubcription = this._serviceListModel.modelObservable$.subscribe((data) => {
-      console.log(data.content);
-      this.displayContentStatus(!data.empty);
-      this.models = data.content;
-      this.currentPage = (data.pageNumber + 1);
-      this.totalPages = data.totalPages;
-      this.firstPage = data.first;
-      this.lastPage = data.last;
-      this.pages = this.createPagination();
-    });
+    return this._serviceListModel.modelObservable$.pipe(
+      map((data) => {
+
+        this.models = data.content;
+        this.currentPage = (data.pageNumber + DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE);
+        this.totalPages = data.totalPages;
+        this.firstPage = data.first;
+        this.lastPage = data.last;
+        this.pages = this.createPagination();
+
+        return data;
+      })
+    );
   }
 
   private createPagination(): Pages[] {
@@ -153,7 +140,7 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   }
 
   isActivePage({value, content}: Pages): Boolean {
-    return value === this.currentPage && content !== this.constants.DOTS_KEY;
+    return value === this.currentPage && content !== DEFAULT_VALUE_FOR_PAGINATION.DOTS_KEY;
   }
 
   private createDataPage(text: string | number, value: number): Pages {
@@ -164,7 +151,8 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   }
 
   private isSinglePage(): boolean {
-    return this.currentPage === this.constants.ONE_VALUE && this.totalPages == this.constants.ONE_VALUE;
+    return this.currentPage === DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE &&
+           this.totalPages === DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE;
   }
 
   private shouldAddConsecutivePages(): boolean {
@@ -173,17 +161,17 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   }
 
   private hasMultiplePages(): boolean {
-    return this.totalPages >= this.constants.TWO_VALUE;
+    return this.totalPages >= DEFAULT_VALUE_FOR_PAGINATION.TWO_VALUE;
   }
 
   private addSinglePage(): void {
     this.pages.push(
-      this.createDataPage(this.constants.ONE_VALUE, this.constants.ONE_VALUE)
+      this.createDataPage(DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE, DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE)
     );
   }
 
   private addConsecutivePages(): void {
-    for (let index = this.currentPage; (index <= this.totalPages) && (index <= (this.currentPage + this.constants.TWO_VALUE)); index++) {
+    for (let index = this.currentPage; (index <= this.totalPages) && (index <= (this.currentPage + DEFAULT_VALUE_FOR_PAGINATION.TWO_VALUE)); index++) {
       this.pages.push(this.createDataPage(index, index));
     }
   }
@@ -193,9 +181,9 @@ export class ListModelsComponent implements OnInit, OnDestroy {
     //LLena el array con tres numeros, pero esta vez desde la ultima pagina hasta la ante penultima
     if(this.currentPage === this.totalPages) {
 
-      const beforePenultimatePage = this.totalPages - this.constants.TWO_VALUE;
+      const beforePenultimatePage = this.totalPages - DEFAULT_VALUE_FOR_PAGINATION.TWO_VALUE;
 
-      for(let index = this.currentPage; (index >= beforePenultimatePage) && (index >= this.constants.ONE_VALUE); index--) {
+      for(let index = this.currentPage; (index >= beforePenultimatePage) && (index >= DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE); index--) {
           this.pages.unshift(this.createDataPage(index, index));
       }
     }
@@ -203,11 +191,11 @@ export class ListModelsComponent implements OnInit, OnDestroy {
 
   private addPenultimePage(): void {
 
-    const penultimatePosition = this.totalPages - this.constants.ONE_VALUE;
-    const beforePenultimatePosition = this.totalPages - this.constants.TWO_VALUE;
+    const penultimatePosition = this.totalPages - DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE;
+    const beforePenultimatePosition = this.totalPages - DEFAULT_VALUE_FOR_PAGINATION.TWO_VALUE;
 
     //Agrega la ante penultima pagina, si se esta en la penultima pagina y que la ante penultima es mayor igual a 1, ejemplo -> 9 -> array[8,9,10]
-    if(this.currentPage === penultimatePosition  && beforePenultimatePosition >= this.constants.ONE_VALUE) {
+    if(this.currentPage === penultimatePosition  && beforePenultimatePosition >= DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE) {
 
         this.pages.unshift(this.createDataPage(beforePenultimatePosition, beforePenultimatePosition));
     }
@@ -215,30 +203,30 @@ export class ListModelsComponent implements OnInit, OnDestroy {
 
   private addDotsAndLastPage(): void {
     //agrega un string "..." y la ultima posición, si la suma entre la pagina actual y tres posciones mas siguen siendo menor al total de paginas
-    if((this.currentPage + this.constants.THREE_VALUE) < this.totalPages) {
+    if((this.currentPage + DEFAULT_VALUE_FOR_PAGINATION.THREE_VALUE) < this.totalPages) {
 
       this.pages.push(
-        this.createDataPage(this.constants.DOTS_KEY, this.currentPage),
-        this.createDataPage(String(this.totalPages), this.totalPages)
+        this.createDataPage(DEFAULT_VALUE_FOR_PAGINATION.DOTS_KEY, this.currentPage),
+        this.createDataPage(this.totalPages, this.totalPages)
       );
     }
   }
 
   private addFirstPageAndDots(): void {
 
-    const beforePenultimatePosition = this.totalPages - this.constants.TWO_VALUE;
+    const beforePenultimatePosition = this.totalPages - DEFAULT_VALUE_FOR_PAGINATION.TWO_VALUE;
 
-    if(this.totalPages >= this.constants.FOUR_VALUE && this.currentPage >= beforePenultimatePosition) {
+    if(this.totalPages >= DEFAULT_VALUE_FOR_PAGINATION.FOUR_VALUE && this.currentPage >= beforePenultimatePosition) {
 
       this.pages.unshift(
-        this.createDataPage(this.constants.ONE_VALUE,this.constants.ONE_VALUE),
-        this.createDataPage(this.constants.DOTS_KEY, this.currentPage)
+        this.createDataPage(DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE,DEFAULT_VALUE_FOR_PAGINATION.ONE_VALUE),
+        this.createDataPage(DEFAULT_VALUE_FOR_PAGINATION.DOTS_KEY, this.currentPage)
       );
     }
   }
 
   private addLastPage(): void {
-    if(this.currentPage + this.constants.THREE_VALUE === this.totalPages) {
+    if(this.currentPage + DEFAULT_VALUE_FOR_PAGINATION.THREE_VALUE === this.totalPages) {
 
       this.pages.push(this.createDataPage(this.totalPages, this.totalPages));
     }
@@ -248,7 +236,7 @@ export class ListModelsComponent implements OnInit, OnDestroy {
    this._serviceListModel.updateObservable(paginationDate);
   }
 
-  update() {
+  private update() {
     this._updateListSubscription = this._updateList.updateList$.subscribe(() => {
       this.updateList(this._paginationDate);
     });
@@ -260,7 +248,6 @@ export class ListModelsComponent implements OnInit, OnDestroy {
 
   setPaginate(value: number): void {
     this.currentPage = value;
-    this.pages = this.createPagination();
     this.updatePage(this.currentPage - 1);
   }
 
@@ -286,7 +273,6 @@ export class ListModelsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._modelSubcription.unsubscribe();
     this._updateListSubscription.unsubscribe();
   }
 }
