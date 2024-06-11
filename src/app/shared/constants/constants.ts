@@ -1,5 +1,14 @@
+import { BootcampResponse } from "src/app/domain/models/bootcamp";
 import { Capacity, CapacityBasic } from "src/app/domain/models/capacity";
 import { Technology, TechnologyBasic } from "src/app/domain/models/technology";
+
+export enum ValidationMessageGeneral {
+  NAME_REQUIRED = 'El nombre es obligatorio',
+  NAME_MAXLENGTH = 'El nombre debe ser menor a 50 caracteres',
+  DESCRIPTION_REQUIRED = 'La descripción es obligatoria',
+  DESCRIPTION_MAXLENGTH = 'La descripción debe ser menor a 90 caracteres',
+  DESCRIPTION_MINLENGTH = 'La descripción debe ser mayor a 10 caracteres',
+}
 
 export enum  ValidationMessage {
   NAME_REQUIRED = 'El nombre es obligatorio',
@@ -37,7 +46,14 @@ export enum MessageCapacity {
   FIELD_ARRAY_CAPACITY = 'capacities'
 }
 
-export enum ValidationMessageBootcamp {
+export enum ValidationMessageBootcamp{
+  NAME_REQUIRED = 'El nombre es obligatorio',
+  NAME_MAXLENGTH = 'El nombre debe ser menor a 50 caracteres',
+  NAME_MINLENGTH = 'El nombre debe ser mayor a 10 caracteres',
+  NAME_PATTERN = 'No debe contener números ni caracteres especiales distintos de # y +',
+  DESCRIPTION_REQUIRED = 'La descripción es obligatoria',
+  DESCRIPTION_MAXLENGTH = 'La descripción debe ser menor a 90 caracteres',
+  DESCRIPTION_MINLENGTH = 'La descripción debe ser mayor a 10 caracteres',
   VALIDATION_CAPACITIES = 'El número de capacidades debe ser, como mínimo 1 y como máximo 4.',
 }
 
@@ -46,7 +62,7 @@ export enum Pattern{
   DESCRIPTION = '^[A-Za-z0-9+#\\sáéíóúÁÉÍÓÚñÑ]+$'
 }
 
-export type ModelsApi = Technology | Capacity;
+export type ModelsApi = Technology | Capacity | BootcampResponse;
 export type ModelsApiSelect = TechnologyBasic | CapacityBasic;
 
 export type dataToAddListModels = {
@@ -84,6 +100,14 @@ export enum ResponseMessages  {
   SUSSESS_MODEL = "¡{model} creada!",
   SUSSESS_MODEL_BOOTCAMP = "¡{model} creado!",
 }
+
+export const DEFAULT_VALUE_FOR_PAGINATION = {
+  ONE_VALUE: 1,
+  TWO_VALUE: 2,
+  THREE_VALUE: 3,
+  FOUR_VALUE: 4,
+  DOTS_KEY: '...',
+};
 
 export const StyleButton = {
   CREATE: {

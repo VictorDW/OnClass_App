@@ -5,21 +5,21 @@ import { InputContentStructure } from '../../organisms/form/util/InputContentStr
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { ServiceForm, GetAllWithoutPaginationService, GetService } from 'src/app/domain/interface/api-service';
 import { CapacityUseCaseService } from 'src/app/domain/usecase/capacity-use-case.service';
-import { ValidationCapacityService } from 'src/app/shared/service/validations/validation-capacity.service';
 import { Observable, map } from 'rxjs';
 import { BootcampUseCaseService } from 'src/app/domain/usecase/bootcamp/bootcamp-use-case.service';
 import { CapacityBasic } from 'src/app/domain/models/capacity';
 import { OptionSelect } from '../../molecules/select/select.component';
+import { ValidationBootcampService } from 'src/app/shared/service/validations/bootcamp/validation-bootcamp.service';
 
 @Component({
   selector: 'app-bootcamp',
   templateUrl: './bootcamp.component.html',
   styleUrls: ['./bootcamp.component.scss'],
   providers: [
-    {provide: ValidationForm, useClass: ValidationCapacityService},
+    {provide: ValidationForm, useClass: ValidationBootcampService},
     {provide: ServiceForm, useClass: BootcampUseCaseService},
     {provide: GetAllWithoutPaginationService, useClass: CapacityUseCaseService},
-   // {provide: GetService, useClass: CapacityUseCaseService}
+    {provide: GetService, useClass: BootcampUseCaseService}
   ]
 })
 export class BootcampComponent{
@@ -45,7 +45,6 @@ export class BootcampComponent{
     this.fillContentSelectOrdering();
     this.fillContentInput();
   }
-
 
   get showFrom() {
     return this._isShowFrom;
