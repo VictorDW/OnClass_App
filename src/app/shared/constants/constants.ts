@@ -1,3 +1,4 @@
+import { Bootcamp, BootcampResponse } from "src/app/domain/models/bootcamp";
 import { Capacity, CapacityBasic } from "src/app/domain/models/capacity";
 import { Technology, TechnologyBasic } from "src/app/domain/models/technology";
 
@@ -46,7 +47,7 @@ export enum Pattern{
   DESCRIPTION = '^[A-Za-z0-9+#\\sáéíóúÁÉÍÓÚñÑ]+$'
 }
 
-export type ModelsApi = Technology | Capacity;
+export type ModelsApi = Technology | Capacity | BootcampResponse;
 export type ModelsApiSelect = TechnologyBasic | CapacityBasic;
 
 export type dataToAddListModels = {
@@ -84,6 +85,14 @@ export enum ResponseMessages  {
   SUSSESS_MODEL = "¡{model} creada!",
   SUSSESS_MODEL_BOOTCAMP = "¡{model} creado!",
 }
+
+export const DEFAULT_VALUE_FOR_PAGINATION = {
+  ONE_VALUE: 1,
+  TWO_VALUE: 2,
+  THREE_VALUE: 3,
+  FOUR_VALUE: 4,
+  DOTS_KEY: '...',
+};
 
 export const StyleButton = {
   CREATE: {

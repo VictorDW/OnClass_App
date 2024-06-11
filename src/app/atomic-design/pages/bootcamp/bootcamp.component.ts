@@ -19,7 +19,7 @@ import { OptionSelect } from '../../molecules/select/select.component';
     {provide: ValidationForm, useClass: ValidationCapacityService},
     {provide: ServiceForm, useClass: BootcampUseCaseService},
     {provide: GetAllWithoutPaginationService, useClass: CapacityUseCaseService},
-   // {provide: GetService, useClass: CapacityUseCaseService}
+    {provide: GetService, useClass: BootcampUseCaseService}
   ]
 })
 export class BootcampComponent{
