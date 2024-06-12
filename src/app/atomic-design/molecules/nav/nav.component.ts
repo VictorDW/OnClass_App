@@ -21,14 +21,15 @@ export class NavComponent {
         _href: '/dashboard/home',
         _link: {
           _title: 'Inicio',
-          _icon: 'fa-solid fa-house'
+          _icon: './../../../../assets/svg/home.svg'
+          
         }
       },
       {
         _href: '/dashboard/library',
         _link: {
           _title: 'Biblioteca',
-          _icon: 'fa-solid fa-book-open'
+          _icon: './../../../../assets/svg/library.svg'
         }
       }
     ]

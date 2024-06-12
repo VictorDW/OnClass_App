@@ -10,6 +10,7 @@
 .link--nav {
   display: flex;
   align-items: center;
+  gap: 1rem;
   min-width: 200px;
   height: 30px;
   padding-left: 1rem;
@@ -17,14 +18,13 @@
 }
 
 .link__a--nav {
-  display: flex;
   align-items: center;
-  gap: 1rem;
   font-size: $medium-text;
+}
 
-  & i {
-    font-size: 1rem;
-  }
+.link__img {
+  width: 1rem;
+  height: 1rem;
 }
 
 .link--tabs {

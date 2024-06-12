@@ -1,7 +1,8 @@
 
 <div [ngClass]="[classLink,'link']">
+  <img *ngIf="itemNav?._icon" [src]="itemNav._icon" class="link__img">
   <a class={{classIcon}}>
-    <i *ngIf="itemNav?._icon" [class]="itemNav._icon"></i>
+    <!--<i *ngIf="itemNav?._icon" [class]="itemNav._icon"></i>-->
     {{ itemNav._title }}
   </a>
 </div>
