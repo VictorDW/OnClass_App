@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { navStructure } from 'src/app/atomic-design/molecules/nav/utils/NavStructure';
+import { AuthService } from 'src/app/shared/service/auth/auth.service';
 import { PathImages } from 'src/app/util/path.images'
 
 @Component({
@@ -13,7 +14,7 @@ export class NavComponent {
   pathImg = PathImages.LOGO
   navItems: navStructure[];
 
-  constructor() {
+  constructor(private _authService: AuthService) {
 
     this.navItems = [
       {
@@ -31,6 +32,10 @@ export class NavComponent {
         }
       }
     ]
+   }
+
+   isValidAuthentication(item: navStructure): boolean {
+    return (this._authService.isAuthenticated() && this._authService.getUserRole() === 'ADMIN') || item._link._title !== 'Biblioteca';
    }
 
 }

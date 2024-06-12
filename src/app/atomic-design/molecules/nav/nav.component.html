@@ -4,11 +4,11 @@
 
   <ul class="nav_items">
     <li class="nav__item" *ngFor="let item of navItems"  routerLinkActive="active_link">
-      <app-link 
-        class="nav__link" 
-        [classLink]="'link--nav'" 
-        [classIcon]="'link__a--nav'" 
-        [itemNav]="item._link" 
+      <app-link *ngIf="isValidAuthentication(item)"
+        class="nav__link"
+        [classLink]="'link--nav'"
+        [classIcon]="'link__a--nav'"
+        [itemNav]="item._link"
         routerLink="{{item._href}}">
       </app-link>
     </li>

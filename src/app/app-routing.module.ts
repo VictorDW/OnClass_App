@@ -7,12 +7,15 @@ import { ContentCapacityComponent } from './atomic-design/pages/capacity/capacit
 import { BootcampComponent } from './atomic-design/pages/bootcamp/bootcamp.component';
 import { LoginComponent } from './atomic-design/pages/login/login.component';
 import { DashboarComponent } from './atomic-design/pages/dashboar/dashboar/dashboar.component';
+import { PermissionsGuard } from './shared/guards/permissions.guard';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent },
-  {path: 'dashboard', component: DashboarComponent, children: [
+  {path: 'dashboard', component: DashboarComponent,canActivate: [PermissionsGuard], data: {rolesExpected: ['STUDENT', 'TUTOR', 'ADMIN']},
+   children: [
     {path: 'home', component: HomeComponent },
-    {path: 'library', component: LibraryComponent, children: [
+    {path: 'library', component: LibraryComponent, canActivate: [PermissionsGuard], data: {rolesExpected: ['ADMIN']},
+    children: [
       {path: 'technology', component: ContentTechnologyComponent },
       {path: 'capacity', component: ContentCapacityComponent },
       {path: 'bootcamp', component: BootcampComponent },

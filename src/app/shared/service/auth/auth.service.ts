@@ -28,7 +28,7 @@ export class AuthService {
 
   public hasRole(role: string[]): boolean {
 
-    if(!this.isAuthenticated() || role.length === 0) {
+    if(role.length === 0) {
       return false;
     }
 
