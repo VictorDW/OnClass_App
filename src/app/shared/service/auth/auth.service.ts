@@ -10,6 +10,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  public getFullname(): string | null {
+    return localStorage.getItem('fullName') || null;
+  }
+
   private getDecodedToken(): any {
 
     const token = this.getToken();
