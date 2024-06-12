@@ -57,9 +57,19 @@ export enum ValidationMessageBootcamp{
   VALIDATION_CAPACITIES = 'El número de capacidades debe ser, como mínimo 1 y como máximo 4.',
 }
 
+export enum ValidationMessageAuth {
+  EMAIL_REQUIRED = 'El correo es obligatorio',
+  EMAIL_EMAIL= 'El correo no es valido',
+  PASSWORD_REQUIRED = 'La contraseña es obligatoria',
+  PASSWORD_MINLENGTH = 'La contraseña debe ser mayor a 4 caracteres',
+  PASSWORD_MAXLENGTH = 'La contraseña debe ser menor a 20 caracteres',
+  PASSWORD_PATTERN = 'No debe contener caracteres especiales distintos de @ y .',
+}
+
 export enum Pattern{
   NAME = '^[A-Za-zñÑ+#\\s]+$',
-  DESCRIPTION = '^[A-Za-z0-9+#\\sáéíóúÁÉÍÓÚñÑ]+$'
+  DESCRIPTION = '^[A-Za-z0-9+#\\sáéíóúÁÉÍÓÚñÑ]+$',
+  PASSWORD = '^[A-Za-zñÑ0-9@.]+$'
 }
 
 export type ModelsApi = Technology | Capacity | BootcampResponse;
@@ -99,6 +109,7 @@ export enum ResponseMessages  {
   CREATE_MODEL_EMPTY_BOOTCAMP = "Crear un {model}",
   SUSSESS_MODEL = "¡{model} creada!",
   SUSSESS_MODEL_BOOTCAMP = "¡{model} creado!",
+  LOGIN = "Iniciar sesión"
 }
 
 export const DEFAULT_VALUE_FOR_PAGINATION = {
@@ -118,6 +129,10 @@ export const StyleButton = {
   SUSSESS: {
     showIcon: false,
     text: 'Aceptar'
+  },
+  LOGIN: {
+    showIcon: false,
+    text: 'Ingresar'
   }
 }
 

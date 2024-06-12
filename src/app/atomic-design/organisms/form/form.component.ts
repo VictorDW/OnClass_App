@@ -64,7 +64,6 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onCloseForm(): void {
-
     this.closeForm.emit();
   }
 

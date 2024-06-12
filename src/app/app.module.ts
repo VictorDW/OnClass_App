@@ -32,6 +32,9 @@ import { ListBootcampsComponent } from './atomic-design/organisms/list-bootcamps
 import { BootcampGateway } from './domain/gateway/bootcamp-gateway';
 import { BootcampApiService } from './infraestructure/driven-adapter/bootcamp-api/bootcamp-api.service';
 import { LoginComponent } from './atomic-design/pages/login/login.component';
+import { FormLoginComponent } from './atomic-design/organisms/form-login/form-login.component';
+import { AuthGateway } from './domain/gateway/auth-gateway';
+import { AuthApiService } from './infraestructure/driven-adapter/auth-api/auth-api.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,8 @@ import { LoginComponent } from './atomic-design/pages/login/login.component';
     SelectComponent,
     BootcampComponent,
     ListBootcampsComponent,
-    LoginComponent
+    LoginComponent,
+    FormLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,7 @@ import { LoginComponent } from './atomic-design/pages/login/login.component';
     FormsModule
   ],
   providers: [
+    {provide: AuthGateway, useClass: AuthApiService},
     {provide: TechnologyGateway, useClass: TechnologyApiService},
     {provide: CapacityGateway, useClass: CapacityApiService},
     {provide: BootcampGateway, useClass: BootcampApiService},

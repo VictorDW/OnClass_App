@@ -4,13 +4,16 @@
 
 export const environment = {
   production: false,
-  BASE_URL: 'http://localhost:8080/api/'
+  BASE_URL: 'http://localhost:8080/api/',
+  BASE_URL_USER: 'http://localhost:8081/api/'
 };
 
 export enum Endpoints {
   TECHNOLOGY = 'technology',
   CAPACITY = 'capacity',
-  BOOTCAMP = 'bootcamp'
+  BOOTCAMP = 'bootcamp',
+  AUTH = 'auth/',
+  LOGIN = 'login'
 }
 
 /*

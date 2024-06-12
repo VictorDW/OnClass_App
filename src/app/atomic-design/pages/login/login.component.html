@@ -1,6 +1,12 @@
 <main class="content-login">
   <section class="content-login__section">
-    <img class="section__image" src="{{pathImg}}">
-    <button class="section__button">Iniciar Sesion</button>
+    <img class="section__image" [src]="pathImg">
+    <button class="section__button" (click)="changeStateFrom()">Iniciar Sesion</button>
   </section>
 </main>
+
+<app-form-login *ngIf="showFrom" 
+  [titleForm]="titleForm" 
+  [dataInputContent]="dataInputContent" 
+  (closeForm)="changeStateFrom()">
+</app-form-login>

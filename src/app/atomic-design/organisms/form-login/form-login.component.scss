@@ -1,0 +1,122 @@
+@import '../../../../styles/_variables.scss';
+
+.modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgb($primary-color, 0.2);
+    backdrop-filter: blur(2px);
+}
+
+.modal__section {
+    display: flex;
+    flex-direction: column;
+    width: 645px;
+    border-radius: 25px;
+    background-color: #fffcfb;
+}
+
+.section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 23px;
+    box-sizing: border-box;
+
+    & h2 {
+        color: $primary-color;
+    }
+}
+
+.button {
+    color: $primary-color;
+    background-color: transparent;
+    border: none;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover{
+        transform: scale(1.2);
+    }
+}
+
+.header__button {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    & i {
+      font-size: 1.5rem;
+    }
+}
+
+.section__form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 24px 23px 34px 23px;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    width: 97%;
+}
+
+.form__container--select {
+    position: relative;
+}
+
+.container__label {
+    font-size: $medium-text;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 8px;
+    color: $primary-color;
+}
+
+.container__input {
+    width: 100%;
+    padding: 10px;
+    height: 40px;
+    border: 1px solid $primary-color;
+    border-radius: 25px;
+    box-sizing: border-box;
+    background-color: rgb($primary-color, 0.15);
+    transition: box-shadow 0.3s ease;
+
+    &::placeholder {
+        color: #828285;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px $primary-color;
+    }
+}
+
+.input--invalid {
+    background-color: rgb($error-color, 0.12);
+    border: 2px solid $error-color;
+    box-shadow: 1px 1px 13px rgba($error-color, 0.2), -1px -1px 33px rgba($error-color, 0.2);
+    transition: 100ms;
+}
+
+.alert {
+    height: 24px;
+}
+
+.alert__message--error {
+  color: $error-color;
+  font-size: 0.8rem;
+
+  & i {
+    font-size: 0.9rem;
+  }
+}
