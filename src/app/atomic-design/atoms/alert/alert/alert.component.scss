@@ -1,12 +1,22 @@
 @import './../../../../../styles/_variables.scss';
 
+
+
+.error {
+  background-color: rgb($error-color, 0.75);
+}
+
+.success {
+  background-color: rgb(#28a745, 0.9);
+}
+
 .alert {
   position: fixed;
   top: -70px;
   left: 37%;
   padding: 20px;
   color: white;
-  background-color: rgb($error-color, 0.75);
+ // background-color: rgb($error-color, 0.75);
   border-radius: 5px;
   box-shadow: 4px 4px 5px 1px rgb(grey, 0.8);
   transition: all 0.3s ease-in-out;

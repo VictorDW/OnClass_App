@@ -1,6 +1,6 @@
-<div *ngIf="showAlert" class="alert" [ngStyle]="alertStyle" >
+<div *ngIf="showAlert" class="alert" [ngClass]="type" [ngStyle]="alertStyle" >
   <span class="alert__message">
-    <i class="fa-solid fa-circle-xmark"></i>
+    <i [class]="icon[type]"></i>
     {{ message }}
   </span>
 </div>

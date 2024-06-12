@@ -154,3 +154,8 @@ export const Direction = {
 }
 
 export const DEFAULT_ORDER_BY = 'name';
+
+export const MESSAGES_ALERT = {
+  ERROR: 'No tiene permisos para acceder a esta sección',
+  SUCCESS: 'Inicio de sesión exitoso. ¡Bienvenido de nuevo!'
+}

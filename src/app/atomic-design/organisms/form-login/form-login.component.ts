@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormGroup } from '@angular/forms';
 import { InputContentStructure } from '../form/util/InputContentStructure';
 import { buttonStructure } from '../../atoms/button/util/buttonStructure';
-import { StyleButton } from 'src/app/shared/constants/constants';
+import { MESSAGES_ALERT, StyleButton } from 'src/app/shared/constants/constants';
 import { ValidationForm } from 'src/app/shared/service/interface/validation';
 import { Subscription } from 'rxjs';
 import { AuthUseCaseService } from 'src/app/domain/usecase/auth/auth-use-case.service';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/service/observables/alert.service';
 
 type ObjectAuthStructure = {
   email: string;
@@ -29,7 +30,11 @@ export class FormLoginComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
   itemButton: buttonStructure;
 
-  constructor(private _validationService: ValidationForm, private _loginService: AuthUseCaseService, private _router: Router) {
+  constructor(private _validationService: ValidationForm,
+    private _loginService: AuthUseCaseService,
+    private _router: Router,
+    private _alertService: AlertService) {
+
     this.itemButton = StyleButton.LOGIN;
   }
 
@@ -60,6 +65,7 @@ export class FormLoginComponent implements OnInit, OnDestroy {
           this._loginServiceSubcription = this._loginService.login(this.MapperValuesToModel())
             .subscribe(() => {
               this.form.reset();
+              this._alertService.showAlert(MESSAGES_ALERT.SUCCESS, "success");
               this._router.navigate(['/dashboard']);
             });
     }
