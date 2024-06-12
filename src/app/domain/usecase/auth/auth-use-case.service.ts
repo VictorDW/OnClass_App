@@ -16,6 +16,7 @@ export class AuthUseCaseService{
     return this._authAdapter.login(model).pipe(
       map((data) => {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('fullName', `${data.firstName} ${data.lastName}`);
         return data;
       })
     )

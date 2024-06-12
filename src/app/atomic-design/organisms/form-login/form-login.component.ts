@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { AuthUseCaseService } from 'src/app/domain/usecase/auth/auth-use-case.service';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/shared/service/observables/alert.service';
+import { AuthService } from 'src/app/shared/service/auth/auth.service';
 
 type ObjectAuthStructure = {
   email: string;
@@ -32,6 +33,7 @@ export class FormLoginComponent implements OnInit, OnDestroy {
 
   constructor(private _validationService: ValidationForm,
     private _loginService: AuthUseCaseService,
+    private _authService: AuthService,
     private _router: Router,
     private _alertService: AlertService) {
 
@@ -59,13 +61,20 @@ export class FormLoginComponent implements OnInit, OnDestroy {
     return this.form.invalid;
   }
 
+  private construcMessage(fullName: string | null) {
+    return fullName ? 
+        MESSAGES_ALERT.SUCCESS.replace('{fullName}', fullName) : 
+        MESSAGES_ALERT.SUCCESS.replace('{fullName}', '');
+  }
+
   onSubmitForm(): void {
 
     if (this.form.valid) {
           this._loginServiceSubcription = this._loginService.login(this.MapperValuesToModel())
             .subscribe(() => {
               this.form.reset();
-              this._alertService.showAlert(MESSAGES_ALERT.SUCCESS, "success");
+              const fullName = this._authService.getFullname();
+              this._alertService.showAlert(this.construcMessage(fullName), "success");
               this._router.navigate(['/dashboard']);
             });
     }
