@@ -18,7 +18,7 @@ export class AlertComponent implements OnInit {
   type!: string;
   icon: formatIcon = {
     'error': ' fa-solid fa-circle-xmark',
-    'success': 'fa-solid fa-check',
+    'success': 'fa-solid fa-circle-check',
   };
 
   constructor(private _alertService: AlertService) { }

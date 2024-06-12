@@ -1,35 +1,45 @@
 @import './../../../../../styles/_variables.scss';
 
-
-
-.error {
-  background-color: rgb($error-color, 0.75);
-}
-
-.success {
-  background-color: rgb(#28a745, 0.9);
-}
-
 .alert {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   position: fixed;
+  gap: 15px;
+  width: 450px;
   top: -70px;
-  left: 37%;
+  left: calc(50% - 225px);
   padding: 20px;
-  color: white;
- // background-color: rgb($error-color, 0.75);
+  color: black;
+  background-color: white ;
   border-radius: 5px;
   box-shadow: 4px 4px 5px 1px rgb(grey, 0.8);
   transition: all 0.3s ease-in-out;
   z-index: 10;
 }
 
-.alert__message {
-  display: flex;
-  align-items: center;
-  gap: 0.75em;
+.error {
+  border-left: 8px solid rgb($error-color, 0.9);
+
+  & .fa-circle-xmark {
+    color: $error-color;
+  }
 }
 
-.fa-circle-xmark {
+.success {
+  border-left: 8px solid rgb(#28a745, 0.9);
+
+  & .fa-circle-check {
+    color: #28a745;
+  }
+}
+
+.alert__message {
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.alert__icon {
   font-size: 1.5rem;
 }
 

@@ -1,6 +1,6 @@
 <div *ngIf="showAlert" class="alert" [ngClass]="type" [ngStyle]="alertStyle" >
+  <i [class]="icon[type]" class="alert__icon"></i>
   <span class="alert__message">
-    <i [class]="icon[type]"></i>
     {{ message }}
   </span>
 </div>
