@@ -28,7 +28,7 @@ export class FormLoginComponent implements OnInit, OnDestroy {
 
   form: FormGroup = new FormGroup({});
   itemButton: buttonStructure;
-  
+
   constructor(private _validationService: ValidationForm, private _loginService: AuthUseCaseService, private _router: Router) {
     this.itemButton = StyleButton.LOGIN;
   }
@@ -62,7 +62,7 @@ export class FormLoginComponent implements OnInit, OnDestroy {
              console.log(response);
             });
           this.form.reset();
-          this._router.navigate(['/home']);
+          this._router.navigate(['/dashboard']);
     }
   }
 

@@ -35,6 +35,7 @@ import { LoginComponent } from './atomic-design/pages/login/login.component';
 import { FormLoginComponent } from './atomic-design/organisms/form-login/form-login.component';
 import { AuthGateway } from './domain/gateway/auth-gateway';
 import { AuthApiService } from './infraestructure/driven-adapter/auth-api/auth-api.service';
+import { DashboarComponent } from './atomic-design/pages/dashboar/dashboar/dashboar.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AuthApiService } from './infraestructure/driven-adapter/auth-api/auth-a
     BootcampComponent,
     ListBootcampsComponent,
     LoginComponent,
-    FormLoginComponent
+    FormLoginComponent,
+    DashboarComponent
   ],
   imports: [
     BrowserModule,

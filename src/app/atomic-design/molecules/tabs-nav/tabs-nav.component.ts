@@ -12,18 +12,18 @@ export class TabsNavComponent {
 
   constructor() {
     this.tabs =[{
-      _href:'/library/technology',
+      _href:'technology',
       _link: {
         _title: 'Tecnologías'
       }
     },{
-      _href:'/library/capacity',
+      _href:'capacity',
       _link: {
         _title: 'Capacidades'
       }
 
     },{
-      _href:'/library/bootcamp',
+      _href:'bootcamp',
       _link: {
         _title: 'Bootcamps'
       }

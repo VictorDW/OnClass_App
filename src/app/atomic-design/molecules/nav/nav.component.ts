@@ -17,14 +17,14 @@ export class NavComponent {
 
     this.navItems = [
       {
-        _href: '/home',
+        _href: '/dashboard/home',
         _link: {
           _title: 'Inicio',
           _icon: 'fa-solid fa-house'
         }
       },
       {
-        _href: '/library',
+        _href: '/dashboard/library',
         _link: {
           _title: 'Biblioteca',
           _icon: 'fa-solid fa-book-open'

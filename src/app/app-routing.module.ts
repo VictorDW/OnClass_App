@@ -6,15 +6,19 @@ import { ContentTechnologyComponent } from './atomic-design/pages/technology/tec
 import { ContentCapacityComponent } from './atomic-design/pages/capacity/capacity.component';
 import { BootcampComponent } from './atomic-design/pages/bootcamp/bootcamp.component';
 import { LoginComponent } from './atomic-design/pages/login/login.component';
+import { DashboarComponent } from './atomic-design/pages/dashboar/dashboar/dashboar.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent },
-  {path: 'home', component: HomeComponent },
-  {path: 'library', component: LibraryComponent, children: [
-    {path: 'technology', component: ContentTechnologyComponent },
-    {path: 'capacity', component: ContentCapacityComponent },
-    {path: 'bootcamp', component: BootcampComponent },
-    {path: '', redirectTo: 'technology', pathMatch: 'full' }
+  {path: 'dashboard', component: DashboarComponent, children: [
+    {path: 'home', component: HomeComponent },
+    {path: 'library', component: LibraryComponent, children: [
+      {path: 'technology', component: ContentTechnologyComponent },
+      {path: 'capacity', component: ContentCapacityComponent },
+      {path: 'bootcamp', component: BootcampComponent },
+      {path: '', redirectTo: 'technology', pathMatch: 'full' }
+    ]},
+    {path: '', redirectTo: 'home', pathMatch: 'full'}
   ]},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
 ];
