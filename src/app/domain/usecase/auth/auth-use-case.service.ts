@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Auth, AuthResponse } from '../../models/auth';
 import { AuthGateway } from '../../gateway/auth-gateway';
 
@@ -12,8 +12,14 @@ export class AuthUseCaseService{
 
 
   login(model: Auth): Observable<AuthResponse> {
-    return this._authAdapter.login(model);
+
+    return this._authAdapter.login(model).pipe(
+      map((data) => {
+        localStorage.setItem('token', data.token);
+        return data;
+      })
+    )
   }
 
-  
+
 }

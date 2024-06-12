@@ -58,11 +58,10 @@ export class FormLoginComponent implements OnInit, OnDestroy {
 
     if (this.form.valid) {
           this._loginServiceSubcription = this._loginService.login(this.MapperValuesToModel())
-            .subscribe((response) => {
-             console.log(response);
+            .subscribe(() => {
+              this.form.reset();
+              this._router.navigate(['/dashboard']);
             });
-          this.form.reset();
-          this._router.navigate(['/dashboard']);
     }
   }
 
