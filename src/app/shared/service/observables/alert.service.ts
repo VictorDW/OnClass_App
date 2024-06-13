@@ -15,7 +15,14 @@ export class AlertService {
   alertSource = new Subject<Alert>();
   alert$ = this.alertSource.asObservable();
 
-  showAlert(message: string, type: string = 'error', time: number = 3000) {
+  private DEFAULT_MESSAGE = 'error';
+  private DEFAULT_TIME = 3000;
+
+  showAlert(message: string, type?: string, time?: number) {
+
+    time = time ?? this.DEFAULT_TIME;
+    type = type ?? this.DEFAULT_MESSAGE;
+
     this.alertSource.next({message, time, type});
   }
 }
