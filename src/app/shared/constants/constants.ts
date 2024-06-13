@@ -129,9 +129,9 @@ export const StyleButton = {
 }
 
 export const SelectSize =[
-  {value: 2, name: "2 por página"},
-  {value: 5, name: "5 por página"},
-  {value: 10, name: "10 por página"}
+  {value: 10, name: "10 por página"},
+  {value: 25, name: "25 por página"},
+  {value: 50, name: "50 por página"}
 ]
 
 export const Direction = {
