@@ -14,6 +14,16 @@ export class AuthService {
     return localStorage.getItem('fullName') || null;
   }
 
+  private getExpirationDate(): number | null | undefined {
+    const token = this.getToken();
+    return token ? jwtDecode(token).exp : null;
+  }
+
+  isDateExpired(): boolean {
+    const expirationDate = this.getExpirationDate();
+    return expirationDate ? expirationDate < (Date.now() / 1000) : false;
+  }
+
   private getDecodedToken(): any {
 
     const token = this.getToken();

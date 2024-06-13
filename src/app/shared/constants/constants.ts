@@ -157,5 +157,6 @@ export const DEFAULT_ORDER_BY = 'name';
 
 export const MESSAGES_ALERT = {
   ERROR: 'No tiene permisos para acceder a esta sección',
-  SUCCESS: 'Inicio de sesión exitoso. ¡Bienvenido {fullName}!'
+  SUCCESS: 'Inicio de sesión exitoso. ¡Bienvenido {fullName}!',
+  TOKEN_EXPIRED: 'La sesión ha expirado'
 }
