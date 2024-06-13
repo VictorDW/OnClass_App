@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-image',
@@ -6,16 +6,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./image.component.scss']
 })
 
-export class ImageComponent implements OnInit {
+export class ImageComponent{
 
 
   @Input() classImg: typeClass = '';
   @Input() pathImg = '';
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 }
 
 export type typeClass = 'logo__nav' | 'img_header' |'';
