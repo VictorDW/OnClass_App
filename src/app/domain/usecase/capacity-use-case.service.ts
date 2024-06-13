@@ -7,16 +7,12 @@ import { Pagination } from '../interface/pagination';
 import { Capacity, CapacityBasic } from '../models/capacity';
 import { CapacityGateway } from '../gateway/capacity-gateway';
 import { HandlerErrorService } from 'src/app/shared/service/handler/handler-error.service';
-import { AlertService } from 'src/app/shared/service/observables/alert.service';
 
 @Injectable()
 export class CapacityUseCaseService implements ServiceForm, GetService, GetAllWithoutPaginationService {
 
-  private _messageError!: string;
-
   constructor(private _capacityAdapter: CapacityGateway,
-              private _handlerError: HandlerErrorService,
-              private _alertService: AlertService) {
+              private _handlerError: HandlerErrorService) {
 
   }
 
@@ -25,8 +21,7 @@ export class CapacityUseCaseService implements ServiceForm, GetService, GetAllWi
     return this._capacityAdapter.registerCapacity(capacity)
       .pipe(
         catchError((error) => {
-          this._messageError = this._handlerError.handler(error);
-          this._alertService.showAlert(this._messageError);
+          this._handlerError.handler(error);
           return throwError(()=> error);
         }));
   }
@@ -35,8 +30,7 @@ export class CapacityUseCaseService implements ServiceForm, GetService, GetAllWi
     return this._capacityAdapter.getCapacities(pagination)
     .pipe(
       catchError((error) => {
-        this._messageError = this._handlerError.handler(error);
-        this._alertService.showAlert(this._messageError);
+        this._handlerError.handler(error);
         return throwError(()=> error);
       })
     );

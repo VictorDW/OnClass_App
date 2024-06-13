@@ -19,7 +19,7 @@ export class AuthService {
     return token ? jwtDecode(token).exp : null;
   }
 
-  isDateExpired(): boolean {
+  public isDateExpired(): boolean {
     const expirationDate = this.getExpirationDate();
     return expirationDate ? expirationDate < (Date.now() / 1000) : false;
   }

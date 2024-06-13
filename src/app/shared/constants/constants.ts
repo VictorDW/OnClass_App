@@ -89,14 +89,6 @@ type FormatResponse = {
   [key: number]: string
 }
 
-export const ResponseErrorMesages: FormatResponse = {
-   400: 'Parámetros de solicitud no válidos',
-   401: 'No estás autorizado para esta acción',
-   403: 'No tienes permiso para acceder a este recurso',
-   404: 'Recurso no encontrado',
-   409: 'El elemento que desea registrar ya existe',
-}
-
 export enum Models {
   TECHNOLOGY = 'tecnología',
   CAPACITY = 'capacidad',
@@ -158,5 +150,6 @@ export const DEFAULT_ORDER_BY = 'name';
 export const MESSAGES_ALERT = {
   ERROR: 'No tiene permisos para acceder a esta sección',
   SUCCESS: 'Inicio de sesión exitoso. ¡Bienvenido {fullName}!',
-  TOKEN_EXPIRED: 'La sesión ha expirado'
+  TOKEN_EXPIRED: 'La sesión ha expirado',
+  DEFAULT: 'Ha ocurrido un error inesperado'
 }

@@ -33,7 +33,7 @@ export class TokenInterceptor implements HttpInterceptor {
         if(error.status === 401) {
           this.determineMessageError(error);
         }
-        
+
         return throwError(() => error);
       })
     );
