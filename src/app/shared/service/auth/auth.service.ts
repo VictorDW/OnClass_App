@@ -24,6 +24,10 @@ export class AuthService {
     return expirationDate ? expirationDate < (Date.now() / 1000) : false;
   }
 
+  public cleanLocalStorage(): void {
+    localStorage.clear();
+  }
+
   private getDecodedToken(): any {
 
     const token = this.getToken();
