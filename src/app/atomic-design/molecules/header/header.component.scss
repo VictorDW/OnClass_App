@@ -9,13 +9,41 @@
   border-radius: 0 0 1.5em 0;
 }
 
-/*.header::before {
-  position: absolute;
-  border-radius: 50%;
-  z-index: -1;
-}*/
-
 .header__img {
   width: 50px;
   margin-right: 115px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.header__img:hover::before {
+  content: 'Salir';
+  padding: 4px 20px;
+  position: absolute;
+  bottom: -25px;
+  right: 50%;
+  transform: translateX(50%);
+  border-radius: 20px;
+  border: 1px solid white;
+  background-color: $primary-color;
+  color: white;
+  font-size: $small-text;
+  animation: fadeIn ease 0.5s;
+}
+
+.header__img:hover::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 38%;
+  border-width: 6px;
+  border-style: solid;
+  border-color:  transparent transparent $primary-color transparent;
+  animation: fadeIn ease 0.5s;
+}
+
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
