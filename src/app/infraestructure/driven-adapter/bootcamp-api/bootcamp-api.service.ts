@@ -19,6 +19,6 @@ export class BootcampApiService implements BootcampGateway {
   }
 
   getBootcamps(pagination: Pagination): Observable<Page<BootcampResponse>> {
-    return this._httpClient.get<Page<BootcampResponse>>(`${this._url}?size=${pagination[KeyEnum.SIZE]}&direction=${pagination[KeyEnum.DIRECTION]}&page=${pagination[KeyEnum.PAGE]}`);
+    return this._httpClient.get<Page<BootcampResponse>>(`${this._url}?size=${pagination[KeyEnum.SIZE]}&direction=${pagination[KeyEnum.DIRECTION]}&page=${pagination[KeyEnum.PAGE]}&orderBy=${pagination[KeyEnum.ORDERBY]}`);
   }
 }
