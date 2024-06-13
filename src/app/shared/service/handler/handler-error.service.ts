@@ -10,7 +10,9 @@ import { ResponseErrorMesages } from '../../constants/constants';
 export class HandlerErrorService {
 
   handler(error: HttpErrorResponse) {
-
-    return ResponseErrorMesages[error.status] || 'Ha ocurrido un error inesperado';
+    
+   return error.statusText === "Unknown Error" || error.status === 500? 
+      'Ha ocurrido un error inesperado' : 
+      error.error.message
   }
 }
